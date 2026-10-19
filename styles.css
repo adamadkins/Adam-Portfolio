@@ -508,3 +508,5 @@ button:disabled{cursor:not-allowed}
 .package-disclosure a{color:#324f63;text-decoration:underline;text-underline-offset:3px}
 @media(max-width:800px){.packages-grid{grid-template-columns:1fr}.package-tile{padding:31px}.package-summary{min-height:0}.package-tile h3{margin-top:25px}}
 @media(max-width:450px){.package-tile{padding:25px}.package-tile h3{font-size:36px}.package-topline{font-size:9px}}
+
+.payment-action-link{display:inline-flex;align-items:center;justify-content:center;text-decoration:none}

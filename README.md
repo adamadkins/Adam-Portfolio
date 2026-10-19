@@ -2,20 +2,13 @@
 
 Static HTML/CSS/JS portfolio deployed as a **Cloudflare Worker with static assets** from branch `main`. `wrangler.jsonc` defines the Worker entry point (`worker.js`) and asset binding (`ASSETS`). The Worker routes `/api/payments/*` to the existing Stripe handlers under `functions/`; all other requests are served as static assets. `.assetsignore` excludes backend/configuration files from public assets. **Deploy using Wrangler configuration from this repository**, not a static-assets-only upload. If Cloudflare's Git deployment ignores Wrangler configuration, set the Worker build/deploy command to `npx wrangler deploy` with repository root as working directory, or recreate the deployment as a Git-connected Worker with this configuration. Confirm that the deployment logs show a Worker script, not only static assets.
 
-## Stripe website packages
+## Project inquiry and approval workflow
 
-`/payments.html` sells exactly two **one-time** website packages:
+Website Essentials is $750 and Website + Lifetime Support is $1,500, both one-time package prices. Package buttons preselect the chosen option on the existing FormSubmit inquiry form. Clients are **not charged** at inquiry. Adam reviews the project, confirms the scope, timeline, written agreement and support terms, then manually sends a Stripe invoice or deposit request. Work starts after payment is verified.
 
-| Package | One-time USD price | Stripe Price environment variable |
-| --- | ---: | --- |
-| Website Essentials | $750 | `STRIPE_PRICE_WEBSITE_ESSENTIAL` |
-| Website + Lifetime Support | $1,500 | `STRIPE_PRICE_WEBSITE_LIFETIME` |
+The Worker only exposes invoice lookup, not public package checkout. Existing Stripe Price IDs may remain configured but are unused.
 
-Create two Stripe products with **one-time USD Prices**, $750.00 and $1,500.00. Set their `price_...` IDs in **Cloudflare Workers > adam-portfolio > Settings > Variables and Secrets**, along with `STRIPE_SECRET_KEY` as a **secret**. The server verifies both the Price ID and exact amount/currency/frequency before creating a Checkout Session. No client-supplied amounts are accepted. The former monthly subscription plans and related variables are unused and may be removed from Cloudflare.
-
-**Website Essentials:** responsive website, agreed essential pages and contact form, basic SEO setup, deployment and launch assistance. Corrections to defects present at delivery are included if reported within 30 days after launch; new work is quoted separately.
-
-**Website + Lifetime Support:** Essentials plus bug fixes, troubleshooting, minor text/image changes, and reasonable compatibility and maintenance updates for the original delivered website while it remains operational and Adam Adkins continues providing website services. Excludes unlimited redesigns, major new pages or features, replacement websites, third-party hosting/domains/subscriptions, and work outside the original project scope. No guaranteed response time; exact scope, reasonable-use limits, and conditions should be agreed in writing before purchase. Lifetime does **not** mean unlimited free development.
+Lifetime support includes reasonable fixes, troubleshooting, minor content changes and compatibility updates for the original delivered website while operational and while Adam continues providing website services. It excludes redesigns, major features, replacement websites, hosting, domains, third-party fees and guaranteed response times. Terms are agreed before purchase.
 
 ## Custom invoices and quote-based deposits
 
@@ -23,8 +16,8 @@ Create a custom invoice in Stripe for the agreed quote or deposit, assign the cu
 
 ## Activation and testing
 
-1. Configure `STRIPE_SECRET_KEY` (secret), `STRIPE_PRICE_WEBSITE_ESSENTIAL`, and `STRIPE_PRICE_WEBSITE_LIFETIME` in Cloudflare Pages.
-2. Begin with Stripe test-mode keys and test-mode one-time Prices, test both Checkout packages and invoice lookup, then switch to live keys and live Prices.
+1. Configure `STRIPE_SECRET_KEY` as a Cloudflare Worker secret. Price IDs are not required for invoice-only payments.
+2. Test package inquiries and invoice lookup in Stripe test mode before accepting live payments.
 3. Check the Stripe Dashboard for successful payment before starting work. A success-page redirect alone is not payment verification. This site does not automatically provision services, issue custom invoices, or process payment webhooks.
 4. Define a signed project agreement, fulfillment timeline, refund/cancellation terms, scope of work, and lifetime support policy before accepting live purchases. Set up Stripe receipts and applicable taxes in Stripe. Never commit Stripe secret keys or customer data to GitHub.
 

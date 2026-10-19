@@ -1,6 +1,4 @@
 import { onRequestPost as invoice } from "./functions/api/payments/invoice.js";
-import { onRequestPost as checkout } from "./functions/api/payments/checkout.js";
-import { onRequestGet as plans } from "./functions/api/payments/plans.js";
 import { fail } from "./functions/api/payments/_shared.js";
 
 export default {
@@ -8,9 +6,8 @@ export default {
     const url = new URL(request.url);
     if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
     const routes = {
-      "/api/payments/invoice": { POST: invoice },
-      "/api/payments/checkout": { POST: checkout },
-      "/api/payments/plans": { GET: plans }
+      "/api/payments/invoice": { POST: invoice }
+
     };
     const route = routes[url.pathname];
     if (!route) return fail("Not found.", 404);
