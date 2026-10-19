@@ -520,32 +520,55 @@ button:disabled{cursor:not-allowed}
 .contact-teaser .contact-copy>p:not(.contact-kicker){max-width:610px}
 @media(max-width:700px){.contact-page-main .contact-inner{padding-top:80px;padding-bottom:90px}.contact-teaser .contact-inner{padding-top:80px;padding-bottom:85px}}
 
-/* The Little Things hero hierarchy */
-.hero-title-stacked .hero-lead-in{display:block;font-size:clamp(1.1rem,2.1vw,1.9rem);font-weight:450;letter-spacing:-.025em;line-height:1.4;margin-bottom:.55em;text-transform:none}
-.hero-title-stacked .hero-main-line{display:block;font-size:clamp(2.5rem,7.2vw,7rem);font-weight:800;letter-spacing:-.065em;line-height:1.02;white-space:normal;text-wrap:balance}
-.hero-title-stacked .hero-period{color:var(--accent-dark)}
-@media(max-width:640px){.hero-title-stacked .hero-lead-in{font-size:clamp(1rem,4vw,1.3rem)}.hero-title-stacked .hero-main-line{font-size:clamp(2.5rem,11vw,4.4rem);letter-spacing:-.055em}}
-
-/* Stronger, editorial hero hierarchy */
-.hero-title-stacked .hero-lead-in{font-size:clamp(.85rem,1.25vw,1.15rem);font-weight:400;letter-spacing:0;line-height:1.5;text-transform:lowercase;margin-bottom:1.15rem;color:var(--muted)}
-.hero-title-stacked .hero-main-line{font-size:clamp(3.4rem,9.2vw,9rem);font-weight:900;letter-spacing:-.075em;line-height:.91;text-transform:uppercase;text-wrap:balance}
-@media(max-width:640px){.hero-title-stacked .hero-lead-in{font-size:clamp(.83rem,3vw,1rem);margin-bottom:1.05rem}.hero-title-stacked .hero-main-line{font-size:clamp(3.5rem,13.5vw,6rem);line-height:.91;letter-spacing:-.075em}}
-
-/* Right-aligned kicker sitting directly above the oversized headline */
-.hero-title-stacked{display:flex;flex-direction:column;align-items:stretch;width:100%;max-width:1100px;margin-inline:auto;text-align:left}
-.hero-title-stacked .hero-lead-in{display:block;align-self:stretch;text-align:right;font-size:clamp(.85rem,1.5vw,1.15rem);font-weight:400;line-height:1.25;letter-spacing:0;text-transform:lowercase;color:var(--ink);margin:0 0 .28em;padding-right:.18em}
-.hero-title-stacked .hero-main-line{display:block;text-align:left;font-size:clamp(3.6rem,9.4vw,9rem);font-weight:900;line-height:.9;letter-spacing:-.075em;text-transform:uppercase;text-wrap:balance}
-@media(max-width:700px){
-.hero-title-stacked .hero-lead-in{font-size:clamp(.78rem,2.75vw,.98rem);margin-bottom:.3em;padding-right:.1em}
-.hero-title-stacked .hero-main-line{font-size:clamp(3.4rem,13.2vw,6.4rem);line-height:.92;letter-spacing:-.075em}
+/* Editorial hero lockup: the right-aligned tagline shares the headline's width. */
+.hero h1.hero-title-stacked {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: max-content;
+  max-width: 100%;
+  margin-inline: auto;
+  text-align: left;
 }
-
-/* Keep the small tagline attached to the right edge of the headline, not the page */
-.hero-title-stacked{width:max-content;max-width:100%;margin-left:auto;margin-right:auto;align-items:stretch}
-.hero-title-stacked .hero-lead-in{text-align:right;align-self:stretch;margin-bottom:.25em;padding-right:0}
-.hero-title-stacked .hero-main-line{text-align:left;display:block;max-width:100%;font-size:clamp(3.5rem,9.5vw,9rem)}
-@media(max-width:700px){
-.hero-title-stacked{width:max-content;max-width:100%;margin-left:auto;margin-right:auto}
-.hero-title-stacked .hero-main-line{font-size:clamp(3.5rem,15.3vw,6.8rem);letter-spacing:-.078em;line-height:.92}
-.hero-title-stacked .hero-lead-in{font-size:clamp(.72rem,2.5vw,.95rem);line-height:1.2;margin-bottom:.35em;white-space:nowrap}
+.hero-title-stacked .hero-lead-in {
+  display: block;
+  align-self: stretch;
+  margin: 0 0 .26em;
+  padding: 0 .05em 0 0;
+  color: var(--ink);
+  font-size: clamp(.78rem, 1.35vw, 1.12rem);
+  line-height: 1.25;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-align: right;
+  text-transform: lowercase;
+  white-space: nowrap;
+}
+.hero-title-stacked .hero-main-line {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  font-size: clamp(4rem, 11.8vw, 10rem);
+  line-height: .91;
+  font-weight: 900;
+  letter-spacing: -.078em;
+  text-align: left;
+  text-transform: uppercase;
+}
+.hero-title-stacked .hero-main-first,
+.hero-title-stacked .hero-main-second {
+  display: block;
+  white-space: nowrap;
+}
+.hero-title-stacked .hero-period { color: var(--accent-dark); }
+@media (max-width: 700px) {
+  .hero-title-stacked .hero-main-line {
+    font-size: 17.8vw;
+    line-height: .92;
+    letter-spacing: -.078em;
+  }
+  .hero-title-stacked .hero-lead-in {
+    font-size: clamp(.71rem, 2.65vw, .98rem);
+    margin-bottom: .28em;
+  }
 }
