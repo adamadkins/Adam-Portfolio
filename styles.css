@@ -525,3 +525,8 @@ button:disabled{cursor:not-allowed}
 .hero-title-stacked .hero-main-line{display:block;font-size:clamp(2.5rem,7.2vw,7rem);font-weight:800;letter-spacing:-.065em;line-height:1.02;white-space:normal;text-wrap:balance}
 .hero-title-stacked .hero-period{color:var(--accent-dark)}
 @media(max-width:640px){.hero-title-stacked .hero-lead-in{font-size:clamp(1rem,4vw,1.3rem)}.hero-title-stacked .hero-main-line{font-size:clamp(2.5rem,11vw,4.4rem);letter-spacing:-.055em}}
+
+/* Stronger, editorial hero hierarchy */
+.hero-title-stacked .hero-lead-in{font-size:clamp(.85rem,1.25vw,1.15rem);font-weight:400;letter-spacing:0;line-height:1.5;text-transform:lowercase;margin-bottom:1.15rem;color:var(--muted)}
+.hero-title-stacked .hero-main-line{font-size:clamp(3.4rem,9.2vw,9rem);font-weight:900;letter-spacing:-.075em;line-height:.91;text-transform:uppercase;text-wrap:balance}
+@media(max-width:640px){.hero-title-stacked .hero-lead-in{font-size:clamp(.83rem,3vw,1rem);margin-bottom:1.05rem}.hero-title-stacked .hero-main-line{font-size:clamp(3.5rem,13.5vw,6rem);line-height:.91;letter-spacing:-.075em}}
