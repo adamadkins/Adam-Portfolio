@@ -28,8 +28,7 @@ export async function stripe(env, method, path, params) {
 }
 export function configuredPlans(env) {
   return [
-    { id: "essential", name: "Essential maintenance", price: env.STRIPE_PRICE_ESSENTIAL },
-    { id: "care", name: "Website care", price: env.STRIPE_PRICE_CARE },
-    { id: "priority", name: "Priority support", price: env.STRIPE_PRICE_PRIORITY }
-  ].filter(plan => typeof plan.price === "string" && /^price_[a-zA-Z0-9]+$/.test(plan.price));
+    { id: "essential", name: "Website Essentials", price: env.STRIPE_PRICE_WEBSITE_ESSENTIAL, cents: 75000 },
+    { id: "lifetime", name: "Website + Lifetime Support", price: env.STRIPE_PRICE_WEBSITE_LIFETIME, cents: 150000 }
+  ];
 }

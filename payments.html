@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#f7f7f8" />
-  <meta name="description" content="Securely pay an Adam Adkins design and development invoice or subscribe to website maintenance." />
+  <meta name="description" content="Purchase a website package or securely pay an Adam Adkins design and development invoice." />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/styles.css" />
   <title>Client Payments | Adam Adkins</title>
@@ -29,7 +29,7 @@
       <div class="payments-intro">
         <p class="eyebrow">CLIENT PORTAL / SECURE PAYMENTS</p>
         <h1>Good work.<br /><span>Simple payments.</span></h1>
-        <p>Pay an existing invoice or start a website maintenance subscription. Payments are securely processed by Stripe.</p>
+        <p>Choose a website package or pay an existing project invoice. All payments are securely processed by Stripe.</p>
       </div>
       <div class="payments-grid">
         <section class="payment-card" aria-labelledby="invoice-title">
@@ -43,16 +43,17 @@
             <p id="invoice-feedback" class="payment-feedback" role="status" aria-live="polite"></p>
           </form>
         </section>
-        <section class="payment-card" aria-labelledby="maintenance-title">
-          <p class="eyebrow">02 / ONGOING SUPPORT</p>
-          <h2 id="maintenance-title">Website maintenance.</h2>
-          <p>Choose the maintenance plan agreed upon for your website. Subscriptions are billed monthly through Stripe.</p>
-          <form id="maintenance-payment-form" class="payment-fields">
-            <div id="maintenance-plans" class="plan-list"><p class="payment-feedback">Loading available plans…</p></div>
-            <div class="payment-field"><label for="maintenance-email">Billing email</label><input id="maintenance-email" name="email" type="email" placeholder="you@company.com" autocomplete="email" required maxlength="254" /></div>
+        <section class="payment-card" aria-labelledby="packages-title">
+          <p class="eyebrow">02 / WEBSITE PACKAGES</p>
+          <h2 id="packages-title">A website that works.</h2>
+          <p>Choose your website package. Both are one-time purchases with no automatic monthly subscription.</p>
+          <form id="package-payment-form" class="payment-fields">
+            <div id="website-packages" class="plan-list"><p class="payment-feedback">Loading website packages…</p></div>
+            <div class="payment-field"><label for="package-email">Billing email</label><input id="package-email" name="email" type="email" placeholder="you@company.com" autocomplete="email" required maxlength="254" /></div>
             <button class="payment-action" type="submit" disabled>Continue to secure checkout ↗</button>
-            <p id="maintenance-feedback" class="payment-feedback" role="status" aria-live="polite"></p>
+            <p id="package-feedback" class="payment-feedback" role="status" aria-live="polite"></p>
           </form>
+          <div class="support-terms"><h3>What lifetime support covers</h3><p>For the original delivered website, lifetime support includes troubleshooting, bug fixes, minor text and image changes, and reasonable compatibility and maintenance updates for as long as the original website remains in service and Adam Adkins continues to provide website services. It does not include a redesign, major new pages or features, a replacement website, third-party subscriptions, hosting, domains, or services outside the original project scope. Support is provided on a reasonable-effort basis, without guaranteed response times. Details are confirmed in the project agreement before work begins.</p><p><strong>Website Essentials:</strong> includes corrections to defects present at delivery, reported within 30 days after launch. Additional work is quoted separately.</p></div>
         </section>
       </div>
       <p class="payment-footer-note">Need a custom quote or help finding your invoice? <a class="inline-link" href="mailto:adkins.adam04@gmail.com">Email Adam ↗</a> Project deposits are issued as individual Stripe invoices based on your agreed quote. Never enter card information directly on this website.</p>

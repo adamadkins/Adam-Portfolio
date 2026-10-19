@@ -1,20 +1,20 @@
 (() => {
   "use strict";
   const invoiceForm = document.getElementById("invoice-payment-form");
-  const maintenanceForm = document.getElementById("maintenance-payment-form");
+  const packageForm = document.getElementById("package-payment-form");
   const invoiceFeedback = document.getElementById("invoice-feedback");
-  const maintenanceFeedback = document.getElementById("maintenance-feedback");
-  const planList = document.getElementById("maintenance-plans");
-  const maintenanceButton = maintenanceForm.querySelector("button[type=submit]");
-
+  const packageFeedback = document.getElementById("package-feedback");
+  const packageList = document.getElementById("website-packages");
+  const packageButton = packageForm.querySelector("button[type=submit]");
   async function post(path, body) {
     const response = await fetch(path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
     const payload = await response.json().catch(() => ({}));
     if (!response.ok || !payload.url) throw new Error(payload.message || "Unable to start payment. Please try again.");
-    if (!payload.url.startsWith("https://")) throw new Error("Invalid payment destination.");
-    window.location.assign(payload.url);
+    const url = new URL(payload.url);
+    if (url.protocol !== "https:" || !url.hostname.endsWith(".stripe.com")) throw new Error("Invalid payment destination.");
+    window.location.assign(url.href);
   }
-  invoiceForm.addEventListener("submit", async (event) => {
+  invoiceForm.addEventListener("submit", async event => {
     event.preventDefault();
     const button = invoiceForm.querySelector("button[type=submit]");
     button.disabled = true;
@@ -24,18 +24,15 @@
         invoiceNumber: invoiceForm.elements.invoiceNumber.value.trim(),
         email: invoiceForm.elements.email.value.trim()
       });
-    } catch (error) {
-      invoiceFeedback.textContent = error.message;
-      button.disabled = false;
-    }
+    } catch (error) { invoiceFeedback.textContent = error.message; button.disabled = false; }
   });
-  async function loadPlans() {
+  async function loadPackages() {
     try {
       const response = await fetch("/api/payments/plans", { cache: "no-store" });
-      if (!response.ok) throw new Error("Maintenance plans aren't available yet. Please contact Adam.");
+      if (!response.ok) throw new Error("Website purchases are not configured yet. Please contact Adam.");
       const payload = await response.json();
-      if (!Array.isArray(payload.plans) || !payload.plans.length) throw new Error("Maintenance plans aren't available yet. Please contact Adam.");
-      planList.replaceChildren();
+      if (!Array.isArray(payload.plans) || payload.plans.length !== 2) throw new Error("Website purchases are not configured yet. Please contact Adam.");
+      packageList.replaceChildren();
       payload.plans.forEach((plan, index) => {
         const label = document.createElement("label");
         label.className = "plan-option";
@@ -49,28 +46,23 @@
         const name = document.createElement("strong");
         name.textContent = plan.name;
         const price = document.createElement("small");
-        price.textContent = plan.displayPrice;
+        price.textContent = plan.displayPrice + " · One-time payment";
         text.append(name, price);
         label.append(radio, text);
-        planList.append(label);
+        packageList.append(label);
       });
-      maintenanceButton.disabled = false;
-    } catch (error) {
-      planList.textContent = error.message;
-    }
+      packageButton.disabled = false;
+    } catch (error) { packageList.textContent = error.message; }
   }
-  maintenanceForm.addEventListener("submit", async (event) => {
+  packageForm.addEventListener("submit", async event => {
     event.preventDefault();
-    const selected = maintenanceForm.querySelector("input[name=plan]:checked");
+    const selected = packageForm.querySelector("input[name=plan]:checked");
     if (!selected) return;
-    maintenanceButton.disabled = true;
-    maintenanceFeedback.textContent = "";
+    packageButton.disabled = true;
+    packageFeedback.textContent = "";
     try {
-      await post("/api/payments/checkout", { plan: selected.value, email: maintenanceForm.elements.email.value.trim() });
-    } catch (error) {
-      maintenanceFeedback.textContent = error.message;
-      maintenanceButton.disabled = false;
-    }
+      await post("/api/payments/checkout", { plan: selected.value, email: packageForm.elements.email.value.trim() });
+    } catch (error) { packageFeedback.textContent = error.message; packageButton.disabled = false; }
   });
-  loadPlans();
+  loadPackages();
 })();
