@@ -539,3 +539,13 @@ button:disabled{cursor:not-allowed}
 .hero-title-stacked .hero-lead-in{font-size:clamp(.78rem,2.75vw,.98rem);margin-bottom:.3em;padding-right:.1em}
 .hero-title-stacked .hero-main-line{font-size:clamp(3.4rem,13.2vw,6.4rem);line-height:.92;letter-spacing:-.075em}
 }
+
+/* Keep the small tagline attached to the right edge of the headline, not the page */
+.hero-title-stacked{width:max-content;max-width:100%;margin-left:auto;margin-right:auto;align-items:stretch}
+.hero-title-stacked .hero-lead-in{text-align:right;align-self:stretch;margin-bottom:.25em;padding-right:0}
+.hero-title-stacked .hero-main-line{text-align:left;display:block;max-width:100%;font-size:clamp(3.5rem,9.5vw,9rem)}
+@media(max-width:700px){
+.hero-title-stacked{width:max-content;max-width:100%;margin-left:auto;margin-right:auto}
+.hero-title-stacked .hero-main-line{font-size:clamp(3.5rem,15.3vw,6.8rem);letter-spacing:-.078em;line-height:.92}
+.hero-title-stacked .hero-lead-in{font-size:clamp(.72rem,2.5vw,.95rem);line-height:1.2;margin-bottom:.35em;white-space:nowrap}
+}
