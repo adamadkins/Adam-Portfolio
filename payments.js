@@ -41,7 +41,8 @@
         radio.name = "plan";
         radio.value = plan.id;
         radio.required = true;
-        if (index === 0) radio.checked = true;
+        const requestedPackage = new URLSearchParams(window.location.search).get("package");
+        if (requestedPackage ? plan.id === requestedPackage : index === 0) radio.checked = true;
         const text = document.createElement("span");
         const name = document.createElement("strong");
         name.textContent = plan.name;

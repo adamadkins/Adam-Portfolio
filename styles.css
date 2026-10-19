@@ -486,3 +486,25 @@ button:disabled{cursor:not-allowed}
 .support-terms{margin-top:27px;padding-top:24px;border-top:1px solid #e4e9ec;color:#687782;font-size:12px;line-height:1.75}
 .support-terms h3{color:#25323c;font-size:14px;margin:0 0 9px;letter-spacing:-.02em}
 .support-terms p{margin:0 0 10px}
+
+/* One-time website packages */
+.packages-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:stretch}
+.package-tile{display:flex;flex-direction:column;min-width:0;padding:43px;border:1px solid #e0e6e9;border-radius:18px;background:#fff;box-shadow:0 20px 50px rgba(26,41,55,.035)}
+.package-tile-featured{border-color:#b5c5cf;background:linear-gradient(160deg,#f8fbfc 0%,#fff 55%)}
+.package-topline{display:flex;justify-content:space-between;gap:10px;color:#758796;font-size:10px;letter-spacing:.14em;font-weight:750}
+.package-tile h3{font-size:clamp(34px,4vw,51px);line-height:1.07;letter-spacing:-.065em;margin:34px 0 17px;font-weight:720}
+.package-period{color:#8da4b4}
+.package-summary{color:#6c7881;font-size:15px;line-height:1.7;max-width:360px;min-height:52px;margin:0 0 22px}
+.package-price{margin:0 0 24px;padding-bottom:25px;border-bottom:1px solid #e5e9ec;display:flex;align-items:baseline;gap:12px}
+.package-price span{font-size:clamp(38px,4vw,52px);letter-spacing:-.07em;font-weight:730}
+.package-price small{font-size:12px;color:#778590}
+.package-features{list-style:none;padding:0;margin:0 0 35px;display:grid;gap:14px;flex:1}
+.package-features li{position:relative;padding-left:24px;font-size:14px;line-height:1.5;color:#46535c}
+.package-features li:before{content:"✓";position:absolute;left:0;color:#718e9e;font-weight:800}
+.package-button{align-self:stretch;display:flex;justify-content:space-between;align-items:center}
+.package-disclosure{max-width:960px;margin:28px auto 0;color:#65747f;font-size:12px;line-height:1.85}
+.package-disclosure p{margin:0 0 12px}
+.package-disclosure strong{color:#344450}
+.package-disclosure a{color:#324f63;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:800px){.packages-grid{grid-template-columns:1fr}.package-tile{padding:31px}.package-summary{min-height:0}.package-tile h3{margin-top:25px}}
+@media(max-width:450px){.package-tile{padding:25px}.package-tile h3{font-size:36px}.package-topline{font-size:9px}}
