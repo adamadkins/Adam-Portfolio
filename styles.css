@@ -451,3 +451,34 @@ button:disabled{cursor:not-allowed}
  .site-preview-viewport iframe{transform:scale(.205)}
  .project-grid-live .project-art-live{height:216px}
 }
+
+/* Client payments */
+.payments-page{min-height:100vh;padding:155px 0 95px;background:linear-gradient(180deg,#f7f9fa,#fff 68%)}
+.payments-intro{max-width:780px;margin-bottom:55px}
+.payments-intro h1{font-size:clamp(48px,6.4vw,88px);letter-spacing:-.075em;line-height:1.03;margin:18px 0 22px}
+.payments-intro h1 span{color:#8295a3}
+.payments-intro>p:last-child{font-size:17px;color:#6b717a;max-width:600px;line-height:1.7}
+.payments-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start}
+.payment-card{border:1px solid #e3e8eb;border-radius:17px;background:white;padding:35px;box-shadow:0 18px 45px rgba(30,45,60,.045);min-width:0}
+.payment-card .eyebrow{color:#8b9ba8}
+.payment-card h2{font-size:clamp(25px,3vw,37px);letter-spacing:-.06em;line-height:1.14;margin:12px 0}
+.payment-card>p:not(.eyebrow){color:#687782;font-size:14px;line-height:1.7;margin:0 0 27px}
+.payment-fields{display:grid;gap:17px}
+.payment-field{display:grid;gap:7px}
+.payment-field label{font-size:12px;font-weight:700;color:#3b4a54}
+.payment-field input{width:100%;border:1px solid #dce3e7;border-radius:8px;padding:14px;font:inherit;font-size:14px;background:#fff}
+.payment-field input:focus-visible{outline:3px solid #bed0db;outline-offset:1px}
+.payment-action{border:0;border-radius:8px;background:#202d36;color:white;font:inherit;font-weight:700;font-size:13px;padding:15px 22px;transition:background .2s,transform .2s;cursor:pointer;text-align:center}
+.payment-action:hover{background:#415867;transform:translateY(-1px)}
+.payment-action:disabled{opacity:.5;cursor:wait;transform:none}
+.payment-feedback{min-height:21px;font-size:12px;color:#9b4545;margin:0}
+.plan-list{display:grid;gap:12px;margin-bottom:23px}
+.plan-option{display:flex;align-items:center;gap:12px;padding:15px;border:1px solid #e1e7ea;border-radius:9px;cursor:pointer;transition:border-color .2s,background .2s}
+.plan-option:has(input:checked){border-color:#849dac;background:#f5f8fa}
+.plan-option input{accent-color:#506e82}
+.plan-option span{display:grid;gap:3px}
+.plan-option strong{font-size:14px}
+.plan-option small{color:#78858f;font-size:12px}
+.payment-footer-note{font-size:12px;color:#75838e;line-height:1.65;margin-top:26px}
+@media(max-width:850px){.payments-grid{grid-template-columns:1fr}.payment-card{padding:29px}.payments-page{padding-top:128px}}
+@media(max-width:700px){.payments-page{padding-top:115px}.payments-intro{margin-bottom:35px}.payment-card{padding:25px}.payments-grid{gap:17px}}

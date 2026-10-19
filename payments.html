@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f7f7f8" />
+  <meta name="description" content="Securely pay an Adam Adkins design and development invoice or subscribe to website maintenance." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/styles.css" />
+  <title>Client Payments | Adam Adkins</title>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" id="site-header">
+    <div class="header-inner container">
+      <a class="brand" href="/" aria-label="Adam Adkins, home"><span class="brand-symbol" aria-hidden="true">a<span class="brand-dot">.</span></span><span class="brand-copy"><span class="brand-name">adam adkins<span class="brand-name-dot">.</span></span><span class="brand-descriptor">DESIGN & DEVELOPMENT</span></span></a>
+      <nav class="nav" id="primary-navigation" aria-label="Main navigation">
+        <a class="nav-link" href="/#work">Work</a>
+        <a class="nav-link" href="/#services">Services</a>
+        <a class="nav-link" href="/#about">About</a>
+        <a class="nav-link nav-contact" href="/#contact">Get in touch <span aria-hidden="true">↗</span></a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-navigation"><span></span><span></span></button>
+    </div>
+  </header>
+  <div class="menu-scrim" id="menu-scrim" aria-hidden="true"></div>
+  <main id="main" class="payments-page">
+    <div class="container">
+      <div class="payments-intro">
+        <p class="eyebrow">CLIENT PORTAL / SECURE PAYMENTS</p>
+        <h1>Good work.<br /><span>Simple payments.</span></h1>
+        <p>Pay an existing invoice or start a website maintenance subscription. Payments are securely processed by Stripe.</p>
+      </div>
+      <div class="payments-grid">
+        <section class="payment-card" aria-labelledby="invoice-title">
+          <p class="eyebrow">01 / INVOICES & DEPOSITS</p>
+          <h2 id="invoice-title">Pay your invoice.</h2>
+          <p>Have an invoice or project deposit request? Enter its invoice number and the billing email associated with it. You'll continue to Stripe to pay the amount due.</p>
+          <form id="invoice-payment-form" class="payment-fields">
+            <div class="payment-field"><label for="invoice-number">Invoice number</label><input id="invoice-number" name="invoiceNumber" placeholder="e.g. ADAM-0001" autocomplete="off" required maxlength="80" /></div>
+            <div class="payment-field"><label for="billing-email">Billing email</label><input id="billing-email" name="email" type="email" placeholder="you@company.com" autocomplete="email" required maxlength="254" /></div>
+            <button class="payment-action" type="submit">Continue to secure payment ↗</button>
+            <p id="invoice-feedback" class="payment-feedback" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+        <section class="payment-card" aria-labelledby="maintenance-title">
+          <p class="eyebrow">02 / ONGOING SUPPORT</p>
+          <h2 id="maintenance-title">Website maintenance.</h2>
+          <p>Choose the maintenance plan agreed upon for your website. Subscriptions are billed monthly through Stripe.</p>
+          <form id="maintenance-payment-form" class="payment-fields">
+            <div id="maintenance-plans" class="plan-list"><p class="payment-feedback">Loading available plans…</p></div>
+            <div class="payment-field"><label for="maintenance-email">Billing email</label><input id="maintenance-email" name="email" type="email" placeholder="you@company.com" autocomplete="email" required maxlength="254" /></div>
+            <button class="payment-action" type="submit" disabled>Continue to secure checkout ↗</button>
+            <p id="maintenance-feedback" class="payment-feedback" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+      </div>
+      <p class="payment-footer-note">Need a custom quote or help finding your invoice? <a class="inline-link" href="mailto:adkins.adam04@gmail.com">Email Adam ↗</a> Project deposits are issued as individual Stripe invoices based on your agreed quote. Never enter card information directly on this website.</p>
+    </div>
+  </main>
+  <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year">2026</span> ADAM ADKINS. THOUGHTFULLY MADE.</span><a href="/">RETURN HOME ↑</a></div></footer>
+  <script src="/script.js" defer></script>
+  <script src="/payments.js" defer></script>
+</body>
+</html>
