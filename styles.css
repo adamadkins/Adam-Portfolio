@@ -510,3 +510,12 @@ button:disabled{cursor:not-allowed}
 @media(max-width:450px){.package-tile{padding:25px}.package-tile h3{font-size:36px}.package-topline{font-size:9px}}
 
 .payment-action-link{display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+
+/* Dedicated project inquiry page */
+.contact-page-main .contact-section{min-height:calc(100vh - 83px);padding-top:0}
+.contact-page-main .contact-inner{padding-top:110px;padding-bottom:125px}
+.contact-page-main .contact-inner h2{font-size:clamp(51px,7vw,96px)}
+.contact-teaser .contact-inner{padding-top:110px;padding-bottom:115px}
+.contact-teaser .contact-copy{max-width:780px}
+.contact-teaser .contact-copy>p:not(.contact-kicker){max-width:610px}
+@media(max-width:700px){.contact-page-main .contact-inner{padding-top:80px;padding-bottom:90px}.contact-teaser .contact-inner{padding-top:80px;padding-bottom:85px}}

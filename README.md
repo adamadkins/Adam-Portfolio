@@ -4,7 +4,7 @@ Static HTML/CSS/JS portfolio deployed as a **Cloudflare Worker with static asset
 
 ## Project inquiry and approval workflow
 
-Website Essentials is $750 and Website + Lifetime Support is $1,500, both one-time package prices. Package buttons preselect the chosen option on the existing FormSubmit inquiry form. Clients are **not charged** at inquiry. Adam reviews the project, confirms the scope, timeline, written agreement and support terms, then manually sends a Stripe invoice or deposit request. Work starts after payment is verified.
+Website Essentials is $750 and Website + Lifetime Support is $1,500, both one-time package prices. Package buttons open the dedicated `/contact.html` project inquiry page and preselect the chosen option on its FormSubmit form. The homepage includes a brief Next Step call-to-action linking to this page. Clients are **not charged** at inquiry. Adam reviews the project, confirms the scope, timeline, written agreement and support terms, then manually sends a Stripe invoice or deposit request. Work starts after payment is verified.
 
 The Worker only exposes invoice lookup, not public package checkout. Existing Stripe Price IDs may remain configured but are unused.
 
