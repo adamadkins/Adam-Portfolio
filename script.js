@@ -6,6 +6,8 @@
   const header = document.getElementById("site-header");
   const menuToggle = document.getElementById("menu-toggle");
   const nav = document.getElementById("primary-navigation");
+  const menuScrim = document.getElementById("menu-scrim");
+  const mobileMenuMedia = window.matchMedia("(max-width: 700px)");
   const dialog = document.getElementById("case-dialog");
   const closeButton = document.getElementById("dialog-close");
 
@@ -34,34 +36,42 @@
   updateHeader();
   window.addEventListener("scroll", updateHeader, { passive: true });
 
-  function closeMenu({ restoreFocus = false } = {}) {
+  function setMenuOpen(nextOpen, { restoreFocus = false } = {}) {
     if (!menuToggle || !nav) return;
     const wasOpen = nav.classList.contains("open");
-    nav.classList.remove("open");
-    menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.setAttribute("aria-label", "Open menu");
-    document.body.classList.remove("menu-open");
+    const isOpen = Boolean(nextOpen && mobileMenuMedia.matches);
+    nav.classList.toggle("open", isOpen);
+    // Keep the closed menu out of keyboard navigation while its closing animation plays.
+    nav.inert = mobileMenuMedia.matches && !isOpen;
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+    menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+    document.body.classList.toggle("menu-open", isOpen);
+    header?.classList.toggle("menu-active", isOpen);
+    menuScrim?.classList.toggle("active", isOpen);
     if (restoreFocus && wasOpen) menuToggle.focus();
   }
 
+  function closeMenu(options = {}) {
+    setMenuOpen(false, options);
+  }
+
   if (menuToggle && nav) {
+    nav.inert = mobileMenuMedia.matches;
     menuToggle.addEventListener("click", () => {
-      const nextOpen = !nav.classList.contains("open");
-      nav.classList.toggle("open", nextOpen);
-      menuToggle.setAttribute("aria-expanded", String(nextOpen));
-      menuToggle.setAttribute("aria-label", nextOpen ? "Close menu" : "Open menu");
-      document.body.classList.toggle("menu-open", nextOpen);
+      setMenuOpen(!nav.classList.contains("open"));
     });
     nav.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => closeMenu());
     });
+    menuScrim?.addEventListener("click", () => closeMenu());
     document.addEventListener("pointerdown", (event) => {
       if (nav.classList.contains("open") && !nav.contains(event.target) && !menuToggle.contains(event.target)) {
         closeMenu();
       }
     });
     window.addEventListener("resize", () => {
-      if (window.innerWidth > 700) closeMenu();
+      if (!mobileMenuMedia.matches) closeMenu();
+      nav.inert = mobileMenuMedia.matches && !nav.classList.contains("open");
     });
   }
 
