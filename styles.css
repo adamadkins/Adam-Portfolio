@@ -519,3 +519,9 @@ button:disabled{cursor:not-allowed}
 .contact-teaser .contact-copy{max-width:780px}
 .contact-teaser .contact-copy>p:not(.contact-kicker){max-width:610px}
 @media(max-width:700px){.contact-page-main .contact-inner{padding-top:80px;padding-bottom:90px}.contact-teaser .contact-inner{padding-top:80px;padding-bottom:85px}}
+
+/* The Little Things hero hierarchy */
+.hero-title-stacked .hero-lead-in{display:block;font-size:clamp(1.1rem,2.1vw,1.9rem);font-weight:450;letter-spacing:-.025em;line-height:1.4;margin-bottom:.55em;text-transform:none}
+.hero-title-stacked .hero-main-line{display:block;font-size:clamp(2.5rem,7.2vw,7rem);font-weight:800;letter-spacing:-.065em;line-height:1.02;white-space:normal;text-wrap:balance}
+.hero-title-stacked .hero-period{color:var(--accent-dark)}
+@media(max-width:640px){.hero-title-stacked .hero-lead-in{font-size:clamp(1rem,4vw,1.3rem)}.hero-title-stacked .hero-main-line{font-size:clamp(2.5rem,11vw,4.4rem);letter-spacing:-.055em}}
