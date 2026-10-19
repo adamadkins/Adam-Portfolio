@@ -16,8 +16,11 @@ Connect this repository to Cloudflare Pages. Set **Production branch** to `main`
 
 ## Projects
 
-Projects include [Chasing606](https://github.com/adamadkins/Chasing606) and [Porter Property Maintenance](https://github.com/adamadkins/PPM-LLC). Concept work is labeled as such.
+- [Chasing606](https://chasing606.adkins-adam04.workers.dev/)
+- [Porter Property Maintenance](https://porterpm.com/)
+
+The work section uses read-only embedded live website previews with direct links to the published sites. The iframe previews may be restricted by the destination website browser security settings; the live links always offer a way to open the originals.
 
 ## Contact
 
-Contact links are intentionally routed to the public [GitHub profile](https://github.com/adamadkins) until a preferred public business email or contact form provider is configured.
+Form submissions use [FormSubmit](https://formsubmit.co) and are delivered to `adkins.adam04@gmail.com`. The first submission triggers an activation email that must be confirmed before messages are delivered. CAPTCHA remains enabled, with a hidden honeypot field for additional spam protection. The page also displays a direct mailto link and telephone contact link.

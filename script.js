@@ -16,7 +16,7 @@
       summary: "An outdoor-inspired brand brought together through a modern storefront experience.",
       description: "A brand-focused web experience designed to connect storytelling, product discovery, and shopping. The work includes responsive product galleries, intuitive filtering, custom interactions, and e-commerce integration. The goal: make exploring the catalog feel as considered as the brand itself.",
       tags: ["Web design", "Front-end development", "E-commerce", "Responsive UI"],
-      repo: "https://github.com/adamadkins/Chasing606"
+      repo: "https://chasing606.adkins-adam04.workers.dev/"
     },
     ppm: {
       label: "LOCAL BUSINESS / WEBSITE REDESIGN",
@@ -24,15 +24,7 @@
       summary: "Making an established service business easier to understand, explore, and contact.",
       description: "A redesign with cleaner navigation, more focused service messaging, a responsive layout, and clear calls to action. Built to make the company's property care and pressure-washing services easier to discover across desktop and mobile.",
       tags: ["Website redesign", "Local business", "Responsive UI", "UX"],
-      repo: "https://github.com/adamadkins/PPM-LLC"
-    },
-    prichard: {
-      label: "UNCOMMISSIONED DESIGN CONCEPT",
-      title: "Prichard Lawn Care",
-      summary: "An independent exploration of how a lawn care website could be clearer and more inviting.",
-      description: "A self-directed redesign concept exploring concise service information, thoughtful hierarchy, and a refreshed visual presentation. This is speculative portfolio work, not an official commission or an endorsement by the business.",
-      tags: ["Design concept", "Service business", "UI exploration"],
-      repo: "https://github.com/adamadkins/Adam-Portfolio"
+      repo: "https://porterpm.com/"
     }
   };
 
@@ -110,7 +102,7 @@
     const repo = document.getElementById("case-repo");
     repo.href = study.repo;
     repo.textContent = "";
-    repo.append(document.createTextNode(id === "prichard" ? "Explore my work " : "View repository "));
+    repo.append(document.createTextNode( "Visit live website " ));
     const arrow = document.createElement("span");
     arrow.setAttribute("aria-hidden", "true");
     arrow.textContent = "↗";
