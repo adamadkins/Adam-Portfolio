@@ -1,6 +1,6 @@
 # Adam Adkins portfolio
 
-Static HTML/CSS/JS portfolio deployed through Cloudflare Pages (branch `main`, no framework preset, no build command, output `/`). Payment APIs require **Cloudflare Pages Functions** in `functions/`, not static-only hosting.
+Static HTML/CSS/JS portfolio deployed as a **Cloudflare Worker with static assets** from branch `main`. `wrangler.jsonc` defines the Worker entry point (`worker.js`) and asset binding (`ASSETS`). The Worker routes `/api/payments/*` to the existing Stripe handlers under `functions/`; all other requests are served as static assets. `.assetsignore` excludes backend/configuration files from public assets. **Deploy using Wrangler configuration from this repository**, not a static-assets-only upload. If Cloudflare's Git deployment ignores Wrangler configuration, set the Worker build/deploy command to `npx wrangler deploy` with repository root as working directory, or recreate the deployment as a Git-connected Worker with this configuration. Confirm that the deployment logs show a Worker script, not only static assets.
 
 ## Stripe website packages
 
@@ -11,7 +11,7 @@ Static HTML/CSS/JS portfolio deployed through Cloudflare Pages (branch `main`, n
 | Website Essentials | $750 | `STRIPE_PRICE_WEBSITE_ESSENTIAL` |
 | Website + Lifetime Support | $1,500 | `STRIPE_PRICE_WEBSITE_LIFETIME` |
 
-Create two Stripe products with **one-time USD Prices**, $750.00 and $1,500.00. Set their `price_...` IDs in **Cloudflare Pages > Settings > Variables and Secrets**, along with `STRIPE_SECRET_KEY` as a **secret**. The server verifies both the Price ID and exact amount/currency/frequency before creating a Checkout Session. No client-supplied amounts are accepted. The former monthly subscription plans and related variables are unused and may be removed from Cloudflare.
+Create two Stripe products with **one-time USD Prices**, $750.00 and $1,500.00. Set their `price_...` IDs in **Cloudflare Workers > adam-portfolio > Settings > Variables and Secrets**, along with `STRIPE_SECRET_KEY` as a **secret**. The server verifies both the Price ID and exact amount/currency/frequency before creating a Checkout Session. No client-supplied amounts are accepted. The former monthly subscription plans and related variables are unused and may be removed from Cloudflare.
 
 **Website Essentials:** responsive website, agreed essential pages and contact form, basic SEO setup, deployment and launch assistance. Corrections to defects present at delivery are included if reported within 30 days after launch; new work is quoted separately.
 
