@@ -549,9 +549,9 @@ button:disabled{cursor:not-allowed}
   width: max-content;
   max-width: 100%;
   font-size: clamp(4rem, 11.8vw, 10rem);
-  line-height: .91;
+  line-height: 1.01;
   font-weight: 900;
-  letter-spacing: -.078em;
+  letter-spacing: -.045em;
   text-align: left;
   text-transform: uppercase;
 }
@@ -564,8 +564,8 @@ button:disabled{cursor:not-allowed}
 @media (max-width: 700px) {
   .hero-title-stacked .hero-main-line {
     font-size: 17.8vw;
-    line-height: .92;
-    letter-spacing: -.078em;
+    line-height: 1.01;
+    letter-spacing: -.045em;
   }
   .hero-title-stacked .hero-lead-in {
     font-size: clamp(.71rem, 2.65vw, .98rem);
@@ -582,7 +582,7 @@ button:disabled{cursor:not-allowed}
 }
 @keyframes hero-little-arrive {
   0%, 12% { transform: scale(1); }
-  40% { transform: scale(.79); }
+  40% { transform: scale(.5); }
   73% { transform: scale(1.045); }
   100% { transform: scale(1); }
 }
