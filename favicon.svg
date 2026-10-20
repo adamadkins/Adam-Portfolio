@@ -1,4 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" role="img" aria-label="The Little Things Studios">
-  <rect width="80" height="80" rx="22" fill="#19222a"/>
-  <path d="M38 0h12v7h8v10h-8v17c0 3.4 2.3 4.4 8 4.4v11H51c-8.8 0-13-5.9-13-15.1V17h-7V7h7Z" fill="#f6f7f7"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="110 102 1080 1030" role="img" aria-labelledby="title">
+  <title id="title">The Little Things Studios</title>
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2c4053"/>
+      <stop offset=".45" stop-color="#14202e"/>
+      <stop offset="1" stop-color="#0a111b"/>
+    </linearGradient>
+    <linearGradient id="type" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#f7f8f9"/>
+    </linearGradient>
+    <linearGradient id="dot" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#90aabc"/>
+      <stop offset="1" stop-color="#6b899f"/>
+    </linearGradient>
+  </defs>
+  <path d="M395 126H932C1069 126 1163 229 1163 363V872C1163 1009 1062 1108 924 1108H374C236 1108 135 1009 135 872V363C135 229 234 126 395 126Z" fill="url(#tile)"/>
+  <path d="M563 126H724V236H824V367H724V601C724 653 748 682 800 682H858V840H752C630 840 563 753 563 606V367H458V236H563Z" fill="url(#type)"/>
+  <circle cx="976" cy="780" r="73" fill="url(#dot)"/>
 </svg>
