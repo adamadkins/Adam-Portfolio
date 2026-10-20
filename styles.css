@@ -394,8 +394,10 @@ button:disabled{cursor:not-allowed}
 .project-grid-live .project-art-live:hover{box-shadow:none}
 .project-grid-live .project-art-live::after{display:none}
 .site-preview-browser{
-  width:100%;
-  height:100%;
+  position:absolute;
+  inset:17px;
+  width:auto;
+  height:auto;
   overflow:hidden;
   border-radius:9px;
   border:1px solid #d7dcdf;
@@ -515,6 +517,7 @@ button:disabled{cursor:not-allowed}
   .project-grid-live{gap:25px}
   .project-grid-live .project-card-featured{padding:9px;border-radius:15px}
   .project-grid-live .project-art-live{padding:12px;aspect-ratio:1.45;border-radius:9px}
+  .site-preview-browser{inset:12px}
   .site-preview-bar{height:31px;padding:0 10px}
   .site-preview-viewport{height:calc(100% - 31px)}
   .site-preview-url{font-size:10px}
