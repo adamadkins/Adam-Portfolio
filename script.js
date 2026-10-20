@@ -16,6 +16,7 @@
       label: "E-COMMERCE / DESIGN & DEVELOPMENT",
       title: "Chasing606",
       summary: "An outdoor-inspired brand brought together through a modern storefront experience.",
+      mobileDescription: "A custom storefront with brand storytelling, responsive product galleries, intuitive filters, and integrated shopping.",
       description: "A brand-focused web experience designed to connect storytelling, product discovery, and shopping. The work includes responsive product galleries, intuitive filtering, custom interactions, and e-commerce integration. The goal: make exploring the catalog feel as considered as the brand itself.",
       tags: ["Web design", "Front-end development", "E-commerce", "Responsive UI"],
       repo: "https://chasing606.adkins-adam04.workers.dev/"
@@ -24,6 +25,7 @@
       label: "LOCAL BUSINESS / WEBSITE REDESIGN",
       title: "Porter Property Maintenance",
       summary: "Making an established service business easier to understand, explore, and contact.",
+      mobileDescription: "A responsive redesign with clearer pressure-washing and property-care services, easier navigation, and more direct contact options.",
       description: "A redesign with cleaner navigation, more focused service messaging, a responsive layout, and clear calls to action. Built to make the company's property care and pressure-washing services easier to discover across desktop and mobile.",
       tags: ["Website redesign", "Local business", "Responsive UI", "UX"],
       repo: "https://porterpm.com/"
@@ -115,19 +117,40 @@
     document.querySelectorAll(".reveal").forEach((node) => node.classList.add("visible"));
   }
 
+  // Animate project details in both directions without removing the native
+  // dialog's focus trapping, Escape handling or backdrop behavior.
+  const reducedDialogMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let closeDialogTimer = null;
+
   function closeDialog() {
-    if (dialog && dialog.open) dialog.close();
+    if (!dialog?.open || dialog.classList.contains("is-closing")) return;
+    if (reducedDialogMotion.matches) {
+      dialog.close();
+      return;
+    }
+    dialog.classList.add("is-closing");
+    closeDialogTimer = window.setTimeout(() => {
+      closeDialogTimer = null;
+      if (dialog.open) dialog.close();
+    }, 200);
   }
 
   function openCase(id) {
     if (!dialog || typeof dialog.showModal !== "function") return;
     const study = caseStudies[id];
     if (!study) return;
+    if (closeDialogTimer !== null) {
+      window.clearTimeout(closeDialogTimer);
+      closeDialogTimer = null;
+    }
+    dialog.classList.remove("is-closing");
 
     document.getElementById("case-label").textContent = study.label;
-    document.getElementById("case-title").textContent = study.title;
+    const heading = document.getElementById("case-title");
+    heading.textContent = study.title;
     document.getElementById("case-summary").textContent = study.summary;
-    document.getElementById("case-description").textContent = study.description;
+    document.getElementById("case-description").textContent =
+      mobileMenuMedia.matches ? study.mobileDescription : study.description;
     const chips = document.getElementById("case-chips");
     chips.replaceChildren();
     study.tags.forEach((tag) => {
@@ -138,15 +161,17 @@
     const repo = document.getElementById("case-repo");
     repo.href = study.repo;
     repo.textContent = "";
-    repo.append(document.createTextNode( "Visit live website " ));
+    repo.append(document.createTextNode("Visit live website "));
     const arrow = document.createElement("span");
     arrow.setAttribute("aria-hidden", "true");
     arrow.textContent = "↗";
     repo.append(arrow);
     closeMenu();
     dialog.showModal();
+    dialog.scrollTop = 0;
     document.body.classList.add("dialog-open");
-    closeButton?.focus();
+    // Focus the title without displaying a ring around the close button.
+    heading.focus({ preventScroll: true });
   }
 
   document.querySelectorAll("[data-case]").forEach((trigger) => {
@@ -155,7 +180,16 @@
 
   if (dialog) {
     closeButton?.addEventListener("click", closeDialog);
+    dialog.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      closeDialog();
+    });
     dialog.addEventListener("close", () => {
+      dialog.classList.remove("is-closing");
+      if (closeDialogTimer !== null) {
+        window.clearTimeout(closeDialogTimer);
+        closeDialogTimer = null;
+      }
       document.body.classList.remove("dialog-open");
     });
     dialog.addEventListener("click", (event) => {
