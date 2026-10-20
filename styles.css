@@ -1,7 +1,7 @@
 /* Adam Adkins / independent design & development */
 :root{
   color-scheme:light;
-  --paper:#fafafa;--ink:#15191e;--muted:#6b717a;--line:#e4e7e9;
+  --paper:#fafafa;--ink:#14202e;--muted:#6b717a;--line:#e4e7e9;
   --soft:#f1f3f4;--accent:#8a9faf;--accent-dark:#6a8194;
   --dark:#181f26;--ease:cubic-bezier(.22,1,.36,1);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
@@ -17,7 +17,7 @@ button{font:inherit;cursor:pointer}
 button,a{-webkit-tap-highlight-color:transparent}
 button:focus-visible,a:focus-visible{outline:3px solid #648eb0;outline-offset:4px}
 button:disabled{cursor:not-allowed}
-::selection{background:#d7e2ea;color:#121820}
+::selection{background:#d7e2ea;color:var(--ink)}
 .container{width:min(1200px,calc(100% - 112px));margin-inline:auto}
 .section{padding:135px 0}
 .section-muted{background:#f3f4f4}
@@ -32,14 +32,14 @@ button:disabled{cursor:not-allowed}
 .brand{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .brand-symbol{display:block;flex-shrink:0;width:43px;height:43px;object-fit:contain}
 
-.brand-copy{display:flex;flex-direction:column;gap:1px}
-.brand-name{font-size:18px;font-weight:740;letter-spacing:-.065em;line-height:1.05}
+.brand-copy{display:flex;flex-direction:column;gap:2px}
+.brand-name{font-size:18px;font-weight:740;letter-spacing:-.055em;line-height:1.05;color:var(--ink)}
 .brand-name-dot{color:#8199ac}
 .brand-descriptor{font-size:8px;color:#818891;letter-spacing:.21em;font-weight:750}
 .nav{display:flex;align-items:center;gap:39px}
 .nav-link{font-size:13px;color:#454c53;font-weight:560;transition:color .2s}
 .nav-link:hover{color:#879daf}
-.nav-contact{color:#111820;font-weight:700}
+.nav-contact{color:var(--ink);font-weight:700}
 .nav-contact span{margin-left:4px}
 .menu-toggle{display:none}
 .hero{padding-top:120px;padding-bottom:57px;background:#fafafa}
@@ -678,6 +678,7 @@ button:disabled{cursor:not-allowed}
   line-height: 1.01;
   font-weight: 900;
   letter-spacing: -.045em;
+  color: var(--ink);
   text-align: left;
   text-transform: uppercase;
 }
@@ -826,7 +827,7 @@ button:disabled{cursor:not-allowed}
     margin-top:8px;
     padding:21px 4px 14px;
     border-top:1px solid var(--line);
-    color:#111820;
+    color:var(--ink);
     font-weight:750;
   }
   .nav .nav-portal span{margin-left:4px}
