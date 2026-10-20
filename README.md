@@ -23,4 +23,4 @@ Create a custom invoice in Stripe for the agreed quote or deposit, assign the cu
 
 ## Contact
 
-FormSubmit delivers the existing contact form to `adkins.adam04@gmail.com`; the first submission requires FormSubmit activation.
+FormSubmit delivers project inquiries to `hello@tlt-studios.com`, which Cloudflare Email Routing forwards to the verified Gmail inbox. **Changing the FormSubmit destination requires new activation**: submit the form once and open the activation email addressed to `hello@tlt-studios.com` in the Gmail General label before relying on live submissions. See https://formsubmit.co/help. Direct customer inquiries use hello@ and billing questions use billing@; client invitations are handled separately by the private portal.
