@@ -849,14 +849,17 @@ button:disabled{cursor:not-allowed}
     line-height:1.06;
     margin-bottom:12px;
   }
-  .case-dialog .dialog-summary{
-    font-size:14px;
-    line-height:1.48;
-    margin:0;
+  /* Keep the mobile sheet readable in one glance rather than repeating
+     the summary and desktop-only section heading. */
+  .case-dialog .dialog-summary,
+  .case-dialog .dialog-divider,
+  .case-dialog .dialog-inner h3{display:none}
+  .case-dialog .dialog-inner>p#case-description{
+    font-size:13px;
+    line-height:1.6;
+    margin:0 0 4px;
+    color:#596773;
   }
-  .case-dialog .dialog-divider{margin:18px 0 15px}
-  .case-dialog .dialog-inner h3{font-size:13px;margin-bottom:7px}
-  .case-dialog .dialog-inner>p#case-description{font-size:13px;line-height:1.58;margin:0}
   .case-dialog .dialog-chips{margin:17px 0 18px;gap:6px}
   .case-dialog .dialog-chips span{font-size:10px;padding:5px 9px}
   .case-dialog .dialog-repo{margin-top:0;padding:12px 15px;font-size:12px}
