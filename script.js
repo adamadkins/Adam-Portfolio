@@ -30,6 +30,32 @@
     }
   };
 
+  // Keep each noninteractive website preview fitted to its visible frame.
+  // Fixed CSS scales caused previews to crop or look disproportionately small
+  // at different browser widths.
+  const previewViewports = document.querySelectorAll(".site-preview-viewport");
+  if (previewViewports.length) {
+    const sourceWidth = 1200;
+    const fitPreviews = () => {
+      previewViewports.forEach((viewport) => {
+        const available = viewport.clientWidth;
+        if (available > 0) {
+          viewport.style.setProperty(
+            "--preview-scale",
+            String(Math.min(1, available / sourceWidth)),
+          );
+        }
+      });
+    };
+    fitPreviews();
+    if ("ResizeObserver" in window) {
+      const observer = new ResizeObserver(fitPreviews);
+      previewViewports.forEach((viewport) => observer.observe(viewport));
+    } else {
+      window.addEventListener("resize", fitPreviews, { passive: true });
+    }
+  }
+
   const updateHeader = () => {
     if (header) header.classList.toggle("scrolled", window.scrollY > 12);
   };
