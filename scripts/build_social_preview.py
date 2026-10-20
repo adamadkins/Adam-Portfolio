@@ -9,21 +9,17 @@ ROOT = Path(__file__).resolve().parents[1]
 SCALE = 3
 WIDTH, HEIGHT = 1200, 630
 BG, NAVY, BLUE = "#f7f7f8", "#14202e", "#8199ac"
-FONTS = Path("/usr/share/fonts/truetype/dejavu")
-# Font paths for Ubuntu GitHub Actions runner; installed through font packages.
-INTER = Path("/usr/share/fonts/truetype/inter")
-if not INTER.exists():
-    INTER = Path("/usr/local/share/fonts/inter")
-# Use predictable fonts available on GitHub's Ubuntu image.
+INTER = Path("/usr/share/fonts/opentype/inter")
+# Install Ubuntu's fonts-inter package in the workflow (not in the repository).
 def font(weight, size):
-    candidates = {
-        "regular": ["/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"],
-        "medium": ["/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"],
-        "semi": ["/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"],
-        "bold": ["/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"],
-        "black": ["/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"],
+    files = {
+        "regular": "Inter-Regular.otf",
+        "medium": "Inter-Medium.otf",
+        "semi": "Inter-SemiBold.otf",
+        "bold": "Inter-ExtraBold.otf",
+        "black": "Inter-Black.otf",
     }
-    return ImageFont.truetype(candidates[weight][0], round(size * SCALE))
+    return ImageFont.truetype(str(INTER / files[weight]), round(size * SCALE))
 
 canvas = Image.new("RGB", (WIDTH * SCALE, HEIGHT * SCALE), BG)
 draw = ImageDraw.Draw(canvas)
