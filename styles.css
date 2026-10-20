@@ -572,3 +572,20 @@ button:disabled{cursor:not-allowed}
     margin-bottom: .28em;
   }
 }
+
+/* On initial load, LITTLE briefly contracts before returning to full size.
+   Transform animation preserves the headline's exact layout and alignment. */
+.hero-word-little {
+  display: inline-block;
+  transform-origin: center center;
+  animation: hero-little-arrive 1250ms cubic-bezier(.2,.65,.2,1) 150ms both;
+}
+@keyframes hero-little-arrive {
+  0%, 12% { transform: scale(1); }
+  40% { transform: scale(.79); }
+  73% { transform: scale(1.045); }
+  100% { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-word-little { animation: none; }
+}
