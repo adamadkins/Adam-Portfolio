@@ -1,4 +1,5 @@
 import { onRequestPost as invoice } from "./functions/api/payments/invoice.js";
+import { onRequestPost as contact } from "./functions/api/contact.js";
 import { fail } from "./functions/api/payments/_shared.js";
 
 export default {
@@ -6,7 +7,8 @@ export default {
     const url = new URL(request.url);
     if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
     const routes = {
-      "/api/payments/invoice": { POST: invoice }
+      "/api/payments/invoice": { POST: invoice },
+      "/api/contact": { POST: contact }
 
     };
     const route = routes[url.pathname];

@@ -8,5 +8,21 @@
     "run_worker_first": [
       "/api/*"
     ]
-  }
+  },
+  "send_email": [
+    {
+      "name": "CONTACT_EMAIL",
+      "destination_address": "hello@tlt-studios.com"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "CONTACT_RATE_LIMIT",
+      "namespace_id": "2026102101",
+      "simple": {
+        "limit": 5,
+        "period": 60
+      }
+    }
+  ]
 }
