@@ -1,0 +1,31 @@
+name: Verify contact form and Cloudflare Worker
+on:
+  push:
+    branches: [main]
+    paths:
+      - "functions/api/contact.js"
+      - "functions/api/email-logo.js"
+      - "worker.js"
+      - "wrangler.jsonc"
+      - "test/contact.test.mjs"
+      - ".github/workflows/verify-contact.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Syntax and tests
+        run: |
+          node --check functions/api/contact.js
+          node --check functions/api/email-logo.js
+          node --check worker.js
+          node --test test/contact.test.mjs
+      - name: Validate Cloudflare Worker bundle without publishing
+        run: npx --yes wrangler@latest deploy --dry-run
