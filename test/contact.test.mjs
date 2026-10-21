@@ -1,11 +1,14 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {onRequestPost,inquiryMessage} from "../functions/api/contact.js";
+import {onRequestPost,inquiryMessage,confirmationMessage} from "../functions/api/contact.js";
 const fields={name:"Adam <test>",email:"adam@example.com",project_type:"New website",message:"Hello, I would like a website."};
 function setup(options={}) {
  const sent=[];
- const env={CONTACT_RATE_LIMIT:{limit:async()=>({success:options.allowed!==false})},CONTACT_EMAIL:{send:async m=>{sent.push(m);if(options.error)throw Error("private provider details");return options.result??{messageId:"test-1"};}}};
- return {env,sent};
+ const confirmations=[];
+ const keys=[];
+ const env={CONTACT_RATE_LIMIT:{limit:async ({key})=>{keys.push(key);return {success: key.startsWith("contact-confirm:") ? options.confirmAllowed!==false : options.allowed!==false};}},CONTACT_EMAIL:{send:async m=>{sent.push(m);if(options.error)throw Error("private provider details");return options.result??{messageId:"test-1"};}},CONTACT_CONFIRMATION_EMAIL:{send:async m=>{confirmations.push(m);if(options.confirmError)throw Object.assign(Error("private confirmation error"),{code:"E_FAKE"});return options.confirmResult??{messageId:"receipt-1"};}}};
+ if(options.noReceiptBinding)delete env.CONTACT_CONFIRMATION_EMAIL;
+ return {env,sent,confirmations,keys};
 }
 function request(data=fields,headers={}) {
  return new Request("https://tlt-studios.com/api/contact",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded","Accept":"application/json","Origin":"https://tlt-studios.com","CF-Connecting-IP":"192.0.2.1",...headers},body:new URLSearchParams(data)});
@@ -49,4 +52,47 @@ test("native form submission receives a branded HTML result",async()=>{
 });
 test("email message escapes script markup and preserves newlines",()=>{
  const m=inquiryMessage({...fields,message:"<script>alert(1)</script>\nNext line"});assert.ok(!m.html.includes("<script>"));assert.match(m.html,/&lt;script&gt;/);assert.match(m.html,/<br>Next line/);
+});
+
+test("receipts are sent only after the studio notification and use the verified sender",async()=>{
+ const {env,sent,confirmations,keys}=setup();
+ const res=await onRequestPost({request:request(),env});const body=await res.json();
+ assert.equal(res.status,200);assert.equal(body.accepted,true);assert.match(body.message,/confirmation email/);
+ assert.equal(sent.length,1);assert.equal(confirmations.length,1);
+ assert.equal(confirmations[0].to,fields.email);
+ assert.equal(confirmations[0].from.email,"hello@tlt-studios.com");
+ assert.equal(confirmations[0].replyTo.email,"hello@tlt-studios.com");
+ assert.equal(confirmations[0].attachments[0].contentId,"tlt-logo");
+ assert.equal(confirmations[0].attachments[0].type,"image/png");
+ assert.match(confirmations[0].html,/src="cid:tlt-logo"/);
+ assert.match(sent[0].html,/src="cid:tlt-logo"/);
+ assert.ok(sent[0].attachments[0].content.startsWith("iVBOR"));
+ assert.ok(keys.includes("contact-confirm:"+fields.email.toLowerCase()));
+});
+test("acknowledgement escapes visitor name, supports plain text and does not echo arbitrary project message",()=>{
+ const m=confirmationMessage({...fields,name:"<img src=x onerror=alert(1)>",message:"<script>something bad</script>"});
+ assert.ok(!m.html.includes("<img src=x onerror="));assert.match(m.html,/&lt;img/);
+ assert.ok(!m.html.includes("<script>"));
+ assert.match(m.text,/No payment is due/);
+ assert.ok(!m.text.includes("something bad"));
+});
+test("failed or missing confirmation still keeps the already accepted inquiry",async()=>{
+ for(const options of [{confirmError:true},{confirmResult:{}},{noReceiptBinding:true},{confirmAllowed:false}]){
+   const {env,sent,confirmations}=setup(options);
+   const res=await onRequestPost({request:request(),env});const body=await res.json();
+   assert.equal(res.status,200);assert.equal(body.accepted,true);
+   assert.equal(sent.length,1);
+   assert.match(body.message,/inquiry has been submitted/);
+   if(options.confirmError||options.noReceiptBinding||options.confirmAllowed===false)
+     assert.match(body.message,/couldn't send a separate confirmation/);
+ }
+});
+test("invalid, cross-site, honeypot, failed inbox notifications never send visitor confirmations",async()=>{
+ const samples=[
+  {req:request({ ...fields,message:"bad" })},
+  {req:request(fields,{Origin:"https://evil.example"})},
+  {req:request({...fields,_honey:"hidden"})},
+ ];
+ for(const {req} of samples){const {env,confirmations}=setup();await onRequestPost({request:req,env});assert.equal(confirmations.length,0);}
+ const {env,confirmations}=setup({error:true});await onRequestPost({request:request(),env});assert.equal(confirmations.length,0);
 });

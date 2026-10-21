@@ -13,6 +13,10 @@
     {
       "name": "CONTACT_EMAIL",
       "destination_address": "hello@tlt-studios.com"
+    },
+    {
+      "name": "CONTACT_CONFIRMATION_EMAIL",
+      "allowed_sender_addresses": ["hello@tlt-studios.com"]
     }
   ],
   "ratelimits": [
