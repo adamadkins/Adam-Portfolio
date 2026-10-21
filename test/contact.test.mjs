@@ -96,3 +96,17 @@ test("invalid, cross-site, honeypot, failed inbox notifications never send visit
  for(const {req} of samples){const {env,confirmations}=setup();await onRequestPost({request:req,env});assert.equal(confirmations.length,0);}
  const {env,confirmations}=setup({error:true});await onRequestPost({request:request(),env});assert.equal(confirmations.length,0);
 });
+test("inline email logo is a complete, valid PNG identical to the site icon",async()=>{
+ const {crc32}=await import("node:zlib");const {readFileSync}=await import("node:fs");
+ const png=Buffer.from(confirmationMessage(fields).attachments[0].content,"base64");
+ assert.equal(png.subarray(0,8).toString("hex"),"89504e470d0a1a0a");
+ let i=8,types=[];
+ while(i<png.length){
+  const n=png.readUInt32BE(i),type=png.subarray(i+4,i+8);
+  assert.ok(i+12+n<=png.length,"truncated "+type);
+  assert.equal(crc32(png.subarray(i+4,i+8+n))>>>0,png.readUInt32BE(i+8+n),"bad CRC in "+type);
+  types.push(type.toString());i+=12+n;
+ }
+ assert.equal(types[0],"IHDR");assert.equal(types.at(-1),"IEND");
+ assert.ok(png.equals(readFileSync(new URL("../apple-touch-icon.png",import.meta.url))));
+});

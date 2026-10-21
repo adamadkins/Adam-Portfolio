@@ -80,7 +80,7 @@ function respond(request, status, message, accepted = false) {
   if (request.headers.get("Accept")?.includes("application/json"))
     return Response.json({accepted, message}, {status, headers});
   headers["Content-Type"] = "text/html; charset=utf-8";
-  return new Response(`<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Project inquiry | The Little Things Studios</title><link rel="stylesheet" href="/styles.css"></head><body><main class="inquiry-receipt"><img src="/apple-touch-icon.png?v=3" alt="The Little Things Studios" width="56" height="56"><p class="eyebrow">THE LITTLE THINGS STUDIOS</p><h1>${accepted ? "A little idea. A great beginning." : "Let’s try that again."}</h1><p>${escape(message)}</p><a class="inline-link" href="/contact.html">Return to the contact form ↗</a></main></body></html>`, {status, headers});
+  return new Response(`<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Project inquiry | The Little Things Studios</title><link rel="stylesheet" href="/styles.css"></head><body><main class="inquiry-receipt"><img src="/apple-touch-icon.png?v=4" alt="The Little Things Studios" width="56" height="56"><p class="eyebrow">THE LITTLE THINGS STUDIOS</p><h1>${accepted ? "A little idea. A great beginning." : "Let’s try that again."}</h1><p>${escape(message)}</p><a class="inline-link" href="/contact.html">Return to the contact form ↗</a></main></body></html>`, {status, headers});
 }
 
 export async function onRequestPost({request, env}) {
