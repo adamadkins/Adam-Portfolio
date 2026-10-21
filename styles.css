@@ -902,9 +902,9 @@ button:disabled{cursor:not-allowed}
 .studio-story-photo-image{background:transparent;mix-blend-mode:multiply}
 .studio-story-photo img{display:block;width:100%;height:auto;aspect-ratio:6/5;object-fit:cover;object-position:left top;-webkit-mask-image:linear-gradient(to bottom,#000 52%,rgba(0,0,0,.72) 64%,rgba(0,0,0,.16) 78%,transparent 94%);mask-image:linear-gradient(to bottom,#000 52%,rgba(0,0,0,.72) 64%,rgba(0,0,0,.16) 78%,transparent 94%)}
 .studio-story-background,.studio-story-next{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;padding-top:75px;padding-bottom:90px}
-.studio-story-background{border-top:1px solid var(--line);grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:0 60px;align-items:start}
-.studio-story-background>.studio-story-heading{padding-top:45px}
-.studio-story-photo-copy{position:relative;z-index:1;grid-column:1/-1;justify-self:end;width:min(100%,690px);margin-top:-110px}
+.studio-story-background{border-top:1px solid var(--line);grid-template-columns:minmax(0,1fr);gap:0;align-items:start}
+.studio-story-background>.studio-story-heading{padding-top:0;margin-bottom:30px;text-align:right}
+.studio-story-photo-copy{position:relative;z-index:1;grid-column:1/-1;justify-self:end;width:min(100%,690px);margin-top:-35px}
 .studio-story-photo-copy>p:last-child{margin-bottom:0}
 .studio-story-heading>.eyebrow{color:#738594;margin:0 0 25px}
 .studio-story-heading h2{font-size:clamp(35px,4.6vw,57px);line-height:1.12;font-weight:720;margin:0}
@@ -925,7 +925,6 @@ button:disabled{cursor:not-allowed}
   .studio-story-intro{gap:35px}
   .studio-story-intro h1{font-size:clamp(40px,5.4vw,64px)}
   .studio-story-next,.studio-story-name-inner{gap:40px}
-  .studio-story-background{column-gap:40px}
 }
 @media(max-width:700px){
   .studio-story-intro{min-height:0;padding-top:58px;padding-bottom:65px}
@@ -939,7 +938,7 @@ button:disabled{cursor:not-allowed}
   .studio-story-photo{width:min(100%,440px);margin:0 0 0 auto}
   .studio-story-background>.studio-story-heading{padding-top:0;margin-bottom:30px}
   .studio-story-background{row-gap:0}
-  .studio-story-photo-copy{width:100%;margin-top:-60px}
+  .studio-story-photo-copy{width:100%;margin-top:-18px}
     .studio-story-next{grid-template-columns:1fr;gap:27px;padding-top:55px;padding-bottom:60px}
   .studio-story-background{grid-template-columns:1fr;gap:0;padding-top:55px;padding-bottom:60px}
   .studio-story-heading>.eyebrow{font-size:9px;margin-bottom:18px}
