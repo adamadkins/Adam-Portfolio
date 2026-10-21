@@ -188,8 +188,8 @@ button:disabled{cursor:not-allowed}
 .contact-section::before{content:"";width:680px;height:680px;position:absolute;border-radius:50%;right:-210px;top:-290px;border:1px solid rgba(255,255,255,.07);box-shadow:0 0 0 80px rgba(255,255,255,.025),0 0 0 160px rgba(255,255,255,.016);pointer-events:none}
 .contact-inner{padding-top:123px;padding-bottom:133px;position:relative}
 .contact-kicker{display:flex;align-items:center;gap:11px;color:#9caeb9;margin:0 0 42px}
-.contact-inner h2{font-size:clamp(59px,8.7vw,117px);font-weight:730;letter-spacing:-.085em;line-height:1.04;margin:0}
-.contact-inner h2 span{color:#91a6b4}
+.contact-inner :is(h1,h2){font-size:clamp(59px,8.7vw,117px);font-weight:730;letter-spacing:-.085em;line-height:1.04;margin:0}
+.contact-inner :is(h1,h2) span{color:#91a6b4}
 .contact-inner>p:not(.contact-kicker){color:#b3c0c9;font-size:19px;line-height:1.72;margin:28px 0 31px;max-width:580px}
 .button-light{background:#eef3f5;color:#243039;box-shadow:0 15px 25px rgba(0,0,0,.1)}
 .button-light:hover{background:#fff}
@@ -310,7 +310,7 @@ button:disabled{cursor:not-allowed}
  .philosophy-layout h2{font-size:clamp(45px,8.9vw,67px)}
  .philosophy-layout>div{max-width:470px}
  .contact-inner{padding-top:84px;padding-bottom:98px}
- .contact-inner h2{font-size:clamp(52px,9.3vw,82px)}
+ .contact-inner :is(h1,h2){font-size:clamp(52px,9.3vw,82px)}
  .contact-inner>p:not(.contact-kicker){font-size:17px}
  .footer-main{padding:39px 0;display:block}
  .footer-links{margin-top:19px;flex-wrap:wrap;gap:16px 25px}
@@ -534,7 +534,7 @@ button:disabled{cursor:not-allowed}
 /* FormSubmit inquiry form */
 .contact-inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,445px);align-items:center;column-gap:clamp(42px,6vw,110px);padding-top:115px;padding-bottom:120px}
 .contact-copy{min-width:0}
-.contact-copy h2{font-size:clamp(47px,6vw,88px)}
+.contact-copy :is(h1,h2){font-size:clamp(47px,6vw,88px)}
 .contact-copy>p:not(.contact-kicker){font-size:17px;margin:25px 0 40px}
 .contact-direct{display:grid;gap:18px;justify-items:start}
 .contact-direct a{display:grid;gap:3px;color:#e6ecf0;overflow-wrap:anywhere;font-size:15px;font-weight:600;letter-spacing:-.015em;transition:color .2s}
@@ -563,12 +563,12 @@ button:disabled{cursor:not-allowed}
 }
 @media(max-width:850px){
  .contact-inner{grid-template-columns:1fr;gap:43px}
- .contact-copy h2{font-size:clamp(51px,8vw,76px)}
+ .contact-copy :is(h1,h2){font-size:clamp(51px,8vw,76px)}
  .contact-form{max-width:600px;padding:35px}
 }
 @media(max-width:700px){
  .contact-inner{padding-top:85px;padding-bottom:95px}
- .contact-copy h2{font-size:clamp(47px,9vw,65px)}
+ .contact-copy :is(h1,h2){font-size:clamp(47px,9vw,65px)}
  .contact-copy>p:not(.contact-kicker){margin-bottom:25px}
  .contact-direct{gap:13px}
  .contact-form{padding:26px}
@@ -640,7 +640,7 @@ button:disabled{cursor:not-allowed}
 /* Dedicated project inquiry page */
 .contact-page-main .contact-section{min-height:calc(100vh - 83px);padding-top:0}
 .contact-page-main .contact-inner{padding-top:110px;padding-bottom:125px}
-.contact-page-main .contact-inner h2{font-size:clamp(51px,7vw,96px)}
+.contact-page-main .contact-inner :is(h1,h2){font-size:clamp(51px,7vw,96px)}
 .contact-teaser .contact-inner{padding-top:110px;padding-bottom:115px}
 .contact-teaser .contact-copy{max-width:780px}
 .contact-teaser .contact-copy>p:not(.contact-kicker){max-width:610px}
