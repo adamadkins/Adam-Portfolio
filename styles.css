@@ -963,3 +963,43 @@ button:disabled{cursor:not-allowed}
 @media(prefers-reduced-motion:reduce){
   .studio-story-frame-drift{animation:none;transform:none}
 }
+
+/* Balance the desktop story around the portrait and the closing heading. */
+.studio-story-quote-copy>.studio-story-quote-intro{margin-bottom:16px}
+@media(min-width:901px){
+  .studio-story-background{
+    position:relative;
+    isolation:isolate;
+    grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
+    column-gap:64px;
+    padding-bottom:0;
+  }
+  .studio-story-background::after{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    bottom:0;
+    left:50%;
+    width:100vw;
+    height:110px;
+    transform:translateX(-50%);
+    background:linear-gradient(to bottom,rgba(20,32,46,0),#14202e);
+    pointer-events:none;
+  }
+  .studio-story-background>.studio-story-heading{grid-column:2;grid-row:1}
+  .studio-story-background>.studio-story-photo{grid-column:2;grid-row:2;width:100%;max-width:680px}
+  .studio-story-background>.studio-story-photo-copy{
+    grid-column:1;
+    grid-row:2;
+    justify-self:start;
+    align-self:center;
+    width:100%;
+    max-width:430px;
+    margin-top:0;
+    padding-bottom:110px;
+    text-align:left;
+  }
+  .studio-story-next{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:center}
+  .studio-story-next>.studio-story-heading{grid-column:2;grid-row:1}
+  .studio-story-next>.studio-story-prose{grid-column:1;grid-row:1;justify-self:start;max-width:480px;text-align:left}
+}
