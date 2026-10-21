@@ -919,7 +919,9 @@ button:disabled{cursor:not-allowed}
 .studio-story-quote-copy blockquote>p{font-size:clamp(25px,3vw,36px);font-weight:560;line-height:1.4;letter-spacing:-.04em;margin:0;color:#fff}
 .studio-story-quote-copy>p{font-size:15px;line-height:1.9;color:#bcc7d0;margin:0 0 20px}
 .studio-story-quote-copy>p:last-child{margin-bottom:0}
-.studio-story-next{padding-top:95px;padding-bottom:110px}
+.studio-story-next{padding-top:95px;padding-bottom:110px;grid-template-columns:minmax(0,1fr);gap:28px}
+.studio-story-next>.studio-story-heading{text-align:right}
+.studio-story-next>.studio-story-prose{width:min(100%,690px);justify-self:end}
 .studio-story-next .inline-link{margin-top:10px}
 @media(max-width:900px){
   .studio-story-intro{gap:35px}
@@ -950,4 +952,14 @@ button:disabled{cursor:not-allowed}
   .studio-story-quote-copy blockquote{padding-left:22px;margin-bottom:27px}
   .studio-story-quote-copy blockquote>p{font-size:29px}
   .studio-story-name{scroll-margin-top:70px}
+}
+
+/* Animate a separate wrapper so each frame keeps its original placement. */
+.studio-story-frame-drift{transform-box:fill-box;transform-origin:center;animation:studio-frame-drift var(--frame-duration,22s) ease-in-out var(--frame-delay,0s) infinite alternate}
+@keyframes studio-frame-drift{
+  from{transform:translate(0,0) rotate(0deg)}
+  to{transform:translate(var(--frame-x,3px),var(--frame-y,-6px)) rotate(var(--frame-angle,.4deg))}
+}
+@media(prefers-reduced-motion:reduce){
+  .studio-story-frame-drift{animation:none;transform:none}
 }
