@@ -66,7 +66,8 @@ test("receipts are sent only after the studio notification and use the verified 
  assert.equal(confirmations[0].attachments[0].type,"image/png");
  assert.match(confirmations[0].html,/src="cid:tlt-logo"/);
  assert.match(sent[0].html,/src="cid:tlt-logo"/);
- assert.ok(sent[0].attachments[0].content.startsWith("iVBOR"));
+ // A string is sent as quoted-printable text, which Gmail shows as a broken image.
+ assert.ok(sent[0].attachments[0].content instanceof ArrayBuffer);
  assert.ok(keys.includes("contact-confirm:"+fields.email.toLowerCase()));
 });
 test("acknowledgement escapes visitor name, supports plain text and does not echo arbitrary project message",()=>{
@@ -98,7 +99,7 @@ test("invalid, cross-site, honeypot, failed inbox notifications never send visit
 });
 test("inline email logo is a complete, valid PNG identical to the site icon",async()=>{
  const {crc32}=await import("node:zlib");const {readFileSync}=await import("node:fs");
- const png=Buffer.from(confirmationMessage(fields).attachments[0].content,"base64");
+ const png=Buffer.from(confirmationMessage(fields).attachments[0].content);
  assert.equal(png.subarray(0,8).toString("hex"),"89504e470d0a1a0a");
  let i=8,types=[];
  while(i<png.length){
@@ -109,4 +110,12 @@ test("inline email logo is a complete, valid PNG identical to the site icon",asy
  }
  assert.equal(types[0],"IHDR");assert.equal(types.at(-1),"IEND");
  assert.ok(png.equals(readFileSync(new URL("../apple-touch-icon.png",import.meta.url))));
+});
+test("navy headers survive Gmail dark mode without wrapping the logo",()=>{
+ for(const m of [inquiryMessage(fields),confirmationMessage(fields)]){
+  assert.match(m.html,/<body class="body"/);assert.match(m.html,/u \+ \.body \.gmail-difference/);
+  assert.match(m.html,/bgcolor="#14202e" style="[^"]*background-image:linear-gradient\(#14202e,#14202e\)/);
+  for(const wrapped of m.html.split('<div class="gmail-difference">').slice(1))
+   assert.ok(!wrapped.split("</div></div>")[0].includes("cid:tlt-logo"),"logo must not be color-blended");
+ }
 });

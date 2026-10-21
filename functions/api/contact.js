@@ -2,6 +2,12 @@ import { logoAttachment } from "./email-logo.js";
 
 const ADDRESS = "hello@tlt-studios.com";
 const TYPES = new Set(["New website", "Website Essentials ($750)", "Website + Lifetime Support ($1500)", "Website redesign", "Technical support", "Other inquiry"]);
+// Gmail's iOS dark mode inverts colors but leaves background images alone. Navy panels paint
+// with a gradient so they stay navy, and the Gmail-only (u + .body) blend wrappers flip the
+// inverted header text back. Keep images outside keepLight() so they are not inverted.
+const EMAIL_HEAD = `<meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light"><style>u + .body .gmail-screen{background:#000;mix-blend-mode:screen}u + .body .gmail-difference{background:#000;mix-blend-mode:difference}</style>`;
+const NAVY_PANEL = "background-color:#14202e;background-image:linear-gradient(#14202e,#14202e)";
+const keepLight = html => `<div class="gmail-screen"><div class="gmail-difference">${html}</div></div>`;
 const escape = value => String(value).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
 export function inquiryMessage({name, email, project_type, message}) {
@@ -11,7 +17,7 @@ export function inquiryMessage({name, email, project_type, message}) {
     replyTo: {email, name},
     subject: "New project inquiry: " + project_type,
     text: ["A little idea just landed.", "", "Name: " + name, "Email: " + email, "Project: " + project_type, "", message, "", "Reply to this email to contact " + name + ".", "The Little Things Studios | tlt-studios.com"].join("\n"),
-    html: `<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0;background:#f1f4f6;color:#14202e;font-family:Arial,Helvetica,sans-serif"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:28px 16px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:auto;background:#fff;border:1px solid #dce3e8"><tr><td style="padding:32px;background:#14202e;color:#fff"><img src="cid:tlt-logo" alt="" width="44" height="44" style="display:block;margin-bottom:22px;border:0"><p style="margin:0 0 12px;font-size:11px;letter-spacing:2px;color:#bdcbd5">THE LITTLE THINGS STUDIOS</p><h1 style="margin:0;font-size:32px;line-height:1.15;letter-spacing:-1px">A little idea just landed<span style="color:#8a9faf">.</span></h1><p style="margin:14px 0 0;color:#bdcbd5;font-size:14px">A new project inquiry from your website.</p></td></tr><tr><td style="padding:30px 32px"><p style="font-size:11px;letter-spacing:1.5px;color:#6a8194;margin:0 0 8px">FROM</p><h2 style="font-size:23px;line-height:1.4;margin:0 0 6px">${escape(name)}</h2><p style="margin:0 0 26px;font-size:15px;overflow-wrap:anywhere"><a href="mailto:${escape(email)}" style="color:#36566d">${escape(email)}</a></p><p style="font-size:11px;letter-spacing:1.5px;color:#6a8194;margin:0 0 8px">THE PROJECT</p><p style="margin:0 0 25px;font-size:16px;line-height:1.6">${escape(project_type)}</p><div style="border-top:1px solid #dce3e8;padding-top:24px;font-size:16px;line-height:1.8;overflow-wrap:anywhere">${escape(message).replace(/\n/g,"<br>")}</div><p style="margin:30px 0 0;padding-top:22px;border-top:1px solid #dce3e8;color:#65727b;font-size:13px;line-height:1.7">Just hit reply to continue the conversation with ${escape(name)}.</p></td></tr></table><p style="max-width:600px;margin:20px auto;color:#6a8194;font-size:11px;text-align:center;line-height:1.6">The difference between good and great is the little things.<br><a href="https://tlt-studios.com" style="color:#36566d">tlt-studios.com</a></p></td></tr></table></body></html>`,
+    html: `<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1">${EMAIL_HEAD}</head><body class="body" style="margin:0;background:#f1f4f6;color:#14202e;font-family:Arial,Helvetica,sans-serif"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:28px 16px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:auto;background:#fff;border:1px solid #dce3e8"><tr><td bgcolor="#14202e" style="padding:32px;${NAVY_PANEL};color:#fff"><img src="cid:tlt-logo" alt="" width="44" height="44" style="display:block;margin-bottom:22px;border:0">${keepLight(`<p style="margin:0 0 12px;font-size:11px;letter-spacing:2px;color:#bdcbd5">THE LITTLE THINGS STUDIOS</p><h1 style="margin:0;font-size:32px;line-height:1.15;letter-spacing:-1px">A little idea just landed<span style="color:#8a9faf">.</span></h1><p style="margin:14px 0 0;color:#bdcbd5;font-size:14px">A new project inquiry from your website.</p>`)}</td></tr><tr><td style="padding:30px 32px"><p style="font-size:11px;letter-spacing:1.5px;color:#6a8194;margin:0 0 8px">FROM</p><h2 style="font-size:23px;line-height:1.4;margin:0 0 6px">${escape(name)}</h2><p style="margin:0 0 26px;font-size:15px;overflow-wrap:anywhere"><a href="mailto:${escape(email)}" style="color:#36566d">${escape(email)}</a></p><p style="font-size:11px;letter-spacing:1.5px;color:#6a8194;margin:0 0 8px">THE PROJECT</p><p style="margin:0 0 25px;font-size:16px;line-height:1.6">${escape(project_type)}</p><div style="border-top:1px solid #dce3e8;padding-top:24px;font-size:16px;line-height:1.8;overflow-wrap:anywhere">${escape(message).replace(/\n/g,"<br>")}</div><p style="margin:30px 0 0;padding-top:22px;border-top:1px solid #dce3e8;color:#65727b;font-size:13px;line-height:1.7">Just hit reply to continue the conversation with ${escape(name)}.</p></td></tr></table><p style="max-width:600px;margin:20px auto;color:#6a8194;font-size:11px;text-align:center;line-height:1.6">The difference between good and great is the little things.<br><a href="https://tlt-studios.com" style="color:#36566d">tlt-studios.com</a></p></td></tr></table></body></html>`,
     attachments: [logoAttachment()]
   };
 }
@@ -46,17 +52,17 @@ export function confirmationMessage({name, email, project_type}) {
       "Thoughtful websites. Built with intention.",
       "https://tlt-studios.com"
     ].join("\n"),
-    html: `<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#f2f4f6;color:#14202e;font-family:Arial,Helvetica,sans-serif">
+    html: `<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"><meta charset="UTF-8">${EMAIL_HEAD}</head>
+<body class="body" style="margin:0;padding:0;background:#f2f4f6;color:#14202e;font-family:Arial,Helvetica,sans-serif">
 <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;background:#f2f4f6"><tr><td align="center" style="padding:30px 14px 36px">
 <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;border-collapse:collapse;background:#ffffff;border:1px solid #e1e6e9">
-<tr><td style="background:#14202e;padding:34px 28px 36px">
+<tr><td bgcolor="#14202e" style="${NAVY_PANEL};padding:34px 28px 36px">
 <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr>
 <td style="vertical-align:middle;padding-right:14px"><img src="cid:tlt-logo" alt="" width="56" height="56" style="display:block;width:56px;height:56px;border:0"></td>
-<td style="vertical-align:middle"><div style="font-size:18px;font-weight:800;line-height:1.2;color:#ffffff;letter-spacing:-.5px">the little things<span style="color:#9bb1bf">.</span></div><div style="font-size:10px;letter-spacing:2px;color:#bacbd6;padding-top:6px">WEBSITE DESIGN</div></td></tr></table>
-<p style="font-size:10px;letter-spacing:2px;color:#b6c9d7;font-weight:700;margin:34px 0 12px">INQUIRY RECEIVED</p>
+<td style="vertical-align:middle">${keepLight(`<div style="font-size:18px;font-weight:800;line-height:1.2;color:#ffffff;letter-spacing:-.5px">the little things<span style="color:#9bb1bf">.</span></div><div style="font-size:10px;letter-spacing:2px;color:#bacbd6;padding-top:6px">WEBSITE DESIGN</div>`)}</td></tr></table>
+${keepLight(`<p style="font-size:10px;letter-spacing:2px;color:#b6c9d7;font-weight:700;margin:34px 0 12px">INQUIRY RECEIVED</p>
 <h1 style="margin:0;color:#ffffff;font-weight:800;font-size:32px;line-height:1.18;letter-spacing:-1px">A little idea.<br>A great beginning<span style="color:#9bb1bf">.</span></h1>
-<p style="font-size:15px;color:#d9e3e9;line-height:1.7;margin:16px 0 0">Your message has made it to the studio.</p></td></tr>
+<p style="font-size:15px;color:#d9e3e9;line-height:1.7;margin:16px 0 0">Your message has made it to the studio.</p>`)}</td></tr>
 <tr><td style="padding:34px 28px 36px">
 <p style="font-size:19px;font-weight:700;line-height:1.45;margin:0 0 15px">Hi ${safeName},</p>
 <p style="font-size:15px;line-height:1.8;color:#43515c;margin:0 0 22px">Thanks for reaching out! We've received your inquiry and will review it personally.</p>
