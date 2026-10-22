@@ -43,13 +43,15 @@ button:disabled{cursor:not-allowed}
 .nav-contact span{margin-left:4px}
 .menu-toggle{display:none}
 .hero{padding-top:120px;padding-bottom:57px;background:#fafafa}
-.hero-content{max-width:990px;margin-inline:auto;text-align:center}
-.hero-eyebrow{margin:0 0 32px;color:#677989;display:flex;align-items:center;justify-content:center;gap:10px}
+.hero-content{max-width:none;margin-inline:0;text-align:left}
+.hero-eyebrow{margin:0 0 32px;color:#677989;display:flex;align-items:center;justify-content:flex-start;gap:10px}
 
 .hero h1{font-size:clamp(53px,7.5vw,105px);line-height:1.055;font-weight:740;letter-spacing:-.082em;margin:0}
 .hero-soft{color:#9ba5ae}
-.hero-description{font-size:clamp(16px,1.5vw,20px);line-height:1.7;color:#707983;max-width:610px;margin:31px auto 0;letter-spacing:-.019em}
-.hero-actions{display:flex;align-items:center;justify-content:center;gap:26px;margin:37px 0 0}
+.hero-description{font-size:clamp(16px,1.7vw,24px);line-height:1.7;color:#707983;max-width:660px;margin:36px 0 0;letter-spacing:-.019em}
+.hero-actions{display:flex;align-items:center;justify-content:flex-start;gap:30px;margin:42px 0 0}
+.hero-actions .button{font-size:clamp(15px,1.4vw,20px)}
+.hero-actions .button-primary{justify-content:space-between;gap:clamp(30px,4.2vw,60px);padding:clamp(16px,1.9vw,27px) clamp(26px,3.2vw,46px);border-radius:16px}
 .button{display:inline-flex;justify-content:center;align-items:center;gap:25px;padding:15px 21px;border:1px solid transparent;border-radius:9px;font-size:13px;font-weight:700;line-height:1.35;transition:transform .25s var(--ease),background .2s,border-color .2s,box-shadow .3s}
 .button:hover{transform:translateY(-2px)}
 .button span,.inline-link span,.project-view span{display:inline-block;transition:transform .25s var(--ease)}
@@ -489,8 +491,11 @@ button:disabled{cursor:not-allowed}
   align-items: stretch;
   width: max-content;
   max-width: 100%;
-  margin-inline: auto;
+  margin-inline: 0;
   text-align: left;
+  /* The sequence on load: LITTLE shrinks and springs back, then the period bounces. */
+  --little-delay: 100ms;
+  --little-time: 800ms;
 }
 .hero-title-stacked .hero-lead-in {
   display: block;
@@ -498,7 +503,7 @@ button:disabled{cursor:not-allowed}
   margin: 0 0 .26em;
   padding: 0 .05em 0 0;
   color: var(--ink);
-  font-size: clamp(.78rem, 1.35vw, 1.12rem);
+  font-size: clamp(.8rem, 1.95vw, 1.75rem);
   line-height: 1.25;
   font-weight: 400;
   letter-spacing: 0;
@@ -510,8 +515,8 @@ button:disabled{cursor:not-allowed}
   display: block;
   width: max-content;
   max-width: 100%;
-  font-size: clamp(4rem, 11.8vw, 10rem);
-  line-height: 1.01;
+  font-size: clamp(4rem, 14.6vw, 13.2rem);
+  line-height: .86;
   font-weight: 900;
   letter-spacing: -.045em;
   color: var(--ink);
@@ -523,11 +528,10 @@ button:disabled{cursor:not-allowed}
   display: block;
   white-space: nowrap;
 }
-.hero-title-stacked .hero-period { color: var(--accent-dark); }
 @media (max-width: 700px) {
   .hero-title-stacked .hero-main-line {
     font-size: 17.8vw;
-    line-height: 1.01;
+    line-height: .88;
     letter-spacing: -.045em;
   }
   .hero-title-stacked .hero-lead-in {
@@ -536,35 +540,44 @@ button:disabled{cursor:not-allowed}
   }
 }
 
-/* On initial load, LITTLE briefly contracts before returning to full size.
-   Transform animation preserves the headline's exact layout and alignment. */
+/* On load: LITTLE shrinks and springs back, and the moment it settles the period bounces.
+   Transforms keep the headline's layout exactly where it is. */
 .hero-word-little {
   display: inline-block;
   transform-origin: center center;
-  animation: hero-little-arrive 1250ms cubic-bezier(.2,.65,.2,1) 150ms both;
+  animation: hero-little-arrive var(--little-time) linear var(--little-delay) both;
 }
 @keyframes hero-little-arrive {
-  0%, 12% { transform: scale(1); }
-  40% { transform: scale(.5); }
-  73% { transform: scale(1.045); }
+  0%   { transform: scale(1);  animation-timing-function: cubic-bezier(.55,0,.35,1); }
+  36%  { transform: scale(.5); animation-timing-function: cubic-bezier(.34,1.4,.64,1); }
   100% { transform: scale(1); }
 }
-/* The headline's period bounces once after LITTLE settles: the loader's dribble, one big bounce and
-   three shrinking rebounds. Distances are in em so it scales with the headline. */
+/* The period is a round dot on the baseline. It rises only to the middle of the S, then rebounds
+   three times, smaller each time (the loader's dribble). Distances are in em so it scales with the headline. */
 .hero-title-stacked .hero-period {
   display: inline-block;
-  animation: hero-period-dribble 2050ms linear 1350ms both;
+  width: .21em;
+  height: .21em;
+  margin-left: .04em;
+  border-radius: 50%;
+  background: var(--accent-dark);
+  color: transparent;
+  overflow: hidden;
+  text-indent: -9999px;
+  white-space: nowrap;
+  vertical-align: baseline;
+  animation: hero-period-dribble 1300ms linear calc(var(--little-delay) + var(--little-time)) both;
 }
 @keyframes hero-period-dribble {
   0%, 45.6%, 70.9%, 88.6% { transform: translateY(0); animation-timing-function: cubic-bezier(.33,.67,.67,1); }
-  22.8% { transform: translateY(-.7em); animation-timing-function: cubic-bezier(.33,0,.67,.33); }
-  58.2% { transform: translateY(-.175em); animation-timing-function: cubic-bezier(.33,0,.67,.33); }
-  79.7% { transform: translateY(-.08em); animation-timing-function: cubic-bezier(.33,0,.67,.33); }
-  94.3% { transform: translateY(-.032em); animation-timing-function: cubic-bezier(.33,0,.67,.33); }
+  22.8% { transform: translateY(-.26em); animation-timing-function: cubic-bezier(.33,0,.67,.33); }
+  58.2% { transform: translateY(-.065em); animation-timing-function: cubic-bezier(.33,0,.67,.33); }
+  79.7% { transform: translateY(-.03em); animation-timing-function: cubic-bezier(.33,0,.67,.33); }
+  94.3% { transform: translateY(-.012em); animation-timing-function: cubic-bezier(.33,0,.67,.33); }
   100% { transform: translateY(0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-word-little { animation: none; }
+  .hero-word-little,
   .hero-title-stacked .hero-period { animation: none; }
 }
 
