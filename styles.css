@@ -549,8 +549,23 @@ button:disabled{cursor:not-allowed}
   73% { transform: scale(1.045); }
   100% { transform: scale(1); }
 }
+/* The headline's period bounces once after LITTLE settles: the loader's dribble, one big bounce and
+   three shrinking rebounds. Distances are in em so it scales with the headline. */
+.hero-title-stacked .hero-period {
+  display: inline-block;
+  animation: hero-period-dribble 2050ms linear 1350ms both;
+}
+@keyframes hero-period-dribble {
+  0%, 45.6%, 70.9%, 88.6% { transform: translateY(0); animation-timing-function: cubic-bezier(.33,.67,.67,1); }
+  22.8% { transform: translateY(-.7em); animation-timing-function: cubic-bezier(.33,0,.67,.33); }
+  58.2% { transform: translateY(-.175em); animation-timing-function: cubic-bezier(.33,0,.67,.33); }
+  79.7% { transform: translateY(-.08em); animation-timing-function: cubic-bezier(.33,0,.67,.33); }
+  94.3% { transform: translateY(-.032em); animation-timing-function: cubic-bezier(.33,0,.67,.33); }
+  100% { transform: translateY(0); }
+}
 @media (prefers-reduced-motion: reduce) {
   .hero-word-little { animation: none; }
+  .hero-title-stacked .hero-period { animation: none; }
 }
 
 
