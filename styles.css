@@ -928,3 +928,10 @@ button:disabled{cursor:not-allowed}
   .contact-form .button-form{width:100%;justify-content:space-between}
   .inquiry-feedback{padding:18px}
 }
+/* "Let's work together": the page a demo's banner opens */
+.hello-steps{list-style:none;counter-reset:hello;display:grid;gap:16px;margin:0 0 34px;padding:0;max-width:520px}
+.hello-steps li{counter-increment:hello;position:relative;padding-left:42px;color:#b3c0c9;font-size:15px;line-height:1.65}
+.hello-steps li::before{content:counter(hello);position:absolute;left:0;top:-1px;display:grid;place-items:center;width:28px;height:28px;border:1px solid rgba(255,255,255,.22);border-radius:50%;color:#e6ecf0;font-size:12px;font-weight:700}
+.hello-steps strong{color:#f6f7f7;font-weight:700}
+.hello-back{color:#e6ecf0;font-size:15px;font-weight:600}
+.hello-back[hidden]{display:none}

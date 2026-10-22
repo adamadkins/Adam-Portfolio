@@ -1,7 +1,8 @@
 import { logoAttachment } from "./email-logo.js";
 
 const ADDRESS = "hello@tlt-studios.com";
-const TYPES = new Set(["New website", "Website Essentials ($750)", "Website + Lifetime Support ($1500)", "Website redesign", "Technical support", "Other inquiry"]);
+const TYPES = new Set(["New website", "Website Essentials ($750)", "Website + Lifetime Support ($1500)", "Website redesign", "Technical support", "Other inquiry", "Demo website"]);
+const DEMO_SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 // Gmail's iOS dark mode inverts colors but leaves background images alone. Navy panels paint
 // with a gradient so they stay navy, and the Gmail-only (u + .body) blend wrappers flip the
 // inverted header text back. Keep images outside keepLight() so they are not inverted.
@@ -10,12 +11,12 @@ const NAVY_PANEL = "background-color:#14202e;background-image:linear-gradient(#1
 const keepLight = html => `<div class="gmail-screen"><div class="gmail-difference">${html}</div></div>`;
 const escape = value => String(value).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
-export function inquiryMessage({name, email, project_type, message}) {
+export function inquiryMessage({name, email, project_type, message, subject}) {
   return {
     to: ADDRESS,
     from: {email: ADDRESS, name: "The Little Things Studios"},
     replyTo: {email, name},
-    subject: "New project inquiry: " + project_type,
+    subject: subject || "New project inquiry: " + project_type,
     text: ["A little idea just landed.", "", "Name: " + name, "Email: " + email, "Project: " + project_type, "", message, "", "Reply to this email to contact " + name + ".", "The Little Things Studios | tlt-studios.com"].join("\n"),
     html: `<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1">${EMAIL_HEAD}</head><body class="body" style="margin:0;background:#f1f4f6;color:#14202e;font-family:Arial,Helvetica,sans-serif"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:28px 16px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:auto;background:#fff;border:1px solid #dce3e8"><tr><td bgcolor="#14202e" style="padding:32px;${NAVY_PANEL};color:#fff"><img src="cid:tlt-logo" alt="" width="44" height="44" style="display:block;margin-bottom:22px;border:0">${keepLight(`<p style="margin:0 0 12px;font-size:11px;letter-spacing:2px;color:#bdcbd5">THE LITTLE THINGS STUDIOS</p><h1 style="margin:0;font-size:32px;line-height:1.15;letter-spacing:-1px">A little idea just landed<span style="color:#8a9faf">.</span></h1><p style="margin:14px 0 0;color:#bdcbd5;font-size:14px">A new project inquiry from your website.</p>`)}</td></tr><tr><td style="padding:30px 32px"><p style="font-size:11px;letter-spacing:1.5px;color:#6a8194;margin:0 0 8px">FROM</p><h2 style="font-size:23px;line-height:1.4;margin:0 0 6px">${escape(name)}</h2><p style="margin:0 0 26px;font-size:15px;overflow-wrap:anywhere"><a href="mailto:${escape(email)}" style="color:#36566d">${escape(email)}</a></p><p style="font-size:11px;letter-spacing:1.5px;color:#6a8194;margin:0 0 8px">THE PROJECT</p><p style="margin:0 0 25px;font-size:16px;line-height:1.6">${escape(project_type)}</p><div style="border-top:1px solid #dce3e8;padding-top:24px;font-size:16px;line-height:1.8;overflow-wrap:anywhere">${escape(message).replace(/\n/g,"<br>")}</div><p style="margin:30px 0 0;padding-top:22px;border-top:1px solid #dce3e8;color:#65727b;font-size:13px;line-height:1.7">Just hit reply to continue the conversation with ${escape(name)}.</p></td></tr></table><p style="max-width:600px;margin:20px auto;color:#6a8194;font-size:11px;text-align:center;line-height:1.6">The difference between good and great is the little things.<br><a href="https://tlt-studios.com" style="color:#36566d">tlt-studios.com</a></p></td></tr></table></body></html>`,
     attachments: [logoAttachment()]
@@ -116,6 +117,19 @@ export async function onRequestPost({request, env}) {
     const data = new URLSearchParams(raw);
     if (data.get("_honey")) return respond(request,200,"Thank you for your inquiry.",true);
     const fields = Object.fromEntries(["name","email","project_type","message"].map(key=>[key,(data.get(key)||"").trim()]));
+    // A reply from a demo's "Let's work together" page: the message is built from
+    // its own fields, and the email says which demo it came from.
+    if (fields.project_type === "Demo website") {
+      const demo = (data.get("demo")||"").trim(), business = (data.get("business")||"").trim();
+      const phone = (data.get("phone")||"").trim(), times = (data.get("meet_time")||"").trim();
+      if (!DEMO_SLUG.test(demo) || demo.length > 60 || business.length > 120 || /[\x00-\x1f<>]/.test(business)
+        || phone.length > 40 || !/^[0-9+().\-\s]*$/.test(phone) || times.length > 300 || /[\x00-\x1f]/.test(times) || fields.message.length > 3000)
+        return respond(request,400,"Please check your name, email and phone number.");
+      fields.subject = "Demo reply: " + (business || demo);
+      fields.message = ["Interested in the demo" + (business ? " made for " + business : "") + ": https://demo.tlt-studios.com/" + demo + "/",
+        "", "Phone: " + (phone || "not given"), "Good times for a Google Meet: " + (times || "not given"),
+        ...(fields.message ? ["", "Anything to change or add:", fields.message] : [])].join("\n");
+    }
     if (!fields.name || fields.name.length>120 || /[\r\n\x00-\x1f]/.test(fields.name)
       || fields.email.length>254 || !/^[^\s<>@]+@[^\s<>@]+\.[^\s<>@]+$/.test(fields.email)
       || /[\x00-\x1f\x7f]/.test(fields.email) || !TYPES.has(fields.project_type)
@@ -132,7 +146,8 @@ export async function onRequestPost({request, env}) {
         // to one email address, even when requests originate from different IPs.
         const {success} = await env.CONTACT_RATE_LIMIT.limit({key:"contact-confirm:" + fields.email.toLowerCase()});
         if (success) {
-          const receipt = await env.CONTACT_CONFIRMATION_EMAIL.send(confirmationMessage(fields));
+          const receipt = await env.CONTACT_CONFIRMATION_EMAIL.send(confirmationMessage(fields.project_type === "Demo website"
+            ? {...fields, project_type: "Making your demo website yours"} : fields));
           confirmationAccepted = Boolean(receipt?.messageId);
         }
       }

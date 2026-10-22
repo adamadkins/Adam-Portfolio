@@ -119,3 +119,25 @@ test("navy headers survive Gmail dark mode without wrapping the logo",()=>{
    assert.ok(!wrapped.split("</div></div>")[0].includes("cid:tlt-logo"),"logo must not be color-blended");
  }
 });
+
+test("a reply from a demo's page names the demo and builds the message from its fields",async()=>{
+ const {env,sent,confirmations}=setup();
+ const demo={name:"Chloe",email:"chloe@example.com",project_type:"Demo website",demo:"farmers-daughter",business:"Farmer's Daughter Coffee Company",phone:"(304) 555-0100",meet_time:"Tuesday after 2pm",message:""};
+ const r=await onRequestPost({request:request(demo),env});
+ assert.equal(r.status,200);assert.equal((await r.json()).accepted,true);
+ assert.equal(sent[0].subject,"Demo reply: Farmer's Daughter Coffee Company");
+ assert.match(sent[0].text,/https:\/\/demo\.tlt-studios\.com\/farmers-daughter\//);
+ assert.match(sent[0].text,/Phone: \(304\) 555-0100/);assert.match(sent[0].text,/Google Meet: Tuesday after 2pm/);
+ assert.equal(sent[0].replyTo.email,"chloe@example.com");
+ assert.match(confirmations[0].text,/Making your demo website yours/);
+ // Just a name and email is enough.
+ const quick=setup();
+ assert.equal((await onRequestPost({request:request({name:"Chloe",email:"chloe@example.com",project_type:"Demo website",demo:"farmers-daughter"}),env:quick.env})).status,200);
+ assert.match(quick.sent[0].text,/Phone: not given/);
+});
+test("demo replies reject bad demo addresses, phone numbers and header injection",async()=>{
+ const base={name:"Chloe",email:"chloe@example.com",project_type:"Demo website",demo:"farmers-daughter"};
+ for(const update of [{demo:""},{demo:"../admin"},{demo:"Farmers"},{phone:"call me <script>"},{business:"A\r\nBcc: x@example.com"},{meet_time:"x\r\ny"},{message:"x".repeat(3001)}]){
+  const {env,sent}=setup();assert.equal((await onRequestPost({request:request({...base,...update}),env})).status,400,JSON.stringify(update));assert.equal(sent.length,0);
+ }
+});
