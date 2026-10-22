@@ -492,10 +492,11 @@ button:disabled{cursor:not-allowed}
   margin-inline: 0;
   text-align: left;
   /* The sequence on load: LITTLE shrinks and springs back, then the period bounces. */
+  /* LITTLE's spring and the dot's bounce run at the same tempo (about 900ms each). */
   --little-delay: 100ms;
-  --little-time: 800ms;
-  /* When LITTLE springs back through full size (500ms into its motion): the dot launches here. */
-  --little-release: 500ms;
+  --little-time: 900ms;
+  /* When LITTLE springs back through full size (62.5% into its motion): the dot launches here. */
+  --little-release: 562ms;
 }
 .hero-title-stacked .hero-lead-in {
   display: block;
@@ -566,7 +567,7 @@ button:disabled{cursor:not-allowed}
   text-indent: -9999px;
   white-space: nowrap;
   vertical-align: baseline;
-  animation: hero-period-dribble 1300ms linear calc(var(--little-delay) + var(--little-release)) both;
+  animation: hero-period-dribble 900ms linear calc(var(--little-delay) + var(--little-release)) both;
 }
 @keyframes hero-period-dribble {
   0%, 45.6%, 70.9%, 88.6% { transform: translateY(0); animation-timing-function: cubic-bezier(.33,.67,.67,1); }
