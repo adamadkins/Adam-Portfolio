@@ -149,7 +149,8 @@ button:disabled{cursor:not-allowed}
 .footer-main{display:flex;justify-content:space-between;align-items:center;gap:35px;padding:47px 0}
 .footer-brand{display:inline-flex;align-items:center;gap:10px;font-size:32px;font-weight:740;letter-spacing:-.075em}
 .footer-brand-icon{display:block;width:36px;height:36px;flex:0 0 36px;object-fit:contain}
-.footer-brand span{color:#91a8ba}
+.footer-brand-name{letter-spacing:inherit}
+.footer-brand-name span{color:#91a8ba}
 .footer-links{display:flex;gap:34px;font-size:13px;font-weight:540;color:#aab8c3}
 .footer-links a:hover{color:white}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.13);padding:22px 0 28px;display:flex;justify-content:space-between;align-items:center;gap:20px;font-size:10px;font-weight:720;letter-spacing:.14em;color:#8697a3}
@@ -757,12 +758,12 @@ button:disabled{cursor:not-allowed}
 .studio-story-intro-copy>.eyebrow{color:#738594;margin:0 0 30px}
 .studio-story-intro h1{font-size:clamp(43px,5.4vw,76px);line-height:1.045;font-weight:740;margin:0 0 30px}
 .studio-story-intro h1>span{color:#8998a3}
-.studio-story-intro-copy>p:not(.eyebrow){color:#65727b;font-size:15px;line-height:1.9;margin:0 0 22px;max-width:640px}
+.studio-story-intro-copy>p:not(.eyebrow){color:#65727b;font-size:15px;line-height:1.9;margin:0 0 22px;max-width:560px}
 .studio-story-intro-copy>.studio-story-lead,.studio-story-prose>.studio-story-lead{color:#263744;font-size:22px;line-height:1.55;letter-spacing:-.035em}
 .studio-story-intro-copy>.inline-link{margin-top:10px;font-size:12px}
 .studio-story-frame-collage{position:absolute;z-index:0;top:-150px;bottom:-40px;left:50%;width:100vw;transform:translateX(-50%);overflow:hidden;pointer-events:none;user-select:none}
 .studio-story-frame-collage svg{display:block;position:absolute;inset:0;width:100%;height:100%}
-.studio-story-frame-collage::after{content:"";position:absolute;inset:-1px;background:linear-gradient(90deg,var(--paper) 0%,rgba(250,250,250,.98) 25%,rgba(250,250,250,.88) 43%,rgba(250,250,250,.32) 68%,rgba(250,250,250,.08) 100%),linear-gradient(180deg,var(--paper) 0%,rgba(250,250,250,.24) 20%,rgba(250,250,250,0) 40%,rgba(250,250,250,.05) 65%,var(--paper) 97%)}
+.studio-story-frame-collage::after{content:"";position:absolute;inset:-1px;background:linear-gradient(90deg,var(--paper) 0%,rgba(250,250,250,.98) 28%,rgba(250,250,250,.95) 46%,rgba(250,250,250,.42) 70%,rgba(250,250,250,.08) 100%),linear-gradient(180deg,var(--paper) 0%,rgba(250,250,250,.24) 20%,rgba(250,250,250,0) 40%,rgba(250,250,250,.05) 65%,var(--paper) 97%)}
 .studio-story-photo{margin:0 0 0 auto;min-width:0;width:min(100%,540px);justify-self:end}
 .studio-story-photo-image{position:relative;background:transparent;mix-blend-mode:multiply}
 .studio-story-photo img{display:block;width:100%;height:auto;aspect-ratio:6/5;object-fit:cover;object-position:left top;-webkit-mask-image:linear-gradient(to bottom,#000 52%,rgba(0,0,0,.72) 64%,rgba(0,0,0,.16) 78%,transparent 94%);mask-image:linear-gradient(to bottom,#000 52%,rgba(0,0,0,.72) 64%,rgba(0,0,0,.16) 78%,transparent 94%)}
@@ -795,7 +796,7 @@ button:disabled{cursor:not-allowed}
 }
 @media(max-width:700px){
   .studio-story-intro{min-height:0;padding-top:58px;padding-bottom:65px}
-  .studio-story-frame-collage{top:-110px;bottom:-20px;opacity:.6}
+  .studio-story-frame-collage{top:-110px;bottom:-20px;opacity:.34}
   .studio-story-frame-collage svg{left:auto;right:-360px;width:1050px;max-width:none}
   .studio-story-frame-collage::after{background:linear-gradient(90deg,var(--paper) 0%,rgba(250,250,250,.96) 38%,rgba(250,250,250,.82) 72%,rgba(250,250,250,.62) 100%),linear-gradient(180deg,var(--paper) 0%,transparent 30%,transparent 65%,var(--paper) 98%)}
   .studio-story-intro-copy>.eyebrow{font-size:9px;line-height:1.7;margin-bottom:25px}
@@ -879,10 +880,12 @@ button:disabled{cursor:not-allowed}
     mask-image:linear-gradient(#000 55%,transparent 93%);
     pointer-events:none;
   }
+  /* The crop ends at 53% of the photo's height, above Hailie's raised boot (which starts at 57%),
+     and the fade reaches zero at the bottom edge, so nothing of the boot can show through. */
   .studio-story-background .studio-story-photo img{
-    aspect-ratio:1.08;
-    -webkit-mask-image:linear-gradient(to bottom,#000 60%,rgba(0,0,0,.85) 71%,rgba(0,0,0,.3) 86%,transparent 99%);
-    mask-image:linear-gradient(to bottom,#000 60%,rgba(0,0,0,.85) 71%,rgba(0,0,0,.3) 86%,transparent 99%);
+    aspect-ratio:1.25;
+    -webkit-mask-image:linear-gradient(to bottom,#000 60%,rgba(0,0,0,.85) 74%,rgba(0,0,0,.35) 89%,transparent 100%);
+    mask-image:linear-gradient(to bottom,#000 60%,rgba(0,0,0,.85) 74%,rgba(0,0,0,.35) 89%,transparent 100%);
   }
 
 /* A considered closing invitation, with the same editorial rhythm. */
