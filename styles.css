@@ -1088,18 +1088,53 @@ button:disabled{cursor:not-allowed}
 .idea-bulb svg{display:block;width:100%;height:auto;overflow:visible}
 .idea-bulb .bulb-outline{stroke:#7d8e9b}
 .idea-bulb .bulb-glass{fill:rgba(255,255,255,.035)}
-.idea-bulb .bulb-lit{opacity:0}
-.idea-bulb.visible .bulb-lit{animation:bulb-on 1.5s ease-out .55s both}
-@keyframes bulb-on{
+/* Switching on, like a real bulb warming up: the filament stutters fast and unevenly, the glass and rays
+   catch just behind it, and the glow builds smoothly after as the glass warms. The light then spills into the
+   section: a soft wash behind the bulb, and "good in mind?" brightens in step with the glow. */
+.idea-bulb .bulb-halo,.idea-bulb .bulb-lit-glass,.idea-bulb .bulb-lit-filament{opacity:0}
+.idea-bulb.visible .bulb-lit-filament{animation:bulb-filament .8s linear .45s both}
+.idea-bulb.visible .bulb-lit-glass{animation:bulb-glass .8s linear .5s both}
+.idea-bulb.visible .bulb-halo{animation:bulb-halo 1.5s cubic-bezier(.3,.6,.3,1) .55s both}
+@keyframes bulb-filament{
   0%{opacity:0}
-  10%{opacity:.95}
-  16%{opacity:.15}
-  28%{opacity:1}
-  36%{opacity:.4}
-  52%{opacity:1}
+  5%{opacity:.7}
+  8%{opacity:.05}
+  15%{opacity:.9}
+  18%{opacity:.2}
+  26%{opacity:.55}
+  29%{opacity:.1}
+  42%{opacity:1}
+  47%{opacity:.7}
+  53%{opacity:1}
+  60%{opacity:.88}
+  68%{opacity:1}
   100%{opacity:1}
 }
-@media(prefers-reduced-motion:reduce){.idea-bulb.visible .bulb-lit{animation:none;opacity:1}}
+@keyframes bulb-glass{
+  0%,6%{opacity:0}
+  14%{opacity:.5}
+  20%{opacity:.12}
+  32%{opacity:.6}
+  38%{opacity:.25}
+  52%{opacity:.95}
+  62%{opacity:.8}
+  74%{opacity:1}
+  100%{opacity:1}
+}
+@keyframes bulb-halo{
+  0%{opacity:0}
+  35%{opacity:.5}
+  100%{opacity:1}
+}
+.contact-teaser::after{content:"";position:absolute;z-index:0;right:clamp(-120px,5vw,60px);top:50%;width:min(880px,70vw);aspect-ratio:1;margin-top:calc(min(880px,70vw) * -.5);border-radius:50%;
+  background:radial-gradient(circle,rgba(255,232,173,.13) 0%,rgba(255,232,173,.05) 38%,rgba(255,232,173,0) 68%);opacity:0;pointer-events:none}
+.contact-teaser:has(.idea-bulb.visible)::after{opacity:1;transition:opacity 1.6s ease-out 1s}
+.contact-teaser .contact-inner :is(h1,h2) span{transition:color 1.2s ease-out 1s}
+.contact-teaser:has(.idea-bulb.visible) .contact-inner :is(h1,h2) span{color:#adc0ce}
+@media(prefers-reduced-motion:reduce){
+  .idea-bulb.visible .bulb-lit-filament,.idea-bulb.visible .bulb-lit-glass,.idea-bulb.visible .bulb-halo{animation:none;opacity:1}
+  .contact-teaser:has(.idea-bulb.visible)::after,.contact-teaser .contact-inner :is(h1,h2) span{transition:none}
+}
 .contact-teaser .contact-inner{position:relative;z-index:1}
 @media(max-width:900px){
   .idea-bulb{right:20px;top:auto;bottom:24px;margin-top:0;width:clamp(110px,26vw,150px);opacity:.9}
