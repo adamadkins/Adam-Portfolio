@@ -2,7 +2,7 @@
   const form = document.querySelector(".contact-form");
   if (!form) return;
   const select = document.getElementById("contact-type");
-  const choices = {essential:"Website Essentials ($750)",lifetime:"Website + Lifetime Support ($1500)",event:"Event Site ($250)",wedding:"Wedding Site ($400)"};
+  const choices = {essential:"Website Essentials ($750)",lifetime:"Website + Lifetime Support ($1500)","event-page":"Event Page ($150 + $15/mo)","event-site":"Event Site ($250 + $20/mo)"};
   const choice = new URLSearchParams(location.search).get("package");
   if (select && Object.prototype.hasOwnProperty.call(choices,choice)) select.value=choices[choice];
   const button = form.querySelector('[type="submit"]');
