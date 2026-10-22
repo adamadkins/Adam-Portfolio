@@ -5,6 +5,15 @@
   const choices = {essential:"Website Essentials ($750)",lifetime:"Website + Lifetime Support ($1500)"};
   const choice = new URLSearchParams(location.search).get("package");
   if (select && Object.prototype.hasOwnProperty.call(choices,choice)) select.value=choices[choice];
+  // Arriving from a demo's "I'd like this" button: start the message for them.
+  const params = new URLSearchParams(location.search);
+  const demo = params.get("demo");
+  const message = document.getElementById("contact-message");
+  if (demo && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(demo) && message && !message.value) {
+    const business = (params.get("business") || "").replace(/[\u0000-\u001f<>]/g," ").trim().slice(0,120);
+    message.value = "I saw the demo you made" + (business ? " for " + business : "") + " (demo.tlt-studios.com/" + demo + "/) and I'd like to talk about making it ours.";
+    if (select) select.value = "New website";
+  }
   const button = form.querySelector('[type="submit"]');
   const feedback = document.getElementById("inquiry-feedback");
   let submitting = false;
