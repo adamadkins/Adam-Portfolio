@@ -43,7 +43,7 @@ button:disabled{cursor:not-allowed}
 .nav-contact span{margin-left:4px}
 .menu-toggle{display:none}
 .hero{padding-top:120px;padding-bottom:57px;background:#fafafa}
-.hero-content{max-width:none;margin-inline:0;text-align:left}
+.hero-content{width:fit-content;max-width:100%;margin-inline:auto;text-align:left}
 
 .hero h1{font-size:clamp(53px,7.5vw,105px);line-height:1.055;font-weight:740;letter-spacing:-.082em;margin:0}
 .hero-soft{color:#9ba5ae}
@@ -518,7 +518,7 @@ button:disabled{cursor:not-allowed}
   font-size: clamp(4rem, 12vw, 11rem);
   line-height: .86;
   font-weight: 900;
-  letter-spacing: -.045em;
+  letter-spacing: -.015em;
   color: var(--ink);
   text-align: left;
   text-transform: uppercase;
@@ -530,9 +530,9 @@ button:disabled{cursor:not-allowed}
 }
 @media (max-width: 700px) {
   .hero-title-stacked .hero-main-line {
-    font-size: 17.8vw;
+    font-size: 17vw;
     line-height: .88;
-    letter-spacing: -.045em;
+    letter-spacing: -.015em;
   }
   .hero-title-stacked .hero-lead-in {
     font-size: clamp(.71rem, 2.65vw, .98rem);
