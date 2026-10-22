@@ -43,15 +43,21 @@
   // at different browser widths.
   const previewViewports = document.querySelectorAll(".site-preview-viewport");
   if (previewViewports.length) {
-    const sourceWidth = 1200;
+    // Phones show the site at its own mobile width so it is readable; larger screens show the desktop layout.
+    // The frame is rendered a little wider than shown and clipped, so no scrollbar or edge gap can appear.
+    const phone = window.matchMedia("(max-width: 700px)");
     const fitPreviews = () => {
+      const sourceWidth = phone.matches ? 390 : 1200;
       previewViewports.forEach((viewport) => {
         const available = viewport.clientWidth;
         if (available > 0) {
-          viewport.style.setProperty(
-            "--preview-scale",
-            String(Math.min(1, available / sourceWidth)),
-          );
+          const scale = Math.min(phone.matches ? 2 : 1, available / sourceWidth);
+          viewport.style.setProperty("--preview-width", sourceWidth + (phone.matches ? 16 : 20) + "px");
+          viewport.style.setProperty("--preview-scale", String(scale));
+          // On a phone the frame is exactly as tall as the window it fills, so a site whose hero fills the
+          // screen height lays out the way it does on a real phone.
+          if (phone.matches) viewport.style.setProperty("--preview-height", Math.ceil(viewport.clientHeight / scale) + "px");
+          else viewport.style.removeProperty("--preview-height");
         }
       });
     };

@@ -43,7 +43,13 @@
     dot.setAttribute("aria-hidden", "true");
     const cs = getComputedStyle(panel);
     dot.style.background = cs.getPropertyValue("--stage-swatch").trim() || cs.getPropertyValue("--stage-accent").trim() || "#8a9faf";
-    b.append(dot, document.createTextNode(label(panel)));
+    b.append(dot);
+    if (panel.dataset.short) {
+      const full = document.createElement("span"), short = document.createElement("span");
+      full.className = "work-tab-full"; full.textContent = label(panel);
+      short.className = "work-tab-short"; short.textContent = panel.dataset.short;
+      b.append(full, short);
+    } else b.append(document.createTextNode(label(panel)));
     b.addEventListener("click", () => select(i, { focus: false }));
     panel.setAttribute("role", "tabpanel");
     panel.setAttribute("aria-labelledby", b.id);
@@ -78,6 +84,20 @@
     else if (event.key === "Home") { event.preventDefault(); select(0, { focus: true }); }
     else if (event.key === "End") { event.preventDefault(); select(cases.length - 1, { focus: true }); }
   });
+
+  // On touch screens, swiping the stage sideways changes project (vertical scrolling is left alone).
+  let swipe = null;
+  list.addEventListener("touchstart", (event) => {
+    swipe = event.touches.length === 1 ? { x: event.touches[0].clientX, y: event.touches[0].clientY } : null;
+  }, { passive: true });
+  list.addEventListener("touchend", (event) => {
+    if (!swipe) return;
+    const t = event.changedTouches[0], dx = t.clientX - swipe.x, dy = t.clientY - swipe.y;
+    swipe = null;
+    if (Math.abs(dx) < 56 || Math.abs(dx) < Math.abs(dy) * 1.6) return;
+    const next = index + (dx < 0 ? 1 : -1);
+    if (next >= 0 && next < cases.length) select(next);
+  }, { passive: true });
 
   // A link like /#work-porter opens that project.
   const fromHash = cases.findIndex((panel) => "#" + panel.id === location.hash);
