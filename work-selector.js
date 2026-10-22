@@ -75,7 +75,10 @@
     if (frame && !frame.getAttribute("src")) frame.src = frame.dataset.src;
     count.textContent = String(next + 1).padStart(2, "0") + " / " + String(cases.length).padStart(2, "0");
     if (focus) buttons[next].focus();
-    buttons[next].scrollIntoView({ inline: "center", block: "nearest", behavior: reduce.matches || instant ? "auto" : "smooth" });
+    // Center the tab inside its own strip. scrollIntoView would also scroll the page to reach it, which on load
+    // pulled the whole page down to this section.
+    const tabRect = buttons[next].getBoundingClientRect(), stripRect = tabs.getBoundingClientRect();
+    tabs.scrollTo({ left: tabs.scrollLeft + (tabRect.left - stripRect.left) - (stripRect.width - tabRect.width) / 2, behavior: reduce.matches || instant ? "auto" : "smooth" });
   }
 
   tabs.addEventListener("keydown", (event) => {
