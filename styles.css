@@ -982,8 +982,9 @@ button:disabled{cursor:not-allowed}
 /* About page: the periods that end four headings are small round slots, and a single dot travels
    between them as you scroll (about-dot.js). Without the script, or with reduced motion, the slots
    simply stay visible as ordinary periods. */
-.tt-dot-slot{display:inline-block;width:.17em;height:.17em;margin-left:.045em;border-radius:50%;background:var(--accent-dark);vertical-align:baseline}
+.tt-dot-slot{display:inline-block;width:.17em;height:.17em;margin-left:.1em;border-radius:50%;background:var(--accent-dark);vertical-align:baseline}
 .tt-dot-travel .tt-dot-slot{visibility:hidden}
+.tt-dot-travel .tt-dot-slot.is-home{visibility:visible}
 .tt-dot{position:absolute;left:0;top:0;z-index:40;width:20px;height:20px;border-radius:50%;background:var(--accent-dark);pointer-events:none;will-change:transform}
 .studio-story-frame-collage.is-paused .studio-story-frame-drift{animation-play-state:paused}
 .studio-story-name .tt-dot-slot{background:#9eb2c1}
