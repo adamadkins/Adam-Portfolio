@@ -1080,3 +1080,27 @@ button:disabled{cursor:not-allowed}
 .package-disclosure,.temp-example,.support-terms{line-height:1.7}
 /* Footer: the main links and the legal links share one color and weight. */
 .footer-links a,.footer-legal a{color:var(--dk-link);font-weight:560}
+
+
+/* The idea: a lightbulb beside "Have something good in mind?". It fades in, then switches on with a quick
+   flicker and a soft glow. Decorative only, and just on the home page's teaser. */
+.idea-bulb{position:absolute;z-index:0;right:clamp(36px,11vw,210px);top:50%;width:clamp(150px,19vw,250px);margin-top:calc(clamp(150px,19vw,250px) * -.5);pointer-events:none}
+.idea-bulb svg{display:block;width:100%;height:auto;overflow:visible}
+.idea-bulb .bulb-outline{stroke:#7d8e9b}
+.idea-bulb .bulb-glass{fill:rgba(255,255,255,.035)}
+.idea-bulb .bulb-lit{opacity:0}
+.idea-bulb.visible .bulb-lit{animation:bulb-on 1.5s ease-out .55s both}
+@keyframes bulb-on{
+  0%{opacity:0}
+  10%{opacity:.95}
+  16%{opacity:.15}
+  28%{opacity:1}
+  36%{opacity:.4}
+  52%{opacity:1}
+  100%{opacity:1}
+}
+@media(prefers-reduced-motion:reduce){.idea-bulb.visible .bulb-lit{animation:none;opacity:1}}
+.contact-teaser .contact-inner{position:relative;z-index:1}
+@media(max-width:900px){
+  .idea-bulb{right:20px;top:auto;bottom:24px;margin-top:0;width:clamp(110px,26vw,150px);opacity:.9}
+}
