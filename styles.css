@@ -1015,6 +1015,14 @@ button:disabled{cursor:not-allowed}
   --dk-kicker:#9eafbc;
   --dk-label:#8697a3;
   --dk-heading-soft:#91a8ba;
+  --dk-link:#aab8c3;
+  /* Line height and weight */
+  --lh-display:1.1;         /* large headings */
+  --lh-title:1.12;          /* card, row and project titles */
+  --lh-lead:1.55;           /* large lead paragraphs */
+  --lh-body:1.75;           /* paragraphs */
+  --weight-display:730;
+  --weight-title:720;
 }
 
 /* Headings */
@@ -1057,3 +1065,18 @@ button:disabled{cursor:not-allowed}
 /* The periods that end headings (and the dot that travels between them) match the quieter heading color. */
 .tt-dot-slot,.tt-dot{background:var(--text-heading-soft)}
 .studio-story-name .tt-dot-slot{background:var(--dk-heading-soft)}
+
+/* Heading and paragraph rhythm: the same line height and weight wherever a heading or paragraph appears. */
+.section-heading h2,.about-copy h2,.philosophy-layout h2,.contact-inner :is(h1,h2),.payments-intro h1,.legal-content h1,
+.studio-about h1,.studio-about h2,.studio-story-intro h1,.studio-story-heading h2,.studio-story-name h2,
+.studio-story-next>.studio-story-heading h2{line-height:var(--lh-display);font-weight:var(--weight-display)}
+.service-row h3,.work-copy h3,.package-tile h3,.temp-sites-heading h3{line-height:var(--lh-title);font-weight:var(--weight-title)}
+.about-copy .about-lead,.studio-story-intro-copy>.studio-story-lead,.studio-story-prose>.studio-story-lead,
+.studio-story-photo-copy>p:first-child,.studio-story-next .studio-story-lead{line-height:var(--lh-lead)}
+.hero-description,.section-heading>p,.service-row p,.about-copy>p:not(.section-kicker):not(.about-lead),.philosophy-layout p,
+.work-summary,.package-summary,.studio-story-intro-copy>p:not(.eyebrow),.studio-story-prose>p,
+.studio-story-name-intro>p:not(.eyebrow),.studio-story-quote-copy>p,.studio-story-quote-intro{line-height:var(--lh-body)}
+.temp-sites-heading p:not(.section-kicker){line-height:var(--lh-body)}
+.package-disclosure,.temp-example,.support-terms{line-height:1.7}
+/* Footer: the main links and the legal links share one color and weight. */
+.footer-links a,.footer-legal a{color:var(--dk-link);font-weight:560}

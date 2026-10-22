@@ -1,6 +1,12 @@
 (() => {
   "use strict";
 
+  // Anything already on screen stays put, so only what's below the fold is hidden and fades in as you
+  // scroll to it. (Without this, the first screen showed, then vanished, then faded back in.)
+  document.querySelectorAll(".reveal").forEach((node) => {
+    const box = node.getBoundingClientRect();
+    if (box.top < window.innerHeight && box.bottom > 0) node.classList.add("visible");
+  });
   document.documentElement.classList.add("js");
 
   const header = document.getElementById("site-header");
