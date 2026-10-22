@@ -44,7 +44,6 @@ button:disabled{cursor:not-allowed}
 .menu-toggle{display:none}
 .hero{padding-top:120px;padding-bottom:57px;background:#fafafa}
 .hero-content{max-width:none;margin-inline:0;text-align:left}
-.hero-eyebrow{margin:0 0 32px;color:#677989;display:flex;align-items:center;justify-content:flex-start;gap:10px}
 
 .hero h1{font-size:clamp(53px,7.5vw,105px);line-height:1.055;font-weight:740;letter-spacing:-.082em;margin:0}
 .hero-soft{color:#9ba5ae}
@@ -218,7 +217,6 @@ button:disabled{cursor:not-allowed}
  .menu-scrim.active{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .35s ease,visibility 0s}
  .section{padding:83px 0}
  .hero{padding-top:87px;padding-bottom:38px}
- .hero-eyebrow{font-size:9px;letter-spacing:.11em;margin-bottom:26px}
  .hero h1{font-size:clamp(43px,8.4vw,67px);letter-spacing:-.078em}
  .hero-description{font-size:16px;margin-top:25px;line-height:1.65;max-width:440px}
  .hero-actions{gap:18px;flex-wrap:wrap;margin-top:29px}
