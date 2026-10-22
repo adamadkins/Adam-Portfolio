@@ -988,3 +988,72 @@ button:disabled{cursor:not-allowed}
 .tt-dot{position:absolute;left:0;top:0;z-index:40;width:20px;height:20px;border-radius:50%;background:var(--accent-dark);pointer-events:none;will-change:transform}
 .studio-story-frame-collage.is-paused .studio-story-frame-drift{animation-play-state:paused}
 .studio-story-name .tt-dot-slot{background:#9eb2c1}
+
+
+/* ------------------------------------------------------------------------------------------------
+   Type consistency. One scale for letter-spacing and one set of text colors, used by every page,
+   so a heading, label or paragraph looks the same wherever it appears. (The mock browser windows in
+   the hero showcase imitate other websites and keep their own styling.)
+   ------------------------------------------------------------------------------------------------ */
+:root{
+  /* Letter-spacing */
+  --track-display:-.05em;   /* page and section headings, 40-90px */
+  --track-title:-.04em;     /* card, row and project titles, 20-52px */
+  --track-lead:-.025em;     /* large lead paragraphs */
+  --track-label:.14em;      /* small uppercase labels */
+  --track-kicker:.16em;     /* eyebrows ("01 / SELECTED WORK") */
+  /* Text on light backgrounds */
+  --text-body:#6b7882;      /* paragraphs */
+  --text-ui:#475662;        /* nav, lists, tags */
+  --text-link:#26333f;      /* links and text buttons */
+  --text-lead:#26333f;      /* large lead paragraphs */
+  --text-kicker:#6b7a88;    /* eyebrows */
+  --text-label:#8693a0;     /* small uppercase labels */
+  --text-heading-soft:#7b93a6; /* the quieter half of a two-tone heading */
+  /* Text on dark backgrounds */
+  --dk-body:#b8c4cd;
+  --dk-kicker:#9eafbc;
+  --dk-label:#8697a3;
+  --dk-heading-soft:#91a8ba;
+}
+
+/* Headings */
+.section-heading h2,.about-copy h2,.philosophy-layout h2,.philosophy-layout h2 em,
+.contact-inner :is(h1,h2),.payments-intro h1,.legal-content h1,.studio-about h1,.studio-about h2{letter-spacing:var(--track-display)}
+.service-row h3,.work-copy h3,.package-tile h3,.temp-sites-heading h3,.payment-card h2,.form-heading,
+.dialog-inner h2,.legal-content h2,.package-price span,.inquiry-receipt h1,.about-visual-bottom strong,
+.studio-story-quote-copy blockquote>p{letter-spacing:var(--track-title)}
+.about-copy .about-lead,.studio-story-intro-copy>.studio-story-lead,.studio-story-prose>.studio-story-lead,
+.studio-story-photo-copy>p:first-child,.studio-story-next .studio-story-lead,.inquiry-feedback strong{letter-spacing:var(--track-lead)}
+/* Small uppercase labels */
+.service-tag,.about-visual-label,.hero-footnote,.footer-bottom,.work-index,.project-meta,
+.site-preview-live,.package-topline,.case-dialog .dialog-kicker,.showcase-note{letter-spacing:var(--track-label)}
+.eyebrow,.work-footer>span,.philosophy-signoff,.contact-footnote,.contact-direct .direct-label{letter-spacing:var(--track-kicker)}
+
+/* Paragraphs */
+.hero-description,.section-heading>p,.service-row p,.about-copy>p:not(.section-kicker):not(.about-lead),
+.philosophy-layout p,.work-summary,.package-summary,.package-disclosure,.temp-sites-heading p:not(.section-kicker),
+.temp-example,.support-terms,.studio-story-intro-copy>p:not(.eyebrow),.studio-story-prose>p{color:var(--text-body)}
+.about-copy .about-lead,.studio-story-intro-copy>.studio-story-lead,.studio-story-prose>.studio-story-lead,
+.studio-story-photo-copy>p:first-child,.studio-story-next .studio-story-lead{color:var(--text-lead)}
+/* Navigation, lists, links */
+.nav-link,.nav .nav-contact,.package-features li,.work-tags li{color:var(--text-ui)}
+.nav .nav-contact,.nav .nav-portal{color:var(--text-ui)}
+.nav-link.nav-contact,.nav .nav-contact:hover{color:var(--ink)}
+.button-text,.inline-link,.project-view{color:var(--text-link)}
+/* Eyebrows and labels */
+.section-kicker,.studio-story-intro-copy>.eyebrow,.studio-story-heading>.eyebrow{color:var(--text-kicker)}
+.hero-footnote,.work-footer>span,.philosophy-signoff,.service-tag,.service-index,.project-meta,.work-index,
+.package-topline,.package-price small,.plan-option small{color:var(--text-label)}
+/* The quieter half of two-tone headings, and heading periods */
+.text-secondary,.hero-soft,.studio-story-intro h1>span,.studio-story-heading h2>span,.philosophy-layout h2 em,.package-period{color:var(--text-heading-soft)}
+/* On dark sections */
+.contact-inner>p:not(.contact-kicker),.studio-story-name-intro>p:not(.eyebrow),.studio-story-quote-copy>p,.hello-steps li{color:var(--dk-body)}
+.contact-kicker,.studio-story-name .eyebrow{color:var(--dk-kicker)}
+.contact-footnote,.footer-bottom{color:var(--dk-label)}
+.contact-inner :is(h1,h2) span,.footer-brand-name span{color:var(--dk-heading-soft)}
+/* The footer wordmark uses the same tracking as the header's. */
+.footer-brand{letter-spacing:-.055em}
+/* The periods that end headings (and the dot that travels between them) match the quieter heading color. */
+.tt-dot-slot,.tt-dot{background:var(--text-heading-soft)}
+.studio-story-name .tt-dot-slot{background:var(--dk-heading-soft)}
