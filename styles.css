@@ -935,3 +935,13 @@ button:disabled{cursor:not-allowed}
 .hello-steps strong{color:#f6f7f7;font-weight:700}
 .hello-back{color:#e6ecf0;font-size:15px;font-weight:600}
 .hello-back[hidden]{display:none}
+/* Temporary websites: smaller tiles under the main packages */
+.temp-sites{margin-top:64px}
+.temp-sites-heading{display:grid;gap:10px;max-width:640px;margin:0 0 26px}
+.temp-sites-heading .section-kicker{margin:0}
+.temp-sites-heading h3{margin:0;font-size:clamp(30px,4vw,44px);font-weight:730;letter-spacing:-.06em;line-height:1.05;color:#14202e}
+.temp-sites-heading p:not(.section-kicker){margin:0;color:#65747f;font-size:16px;line-height:1.7}
+.package-tile-compact{padding:32px}
+.package-tile-compact h3{font-size:30px;margin-top:18px}
+.package-tile-compact .package-price{margin:14px 0 22px}
+.package-tile-compact .package-features{margin-bottom:28px;gap:11px}

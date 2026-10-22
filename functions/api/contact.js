@@ -1,7 +1,7 @@
 import { logoAttachment } from "./email-logo.js";
 
 const ADDRESS = "hello@tlt-studios.com";
-const TYPES = new Set(["New website", "Website Essentials ($750)", "Website + Lifetime Support ($1500)", "Website redesign", "Technical support", "Other inquiry", "Demo website"]);
+const TYPES = new Set(["New website", "Website Essentials ($750)", "Website + Lifetime Support ($1500)", "Website redesign", "Technical support", "Other inquiry", "Demo website", "Event Site ($250)", "Wedding Site ($400)"]);
 const DEMO_SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 // Gmail's iOS dark mode inverts colors but leaves background images alone. Navy panels paint
 // with a gradient so they stay navy, and the Gmail-only (u + .body) blend wrappers flip the
