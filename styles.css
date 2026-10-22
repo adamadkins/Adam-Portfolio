@@ -47,10 +47,10 @@ button:disabled{cursor:not-allowed}
 
 .hero h1{font-size:clamp(53px,7.5vw,105px);line-height:1.055;font-weight:740;letter-spacing:-.082em;margin:0}
 .hero-soft{color:#9ba5ae}
-.hero-description{font-size:clamp(16px,1.7vw,24px);line-height:1.7;color:#707983;max-width:660px;margin:36px 0 0;letter-spacing:-.019em}
-.hero-actions{display:flex;align-items:center;justify-content:flex-start;gap:30px;margin:42px 0 0}
-.hero-actions .button{font-size:clamp(15px,1.4vw,20px)}
-.hero-actions .button-primary{justify-content:space-between;gap:clamp(30px,4.2vw,60px);padding:clamp(16px,1.9vw,27px) clamp(26px,3.2vw,46px);border-radius:16px}
+.hero-description{font-size:clamp(16px,1.5vw,21px);line-height:1.7;color:#707983;max-width:620px;margin:32px 0 0;letter-spacing:-.019em}
+.hero-actions{display:flex;align-items:center;justify-content:flex-start;gap:28px;margin:36px 0 0}
+.hero-actions .button{font-size:clamp(14px,1.15vw,17px)}
+.hero-actions .button-primary{justify-content:space-between;gap:clamp(26px,3vw,44px);padding:clamp(14px,1.4vw,20px) clamp(22px,2.4vw,34px);border-radius:14px}
 .button{display:inline-flex;justify-content:center;align-items:center;gap:25px;padding:15px 21px;border:1px solid transparent;border-radius:9px;font-size:13px;font-weight:700;line-height:1.35;transition:transform .25s var(--ease),background .2s,border-color .2s,box-shadow .3s}
 .button:hover{transform:translateY(-2px)}
 .button span,.inline-link span,.project-view span{display:inline-block;transition:transform .25s var(--ease)}
@@ -494,6 +494,8 @@ button:disabled{cursor:not-allowed}
   /* The sequence on load: LITTLE shrinks and springs back, then the period bounces. */
   --little-delay: 100ms;
   --little-time: 800ms;
+  /* When LITTLE springs back through full size (500ms into its motion): the dot launches here. */
+  --little-release: 500ms;
 }
 .hero-title-stacked .hero-lead-in {
   display: block;
@@ -501,7 +503,7 @@ button:disabled{cursor:not-allowed}
   margin: 0 0 .26em;
   padding: 0 .05em 0 0;
   color: var(--ink);
-  font-size: clamp(.8rem, 1.95vw, 1.75rem);
+  font-size: clamp(.8rem, 1.6vw, 1.47rem);
   line-height: 1.25;
   font-weight: 400;
   letter-spacing: 0;
@@ -513,7 +515,7 @@ button:disabled{cursor:not-allowed}
   display: block;
   width: max-content;
   max-width: 100%;
-  font-size: clamp(4rem, 14.6vw, 13.2rem);
+  font-size: clamp(4rem, 12vw, 11rem);
   line-height: .86;
   font-weight: 900;
   letter-spacing: -.045em;
@@ -538,7 +540,7 @@ button:disabled{cursor:not-allowed}
   }
 }
 
-/* On load: LITTLE shrinks and springs back, and the moment it settles the period bounces.
+/* On load: LITTLE shrinks and springs back, and its spring is what launches the period.
    Transforms keep the headline's layout exactly where it is. */
 .hero-word-little {
   display: inline-block;
@@ -564,7 +566,7 @@ button:disabled{cursor:not-allowed}
   text-indent: -9999px;
   white-space: nowrap;
   vertical-align: baseline;
-  animation: hero-period-dribble 1300ms linear calc(var(--little-delay) + var(--little-time)) both;
+  animation: hero-period-dribble 1300ms linear calc(var(--little-delay) + var(--little-release)) both;
 }
 @keyframes hero-period-dribble {
   0%, 45.6%, 70.9%, 88.6% { transform: translateY(0); animation-timing-function: cubic-bezier(.33,.67,.67,1); }
