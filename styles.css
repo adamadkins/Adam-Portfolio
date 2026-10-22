@@ -495,8 +495,9 @@ button:disabled{cursor:not-allowed}
   /* LITTLE's spring and the dot's bounce run at the same tempo (about 1050ms each). */
   --little-delay: 100ms;
   --little-time: 1050ms;
-  /* The dot launches 45% into LITTLE's motion, just after its smallest point (36%), so the spring-back is what throws it. */
-  --little-release: 472ms;
+  /* LITTLE is back at full size 64.7% into its motion (679ms). The dot leaves about 45ms before that, because its
+     first frames move only a few pixels and would otherwise read as a beat after LITTLE lands. */
+  --little-release: 635ms;
 }
 .hero-title-stacked .hero-lead-in {
   display: block;
