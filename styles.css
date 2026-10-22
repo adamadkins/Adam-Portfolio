@@ -344,11 +344,12 @@ button:disabled{cursor:not-allowed}
   .work-case,.work-case-reverse{grid-template-columns:minmax(0,1fr);gap:0;min-height:0}
   .work-case-reverse .work-shot{order:0}
   .work-case .work-copy,.work-case:not(.work-case-reverse) .work-copy,.work-case-reverse .work-copy{padding:var(--pad)}
-  .work-shot,.work-case-reverse .work-shot{margin:0 0 0 var(--pad);height:clamp(340px,100vw,480px)}
-  .work-case-reverse .work-shot{margin:0 var(--pad) 0 0}
-  .work-case-reverse .work-shot .site-preview-browser{border-radius:0 18px 0 0}
+  /* Stacked: the site sits in a centered card, equal space either side, instead of running off the edge. */
+  .work-shot,.work-case-reverse .work-shot{margin:0 var(--pad) var(--pad);height:clamp(340px,60vw,480px)}
+  .work-shot .site-preview-browser,.work-case-reverse .work-shot .site-preview-browser{border-radius:18px}
 }
 @media(max-width:700px){
+  .work-shot,.work-case-reverse .work-shot{height:auto;aspect-ratio:9/14}
   .work-case{border-radius:18px}
   .work-case .work-copy h3{font-size:clamp(34px,10vw,46px)}
   .work-actions{margin-top:26px}
