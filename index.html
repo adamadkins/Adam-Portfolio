@@ -120,8 +120,12 @@
           <div><p class="eyebrow section-kicker">01 / SELECTED WORK</p><h2 id="work-title">A few things<br />I've <span class="text-secondary">been building.</span></h2></div>
           <p>Live websites for real businesses, not mock-ups. Take a look around each one.</p>
         </div>
+        <!-- To add a project: copy one of the <article class="work-case"> blocks below, give it a new id and
+             data-name, set its colors in the CSS (--stage-bg, --stage-ink, --stage-soft, --stage-accent and the
+             tab dot --stage-swatch), and the project selector above builds itself. Only the first project
+             uses src on its preview iframe; give the others data-src so they load when first selected. -->
         <div class="work-list">
-          <article class="work-case work-case--chasing reveal">
+          <article class="work-case work-case--chasing" id="work-chasing606" data-name="Chasing606">
             <div class="work-copy">
               <p class="project-meta">E-COMMERCE / DESIGN &amp; DEVELOPMENT</p>
               <h3>Chasing606</h3>
@@ -141,7 +145,7 @@
               <a class="work-stage-link" href="https://chasing606.adkins-adam04.workers.dev/" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"></a>
             </div>
           </article>
-          <article class="work-case work-case--porter work-case-reverse reveal">
+          <article class="work-case work-case--porter work-case-reverse" id="work-porter" data-name="Porter Property Maintenance">
             <div class="work-copy">
               <p class="project-meta">LOCAL BUSINESS / WEBSITE REDESIGN</p>
               <h3>Porter Property Maintenance</h3>
@@ -155,7 +159,7 @@
             <div class="work-shot">
               <div class="site-preview-browser" aria-hidden="true">
                 <div class="site-preview-viewport">
-                  <iframe src="https://porterpm.com/" title="Porter Property Maintenance website preview" loading="lazy" scrolling="no" tabindex="-1" referrerpolicy="no-referrer"></iframe>
+                  <iframe data-src="https://porterpm.com/" title="Porter Property Maintenance website preview" loading="lazy" scrolling="no" tabindex="-1" referrerpolicy="no-referrer"></iframe>
                 </div>
               </div>
               <a class="work-stage-link" href="https://porterpm.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"></a>
@@ -349,5 +353,6 @@
     </div>
   </dialog>
   <script src="/script.js" defer></script>
+  <script src="/work-selector.js" defer></script>
 </body>
 </html>
