@@ -1376,9 +1376,9 @@ button:disabled{cursor:not-allowed}
 
 
 /* A strip of what every site comes with, in plain words, each with a tiny animated icon. Scrolling the page speeds it up. */
-.specs{padding:16px 0;border-block:1px solid #c9d6df;background-color:#e1e9ee;background-image:radial-gradient(circle,rgba(20,32,46,.2) 1.3px,transparent 1.8px);background-size:24px 24px;background-position:calc(var(--bx,0px)*.35) 0}
-.specs-viewport{overflow:hidden;padding:8px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
-.specs-track{display:flex;width:max-content}
+.specs{position:relative;overflow:hidden;padding:16px 0;border-block:1px solid #c9d6df;background:#e1e9ee}
+.specs-viewport{position:relative;z-index:1;overflow:hidden;padding:8px 0}
+.specs-track{display:flex;width:max-content;will-change:transform}
 .specs-group{display:flex;flex:none;gap:14px;margin:0;padding:0 7px;list-style:none}
 .spec{display:flex;align-items:center;gap:14px;padding:10px 22px 10px 10px;border:1px solid #d3dee5;border-radius:18px;background:#fff;box-shadow:0 6px 18px rgba(20,32,46,.06);transition:border-color .3s,transform .4s var(--ease),box-shadow .3s}
 .spec:hover{border-color:#8da4b4;transform:translateY(-3px);box-shadow:0 12px 24px rgba(20,32,46,.12)}
@@ -1619,3 +1619,11 @@ button:disabled{cursor:not-allowed}
   .hs-panel{contain:layout paint;scroll-snap-stop:normal}
   .hs-panel,.art-code,.ad-page,.art-care li{box-shadow:none}
 }
+
+.specs-dots{position:absolute;inset:0 -24px;background-image:radial-gradient(circle,rgba(20,32,46,.2) 1.3px,transparent 1.8px);background-size:24px 24px;pointer-events:none;will-change:transform}
+.specs::before,.specs::after{content:"";position:absolute;top:0;bottom:0;width:7%;z-index:2;pointer-events:none}
+.specs::before{left:0;background:linear-gradient(90deg,#e1e9ee,rgba(225,233,238,0))}
+.specs::after{right:0;background:linear-gradient(270deg,#e1e9ee,rgba(225,233,238,0))}
+/* Only the chips on screen animate their icons. */
+.spec:not(.is-live) .v,.spec:not(.is-live) .v *{animation-play-state:paused!important}
+@media(prefers-reduced-motion:reduce){.specs-dots{transform:none!important}}
