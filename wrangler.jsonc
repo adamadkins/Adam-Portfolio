@@ -9,6 +9,8 @@
       "/api/*"
     ]
   },
+  // TEMPORARY: delivery diagnostic, remove after the hello@ rejection is solved.
+  "vars": {"DIAG_COPY_TO": "adkins.adam04@gmail.com"},
   "send_email": [
     {
       // Sent through Cloudflare's email sending service (not Email Routing, which is off now that mail lives at Google).

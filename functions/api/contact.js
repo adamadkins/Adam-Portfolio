@@ -140,6 +140,8 @@ export async function onRequestPost({request, env}) {
       return respond(request,400,"Please check your name, email, project type, and message (10–4,000 characters).");
     const result = await env.CONTACT_EMAIL.send(inquiryMessage(fields));
     if (!result?.messageId) throw Object.assign(new Error("Missing acceptance"),{code:"NO_MESSAGE_ID"});
+    // TEMPORARY diagnostic: when DIAG_COPY_TO is set, send the same notification there to compare delivery against hello@.
+    if (env.DIAG_COPY_TO) { try { const m = inquiryMessage(fields); await env.CONTACT_EMAIL.send({...m, to: env.DIAG_COPY_TO, subject: "[diag] " + m.subject}); } catch (diagError) { console.warn("diag copy failed:", diagError?.code || "UNKNOWN"); } }
     // A receipt is deliberately separate from the required inbox notification.
     // Never tell a visitor to resubmit an already accepted inquiry.
     let confirmationAccepted = false;
