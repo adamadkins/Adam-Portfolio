@@ -1359,8 +1359,8 @@ button:disabled{cursor:not-allowed}
 .price-tabs.is-ready .price-pill{opacity:1;transition:transform .5s var(--ease),width .5s var(--ease)}
 .price-tab{position:relative;z-index:1;background:none!important}
 .price-tab[aria-selected="true"]{color:#fff}
-.price-viewport.is-slider{overflow:hidden;transition:height .55s var(--ease);margin:0 -12px;padding:0 12px}
+.price-viewport.is-slider{overflow:hidden;transition:height .55s var(--ease);margin:0 -12px}
 .price-viewport.is-slider .price-track{display:flex;transition:transform .6s var(--ease)}
-.price-viewport.is-slider .price-panel{flex:0 0 100%;min-width:0;margin:0!important;align-self:flex-start}
+.price-viewport.is-slider .price-panel{flex:0 0 100%;min-width:0;margin:0!important;padding:0 12px;box-sizing:border-box;align-self:flex-start}
 .price-viewport:not(.is-slider) .price-panel[hidden]{display:block}
 @media(prefers-reduced-motion:reduce){.price-tabs.is-ready .price-pill,.price-viewport.is-slider,.price-viewport.is-slider .price-track{transition:none}}
