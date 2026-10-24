@@ -2,7 +2,7 @@
 // made for and remembers which demo the reply is about.
 // Paste the share link of a Google Calendar "appointment schedule" here (Calendar → Create → Appointment schedule →
 // Share). While it is empty the form simply asks for good times and Adam replies to arrange a Meet.
-const BOOKING_URL = "";
+const BOOKING_URL = "https://calendar.app.google/GvaQ5vw37gjjEsdH8";
 
 (() => {
   const params = new URLSearchParams(location.search);
@@ -23,15 +23,13 @@ const BOOKING_URL = "";
 
 // With a booking link, the visitor picks a slot right after sending their details.
 (() => {
-  if (!BOOKING_URL || !/^https:\/\/calendar\.google\.com\//.test(BOOKING_URL)) return;
+  if (!BOOKING_URL || !/^https:\/\/calendar\.(?:app\.)?google(?:\.com)?\//.test(BOOKING_URL)) return;
   const form = document.querySelector(".contact-form");
   const panel = document.getElementById("hello-book");
   document.getElementById("hello-times-field").hidden = true;
   document.getElementById("hello-times").disabled = true;
   document.getElementById("hello-form-intro").textContent = "Just your name and email are needed. You'll pick a time for a 15-minute Google Meet next.";
   form.addEventListener("inquiry:sent",() => {
-    const frame = document.getElementById("hello-book-frame");
-    frame.src = BOOKING_URL + (BOOKING_URL.includes("?") ? "&" : "?") + "gv=true";
     document.getElementById("hello-book-link").href = BOOKING_URL;
     form.hidden = true;
     panel.hidden = false;
