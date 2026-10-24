@@ -1344,8 +1344,6 @@ button:disabled{cursor:not-allowed}
 .price-card.is-featured .price-button{background:#fff;color:#14202e}
 .price-card.is-featured .price-button:hover{background:#dbe5eb}
 .price-fine{max-width:900px;margin:44px 0 0;color:#65747f;font-size:13px;line-height:1.85}
-.price-fine summary{cursor:pointer;display:inline-block;color:#344450;font-size:14px;font-weight:700;padding:6px 0}
-.price-fine summary:focus-visible{outline:3px solid #648eb0;outline-offset:4px}
 .price-fine p{margin:12px 0 0}
 .price-fine strong{color:#344450}
 .price-more{margin:22px 0 0;color:#65747f;font-size:14px;line-height:1.8}
@@ -1364,3 +1362,14 @@ button:disabled{cursor:not-allowed}
 .price-viewport.is-slider .price-panel{flex:0 0 100%;min-width:0;margin:0!important;padding:0 12px;box-sizing:border-box;align-self:flex-start}
 .price-viewport:not(.is-slider) .price-panel[hidden]{display:block}
 @media(prefers-reduced-motion:reduce){.price-tabs.is-ready .price-pill,.price-viewport.is-slider,.price-viewport.is-slider .price-track{transition:none}}
+
+/* Fine print: a turning chevron and a height that eases open. Without JavaScript it simply stays open. */
+.price-fine-toggle{display:inline-flex;align-items:center;gap:10px;padding:6px 0;border:0;background:none;color:#344450;font-size:14px;font-weight:700}
+.price-fine-toggle:focus-visible{outline:3px solid #648eb0;outline-offset:4px}
+.price-fine-toggle svg{transition:transform .4s var(--ease)}
+.price-fine.is-open .price-fine-toggle svg{transform:rotate(90deg)}
+.price-fine-body{display:grid;grid-template-rows:1fr}
+.price-fine-inner{overflow:hidden;min-height:0}
+.price-fine.is-js .price-fine-body{grid-template-rows:0fr;opacity:0;transition:grid-template-rows .55s var(--ease),opacity .4s ease}
+.price-fine.is-js.is-open .price-fine-body{grid-template-rows:1fr;opacity:1}
+@media(prefers-reduced-motion:reduce){.price-fine-toggle svg,.price-fine.is-js .price-fine-body{transition:none}}

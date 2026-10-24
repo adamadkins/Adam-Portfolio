@@ -43,3 +43,19 @@
   if ("ResizeObserver" in window) new ResizeObserver(fit).observe(track), panels.forEach(panel => new ResizeObserver(fit).observe(panel));
   addEventListener("resize", fit);
 })();
+
+// The fine print opens with a turning arrow and a smooth height change instead of appearing all at once.
+(() => {
+  const box = document.querySelector(".price-fine");
+  if (!box) return;
+  const toggle = box.querySelector(".price-fine-toggle");
+  const body = box.querySelector(".price-fine-body");
+  body.inert = true;
+  box.classList.add("is-js");
+  toggle.addEventListener("click", () => {
+    const open = toggle.getAttribute("aria-expanded") !== "true";
+    toggle.setAttribute("aria-expanded", String(open));
+    box.classList.toggle("is-open", open);
+    body.inert = !open;
+  });
+})();
