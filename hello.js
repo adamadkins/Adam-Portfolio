@@ -21,14 +21,12 @@ const BOOKING_URL = "https://calendar.app.google/GvaQ5vw37gjjEsdH8";
   back.hidden = false;
 })();
 
-// With a booking link, the visitor picks a slot right after sending their details.
+// With a booking link, the visitor picks a slot right after sending their details; without one, the form asks for good times.
 (() => {
-  if (!BOOKING_URL || !/^https:\/\/calendar\.(?:app\.)?google(?:\.com)?\//.test(BOOKING_URL)) return;
   const form = document.querySelector(".contact-form");
   const panel = document.getElementById("hello-book");
-  document.getElementById("hello-times-field").hidden = true;
-  document.getElementById("hello-times").disabled = true;
-  document.getElementById("hello-form-intro").textContent = "Just your name and email are needed. You'll pick a time for a 30-minute Google Meet next.";
+  if (!BOOKING_URL || !/^https:\/\/calendar\.(?:app\.)?google(?:\.com)?\//.test(BOOKING_URL)) return;
+  document.querySelector('[data-step="times"]').remove();
   form.addEventListener("inquiry:sent",() => {
     document.getElementById("hello-book-link").href = BOOKING_URL;
     form.hidden = true;

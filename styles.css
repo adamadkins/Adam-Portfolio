@@ -1274,3 +1274,14 @@ button:disabled{cursor:not-allowed}
 .contact-form .convo-input-sm{font-size:clamp(18px,2.4vw,24px);padding-bottom:12px}
 @media(max-width:700px){.path-cards{grid-template-columns:1fr}.path-card span{padding:20px}}
 .convo-q [data-greeting]{display:block}
+
+/* Demo page: the same conversation, plus an intro screen and the booking step. */
+.convo-lede{max-width:640px;margin:0 0 30px;color:#cfdbe3;font-size:18px;line-height:1.7}
+.convo .hello-steps{margin:0 0 28px}
+.book-panel{background:none;box-shadow:none;border-radius:0;padding:0;color:#fff;margin-top:30px;display:block}
+.book-panel[hidden]{display:none}
+.book-panel .convo-go{display:inline-flex;text-decoration:none}
+.book-panel .convo-direct{margin-top:22px}
+.contact-form.convo[hidden]{display:none}
+.convo .hello-back{color:#e6ecf0;font-weight:600;font-size:15px}
+.convo-go{gap:0}

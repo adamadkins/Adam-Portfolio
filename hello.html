@@ -41,71 +41,74 @@
   <div class="menu-scrim" id="menu-scrim" aria-hidden="true"></div>
 
 <main id="main" class="contact-page-main hello-page">
-<section class="contact-section" id="contact" aria-labelledby="contact-title">
-      <div class="container contact-inner reveal">
-        <div class="contact-copy">
-          <p class="eyebrow contact-kicker" id="hello-kicker">MADE JUST FOR YOU</p>
-          <h1 id="contact-title">Like what<br />you see?<br /><span>Let’s work together.</span></h1>
-          <p id="hello-intro">That demo was made just for you. If you’d like it to be yours, leave your details and I’ll set up a 30-minute Google Meet at a time that works for you.</p>
-          <ol class="hello-steps">
-            <li><strong>A quick Google Meet.</strong> About 30 minutes, whenever suits you. We’ll go over what you like and what you’d change.</li>
-            <li><strong>A proposal.</strong> The price in writing, with the discount for my first local clients. No payment until you say yes.</li>
-            <li><strong>Your website, live.</strong> On your own domain, in an account that belongs to you.</li>
-          </ol>
-          <a class="inline-link hello-back" id="hello-back" href="https://demo.tlt-studios.com/" hidden>← Back to your demo</a>
-        </div>
-        <form class="contact-form" action="/api/contact" method="POST">
-          <p class="form-heading">Let’s talk<span>.</span></p>
-          <p class="form-intro" id="hello-form-intro">Just your name and email are needed. Everything else is optional.</p>
-          <input class="form-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
-          <input type="hidden" name="project_type" value="Demo website" />
-          <input type="hidden" name="demo" id="hello-demo" value="" />
-          <input type="hidden" name="business" id="hello-business" value="" />
-          <div class="form-row">
-            <div class="form-field">
-              <label for="contact-name">Your name <span aria-hidden="true">*</span></label>
-              <input id="contact-name" name="name" type="text" placeholder="Your name" autocomplete="name" required maxlength="120" />
-            </div>
-            <div class="form-field">
-              <label for="contact-email">Email address <span aria-hidden="true">*</span></label>
-              <input id="contact-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required maxlength="254" />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-field">
-              <label for="hello-phone">Phone</label>
-              <input id="hello-phone" name="phone" type="tel" inputmode="tel" placeholder="(606) 555-0123" autocomplete="tel" maxlength="40" pattern="[0-9+\(\)\.\-\s]*" />
-            </div>
-            <div class="form-field" id="hello-site-field">
-              <label for="hello-site">Your website, if you have one</label>
-              <input id="hello-site" name="site" type="text" inputmode="url" placeholder="yourbusiness.com" autocomplete="url" maxlength="200" />
-            </div>
-          </div>
-          <div class="form-field" id="hello-times-field">
-            <label for="hello-times">Good times for a Google Meet</label>
-            <input id="hello-times" name="meet_time" type="text" placeholder="Weekday mornings, after 2pm…" maxlength="300" />
-          </div>
-          <div class="form-field">
-            <label for="contact-message">Anything you’d change or add?</label>
-            <textarea id="contact-message" name="message" placeholder="A different photo, your latest specials, online ordering…" rows="4" maxlength="3000"></textarea>
-          </div>
-          <button type="submit" class="button button-form">Let’s work together <span aria-hidden="true">↗</span></button>
-          <div class="inquiry-feedback" id="inquiry-feedback" role="status" aria-live="polite" tabindex="-1" hidden></div>
-          <p class="form-note">No payment and no commitment. This goes straight to me.</p>
-        </form>
-        <section class="book-panel" id="hello-book" aria-labelledby="hello-book-title" hidden>
-          <p class="form-heading" id="hello-book-title">Pick a time<span>.</span></p>
-          <p class="form-intro">Thanks! I have your details. Choose a 30-minute slot and a Google Meet link lands in your inbox and calendar.</p>
-          <a class="button button-form" id="hello-book-link" target="_blank" rel="noopener" href="#">Choose a time <span aria-hidden="true">↗</span></a>
-          <p class="form-note">Opens my Google Calendar in a new tab. No account needed.</p>
-        </section>
+<section class="contact-section" id="contact" aria-labelledby="hello-kicker">
+  <div class="container convo-wrap">
+    <p class="eyebrow contact-kicker" id="hello-kicker">MADE JUST FOR YOU</p>
+    <form class="contact-form convo" action="/api/contact" method="POST">
+      <input class="form-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <input type="hidden" name="project_type" value="Demo website" />
+      <input type="hidden" name="demo" id="hello-demo" value="" />
+      <input type="hidden" name="business" id="hello-business" value="" />
+      <ol class="convo-progress" aria-hidden="true"></ol>
+      <fieldset class="convo-step" data-step="intro" data-next="Let’s talk">
+        <legend class="convo-q">Like what you see<em>?</em><br><em>Let’s work together.</em></legend>
+        <p class="convo-lede" id="hello-intro">That demo was made just for you. If you’d like it to be yours, leave your details and I’ll set up a 30-minute Google Meet at a time that works for you.</p>
+        <ol class="hello-steps">
+          <li><strong>A quick Google Meet.</strong> About 30 minutes, whenever suits you. We’ll go over what you like and what you’d change.</li>
+          <li><strong>A proposal.</strong> The price in writing, with the discount for my first local clients. No payment until you say yes.</li>
+          <li><strong>Your website, live.</strong> On your own domain, in an account that belongs to you.</li>
+        </ol>
+        <a class="inline-link hello-back" id="hello-back" href="https://demo.tlt-studios.com/" hidden>← Back to your demo</a>
+      </fieldset>
+      <fieldset class="convo-step" data-step="name">
+        <legend class="convo-q">What should I call you<em>?</em></legend>
+        <input class="convo-input" id="contact-name" name="name" type="text" placeholder="Your name" autocomplete="name" required maxlength="120" aria-label="Your name" />
+      </fieldset>
+      <fieldset class="convo-step" data-step="email">
+        <legend class="convo-q">And your email<em>?</em></legend>
+        <input class="convo-input" id="contact-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required maxlength="254" aria-label="Your email address" />
+        <p class="convo-hint">So I can send you the Meet details.</p>
+      </fieldset>
+      <fieldset class="convo-step" data-step="phone">
+        <legend class="convo-q">Best number to reach you<em>?</em></legend>
+        <input class="convo-input" id="hello-phone" name="phone" type="tel" inputmode="tel" placeholder="(606) 555-0123" autocomplete="tel" maxlength="40" pattern="[0-9+\(\)\.\-\s]*" aria-label="Your phone number" />
+        <p class="convo-hint">Optional. Only for scheduling.</p>
+      </fieldset>
+      <fieldset class="convo-step" data-step="site">
+        <legend class="convo-q">Do you have a website already<em>?</em></legend>
+        <input class="convo-input" id="hello-site" name="site" type="text" inputmode="url" placeholder="yourbusiness.com" autocomplete="url" maxlength="200" aria-label="Your website address" />
+        <p class="convo-hint">Optional. Skip it if you don’t.</p>
+      </fieldset>
+      <fieldset class="convo-step" data-step="times">
+        <legend class="convo-q">When are you free for a Google Meet<em>?</em></legend>
+        <input class="convo-input" id="hello-times" name="meet_time" type="text" placeholder="Weekday mornings, after 2pm…" maxlength="300" aria-label="Good times for a Google Meet" />
+      </fieldset>
+      <fieldset class="convo-step" data-step="notes">
+        <legend class="convo-q">Anything you’d change or add<em>?</em></legend>
+        <textarea class="convo-input" id="contact-message" name="message" placeholder="A different photo, your latest specials, online ordering…" rows="3" maxlength="3000" aria-label="Anything you’d change or add"></textarea>
+        <p class="convo-hint">Optional. No payment and no commitment.</p>
+      </fieldset>
+      <div class="convo-nav">
+        <button class="convo-back" type="button" hidden>← Back</button>
+        <button class="convo-next" type="button">Continue <span aria-hidden="true">↵</span></button>
+        <button class="convo-go" type="submit">Send it<span aria-hidden="true">.</span></button>
       </div>
+      <div class="inquiry-feedback" id="inquiry-feedback" role="status" aria-live="polite" tabindex="-1" hidden></div>
+    </form>
+    <section class="book-panel" id="hello-book" aria-labelledby="hello-book-title" hidden>
+      <p class="convo-q" id="hello-book-title">Pick a time<em>.</em></p>
+      <p class="convo-lede">Thanks! I have your details. Choose a 30-minute slot and a Google Meet link lands in your inbox and calendar.</p>
+      <a class="convo-go" id="hello-book-link" target="_blank" rel="noopener" href="#">Choose a time <span aria-hidden="true">↗</span></a>
+      <p class="convo-direct">Opens my Google Calendar in a new tab. No account needed.</p>
     </section>
+  </div>
+</section>
 </main>
   <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year">2026</span> THE LITTLE THINGS STUDIOS. THE DIFFERENCE IS IN THE DETAILS.</span><nav class="footer-legal" aria-label="Legal information"><a href="/client-portal">Client Portal</a><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a></nav><a href="/">RETURN HOME ↑</a></div></footer>
 
 <script src="/script.js" defer></script>
 <script src="/hello.js" defer></script>
 <script src="/inquiry.js" defer></script>
+<script src="/contact-flow.js" defer></script>
 </body>
 </html>
