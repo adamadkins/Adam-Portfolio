@@ -12,15 +12,23 @@
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const checked = name => form.querySelector('input[name="' + name + '"]:checked')?.value || "";
   const preset = Boolean(checked("plan")); // a package link already chose "I need a website" and the plan
+  // A service link (?path=new|have) has already answered "what brings you here".
+  const presetPath = (() => {
+    const wanted = new URLSearchParams(location.search).get("path");
+    const radio = ["new", "have", "other"].includes(wanted) && form.querySelector('input[name="path"][value="' + wanted + '"]');
+    if (radio && !preset) radio.checked = true;
+    return radio && !preset ? wanted : "";
+  })();
   const order = Object.keys(steps);
   const branching = Boolean(steps.path); // pages without a "what brings you here" question just ask everything in order
 
   const path = () => (preset ? "new" : checked("path"));
+  const skipPath = preset || Boolean(presetPath);
   const flow = () => {
     if (!branching) return order;
     const kind = path() || "new";
     const middle = kind === "have" ? ["site", "changes", "tools"] : kind === "other" ? [] : preset ? ["vibe"] : ["plan", "vibe"];
-    return ["name", ...(preset ? [] : ["path"]), ...middle, "notes", "email"];
+    return ["name", ...(skipPath ? [] : ["path"]), ...middle, "notes", "email"];
   };
   let current = order[0];
 
