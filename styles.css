@@ -1301,3 +1301,54 @@ button:disabled{cursor:not-allowed}
 .service-card:hover .service-go span{transform:translate(3px,-3px)}
 @media(max-width:800px){.services-grid{grid-template-columns:1fr}.service-card{padding:28px}}
 @media(prefers-reduced-motion:reduce){.service-card,.service-go span{transition:none}.service-card:hover{transform:none}}
+
+
+/* Services without links; one calm call to action. */
+.service-card{cursor:default}
+.service-card:hover{border-color:#e1e6e9;transform:none;box-shadow:none}
+.services-cta{margin:34px 0 0;color:#65727b;font-size:15px}
+.services-cta .inline-link{margin-left:6px;color:var(--ink);font-weight:700}
+
+/* Pricing: a website or an event, two cards each, the fine print folded away. */
+.price-tabs{display:inline-flex;gap:4px;padding:5px;margin:0 0 34px;border:1px solid #dfe5e8;border-radius:999px;background:#fff}
+.price-tabs[hidden]{display:none}
+.price-tab{border:0;background:none;padding:11px 24px;border-radius:999px;color:#5f6d77;font-size:15px;font-weight:650;transition:background-color .25s,color .25s}
+.price-tab:hover{color:var(--ink)}
+.price-tab[aria-selected="true"]{background:#14202e;color:#fff}
+.price-panel[hidden]{display:none}
+.price-panel+.price-panel{margin-top:56px}
+.price-intro{max-width:640px;margin:0 0 28px;color:#65747f;font-size:17px;line-height:1.7}
+.price-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:stretch}
+.price-card{display:flex;flex-direction:column;min-width:0;padding:clamp(28px,3.4vw,44px);border:1px solid #e0e6e9;border-radius:24px;background:#fff}
+.price-card.is-featured{background:#14202e;border-color:#14202e;color:#fff}
+.price-label{margin:0;color:#758796;font-size:10px;font-weight:760;letter-spacing:.14em}
+.price-card.is-featured .price-label{color:#9fb2bf}
+.price-card h3{margin:20px 0 10px;font-size:clamp(30px,3.4vw,42px);line-height:1.1;letter-spacing:-.06em;font-weight:730}
+.price-card.is-featured .package-period{color:#8ea5b3}
+.price-summary{margin:0 0 26px;color:#65747f;font-size:15px;line-height:1.7;max-width:380px}
+.price-card.is-featured .price-summary{color:#b9c8d2}
+.price-amount{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px;margin:0 0 26px;padding-bottom:26px;border-bottom:1px solid #e5e9ec}
+.price-card.is-featured .price-amount{border-color:rgba(255,255,255,.16)}
+.price-amount span{font-size:clamp(44px,5vw,64px);font-weight:730;letter-spacing:-.075em;line-height:1}
+.price-amount small{color:#778590;font-size:13px}
+.price-card.is-featured .price-amount small{color:#9fb2bf}
+.price-features{list-style:none;margin:0 0 30px;padding:0;display:grid;gap:13px;flex:1}
+.price-features li{position:relative;padding-left:26px;color:#46535c;font-size:14.5px;line-height:1.5}
+.price-features li::before{content:"✓";position:absolute;left:0;color:#718e9e;font-weight:800}
+.price-card.is-featured .price-features li{color:#dbe5eb}
+.price-card.is-featured .price-features li::before{color:#8ea5b3}
+.price-example{margin:-10px 0 24px;color:#65747f;font-size:13px;line-height:1.6}
+.price-card.is-featured .price-example{color:#9fb2bf}
+.price-button{display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 22px;border-radius:12px;background:#14202e;color:#fff;font-size:15px;font-weight:700;transition:background-color .2s,transform .3s var(--ease)}
+.price-button:hover{background:#2b3c4b;transform:translateY(-1px)}
+.price-card.is-featured .price-button{background:#fff;color:#14202e}
+.price-card.is-featured .price-button:hover{background:#dbe5eb}
+.price-fine{max-width:900px;margin:44px 0 0;color:#65747f;font-size:13px;line-height:1.85}
+.price-fine summary{cursor:pointer;display:inline-block;color:#344450;font-size:14px;font-weight:700;padding:6px 0}
+.price-fine summary:focus-visible{outline:3px solid #648eb0;outline-offset:4px}
+.price-fine p{margin:12px 0 0}
+.price-fine strong{color:#344450}
+.price-more{margin:22px 0 0;color:#65747f;font-size:14px;line-height:1.8}
+.price-more a{color:#324f63;text-decoration:underline;text-underline-offset:3px;margin-right:8px}
+@media(max-width:800px){.price-grid{grid-template-columns:1fr}.price-intro{font-size:16px}}
+@media(prefers-reduced-motion:reduce){.price-button,.price-tab{transition:none}.price-button:hover{transform:none}}
