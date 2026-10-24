@@ -13,7 +13,7 @@ const BOOKING_URL = "https://calendar.app.google/GvaQ5vw37gjjEsdH8";
   document.getElementById("hello-business").value = business;
   if (business) {
     document.getElementById("hello-kicker").textContent = "MADE FOR " + business.toUpperCase();
-    document.getElementById("hello-intro").textContent = "That demo was made just for " + business + ". If you’d like it to be yours, leave your details and I’ll set up a quick 15-minute Google Meet at a time that works for you.";
+    document.getElementById("hello-intro").textContent = "That demo was made just for " + business + ". If you’d like it to be yours, leave your details and I’ll set up a 30-minute Google Meet at a time that works for you.";
     document.title = "Let's work together, " + business + " | The Little Things Studios";
   }
   const back = document.getElementById("hello-back");
@@ -28,7 +28,7 @@ const BOOKING_URL = "https://calendar.app.google/GvaQ5vw37gjjEsdH8";
   const panel = document.getElementById("hello-book");
   document.getElementById("hello-times-field").hidden = true;
   document.getElementById("hello-times").disabled = true;
-  document.getElementById("hello-form-intro").textContent = "Just your name and email are needed. You'll pick a time for a 15-minute Google Meet next.";
+  document.getElementById("hello-form-intro").textContent = "Just your name and email are needed. You'll pick a time for a 30-minute Google Meet next.";
   form.addEventListener("inquiry:sent",() => {
     document.getElementById("hello-book-link").href = BOOKING_URL;
     form.hidden = true;

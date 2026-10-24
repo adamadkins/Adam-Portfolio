@@ -124,13 +124,13 @@ export async function onRequestPost({request, env}) {
     // its own fields, and the email says which demo it came from.
     if (fields.project_type === "Demo website") {
       const demo = (data.get("demo")||"").trim(), business = (data.get("business")||"").trim();
-      const phone = (data.get("phone")||"").trim(), times = (data.get("meet_time")||"").trim();
+      const phone = (data.get("phone")||"").trim(), times = (data.get("meet_time")||"").trim(), site = (data.get("site")||"").trim();
       if (!DEMO_SLUG.test(demo) || demo.length > 60 || business.length > 120 || /[\x00-\x1f<>]/.test(business)
-        || phone.length > 40 || !/^[0-9+().\-\s]*$/.test(phone) || times.length > 300 || /[\x00-\x1f]/.test(times) || fields.message.length > 3000)
+        || phone.length > 40 || !/^[0-9+().\-\s]*$/.test(phone) || times.length > 300 || /[\x00-\x1f]/.test(times) || site.length > 200 || /[\x00-\x1f<>\s]/.test(site) || fields.message.length > 3000)
         return respond(request,400,"Please check your name, email and phone number.");
       fields.subject = "Demo reply: " + (business || demo);
       fields.message = ["Interested in the demo" + (business ? " made for " + business : "") + ": https://demo.tlt-studios.com/" + demo + "/",
-        "", "Phone: " + (phone || "not given"), "Good times for a Google Meet: " + (times || "not given"),
+        "", "Phone: " + (phone || "not given"), "Website: " + (site || "not given"), "Good times for a Google Meet: " + (times || "not given"),
         ...(fields.message ? ["", "Anything to change or add:", fields.message] : [])].join("\n");
     }
     if (!fields.name || fields.name.length>120 || /[\r\n\x00-\x1f]/.test(fields.name)

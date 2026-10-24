@@ -137,7 +137,7 @@ test("a reply from a demo's page names the demo and builds the message from its 
 });
 test("demo replies reject bad demo addresses, phone numbers and header injection",async()=>{
  const base={name:"Chloe",email:"chloe@example.com",project_type:"Demo website",demo:"farmers-daughter"};
- for(const update of [{demo:""},{demo:"../admin"},{demo:"Farmers"},{phone:"call me <script>"},{business:"A\r\nBcc: x@example.com"},{meet_time:"x\r\ny"},{message:"x".repeat(3001)}]){
+ for(const update of [{demo:""},{demo:"../admin"},{demo:"Farmers"},{phone:"call me <script>"},{business:"A\r\nBcc: x@example.com"},{meet_time:"x\r\ny"},{site:"a b"},{site:"x<y"},{message:"x".repeat(3001)}]){
   const {env,sent}=setup();assert.equal((await onRequestPost({request:request({...base,...update}),env})).status,400,JSON.stringify(update));assert.equal(sent.length,0);
  }
 });
