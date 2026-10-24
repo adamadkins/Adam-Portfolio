@@ -56,7 +56,7 @@
         </div>
         <form class="contact-form" action="/api/contact" method="POST">
           <p class="form-heading">Let’s talk<span>.</span></p>
-          <p class="form-intro">Just your name and email are needed. Everything else is optional.</p>
+          <p class="form-intro" id="hello-form-intro">Just your name and email are needed. Everything else is optional.</p>
           <input class="form-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <input type="hidden" name="project_type" value="Demo website" />
           <input type="hidden" name="demo" id="hello-demo" value="" />
@@ -74,9 +74,9 @@
           <div class="form-row">
             <div class="form-field">
               <label for="hello-phone">Phone</label>
-              <input id="hello-phone" name="phone" type="tel" placeholder="(606) 555-0123" autocomplete="tel" maxlength="40" pattern="[0-9+\(\)\.\-\s]*" />
+              <input id="hello-phone" name="phone" type="tel" inputmode="tel" placeholder="(606) 555-0123" autocomplete="tel" maxlength="40" pattern="[0-9+\(\)\.\-\s]*" />
             </div>
-            <div class="form-field">
+            <div class="form-field" id="hello-times-field">
               <label for="hello-times">Good times for a Google Meet</label>
               <input id="hello-times" name="meet_time" type="text" placeholder="Weekday mornings, after 2pm…" maxlength="300" />
             </div>
@@ -87,8 +87,14 @@
           </div>
           <button type="submit" class="button button-form">Let’s work together <span aria-hidden="true">↗</span></button>
           <div class="inquiry-feedback" id="inquiry-feedback" role="status" aria-live="polite" tabindex="-1" hidden></div>
-          <p class="form-note">No payment and no commitment. This goes straight to me at hello@tlt-studios.com.</p>
+          <p class="form-note">No payment and no commitment. This goes straight to me.</p>
         </form>
+        <section class="book-panel" id="hello-book" aria-labelledby="hello-book-title" hidden>
+          <p class="form-heading" id="hello-book-title">Pick a time<span>.</span></p>
+          <p class="form-intro">Thanks! I have your details. Choose a 15-minute slot and a Google Meet link lands in your inbox and calendar.</p>
+          <iframe id="hello-book-frame" title="Book a 15-minute Google Meet" loading="lazy"></iframe>
+          <a class="inline-link" id="hello-book-link" target="_blank" rel="noopener" href="#">Open the calendar in a new tab ↗</a>
+        </section>
       </div>
     </section>
 </main>

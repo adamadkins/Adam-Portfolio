@@ -1,5 +1,9 @@
 // The "Let's work together" page that demos link to: names the business it was
 // made for and remembers which demo the reply is about.
+// Paste the share link of a Google Calendar "appointment schedule" here (Calendar → Create → Appointment schedule →
+// Share). While it is empty the form simply asks for good times and Adam replies to arrange a Meet.
+const BOOKING_URL = "";
+
 (() => {
   const params = new URLSearchParams(location.search);
   const demo = params.get("demo") || "";
@@ -15,4 +19,22 @@
   const back = document.getElementById("hello-back");
   back.href = "https://demo.tlt-studios.com/" + demo + "/";
   back.hidden = false;
+})();
+
+// With a booking link, the visitor picks a slot right after sending their details.
+(() => {
+  if (!BOOKING_URL || !/^https:\/\/calendar\.google\.com\//.test(BOOKING_URL)) return;
+  const form = document.querySelector(".contact-form");
+  const panel = document.getElementById("hello-book");
+  document.getElementById("hello-times-field").hidden = true;
+  document.getElementById("hello-times").disabled = true;
+  document.getElementById("hello-form-intro").textContent = "Just your name and email are needed. You'll pick a time for a 15-minute Google Meet next.";
+  form.addEventListener("inquiry:sent",() => {
+    const frame = document.getElementById("hello-book-frame");
+    frame.src = BOOKING_URL + (BOOKING_URL.includes("?") ? "&" : "?") + "gv=true";
+    document.getElementById("hello-book-link").href = BOOKING_URL;
+    form.hidden = true;
+    panel.hidden = false;
+    panel.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth",block:"start"});
+  });
 })();
