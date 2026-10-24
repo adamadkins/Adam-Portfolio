@@ -135,9 +135,15 @@ test("a reply from a demo's page names the demo and builds the message from its 
  assert.equal((await onRequestPost({request:request({name:"Chloe",email:"chloe@example.com",project_type:"Demo website",demo:"farmers-daughter"}),env:quick.env})).status,200);
  assert.match(quick.sent[0].text,/Phone: not given/);
 });
+test("a demo reply opened without a demo link is still accepted",async()=>{
+ const {env,sent}=setup();
+ const response=await onRequestPost({request:request({name:"Chloe",email:"chloe@example.com",project_type:"Demo website",demo:"",phone:"(304) 555-0100",site:"chloe.com"}),env});
+ assert.equal(response.status,200);assert.equal(sent.length,1);
+ assert.equal(sent[0].subject,"Demo reply: Chloe");assert.match(sent[0].text,/opened without a demo link/);assert.match(sent[0].text,/Website: chloe\.com/);
+});
 test("demo replies reject bad demo addresses, phone numbers and header injection",async()=>{
  const base={name:"Chloe",email:"chloe@example.com",project_type:"Demo website",demo:"farmers-daughter"};
- for(const update of [{demo:""},{demo:"../admin"},{demo:"Farmers"},{phone:"call me <script>"},{business:"A\r\nBcc: x@example.com"},{meet_time:"x\r\ny"},{site:"a b"},{site:"x<y"},{message:"x".repeat(3001)}]){
+ for(const update of [{demo:"../admin"},{demo:"Farmers"},{phone:"call me <script>"},{business:"A\r\nBcc: x@example.com"},{meet_time:"x\r\ny"},{site:"a b"},{site:"x<y"},{message:"x".repeat(3001)}]){
   const {env,sent}=setup();assert.equal((await onRequestPost({request:request({...base,...update}),env})).status,400,JSON.stringify(update));assert.equal(sent.length,0);
  }
 });
