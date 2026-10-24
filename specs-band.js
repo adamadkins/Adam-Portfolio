@@ -29,6 +29,7 @@
       const width = group.offsetWidth;
       if (width) x = ((x % width) - width) % width;   // wraps seamlessly: the second group is an exact copy
       track.style.transform = "translate3d(" + x + "px,0,0)";
+      band.style.setProperty("--bx", x + "px");   // the dotted backdrop drifts along at a third of the speed
     }
     requestAnimationFrame(frame);
   };
