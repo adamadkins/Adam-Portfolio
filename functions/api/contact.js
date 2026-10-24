@@ -1,6 +1,9 @@
 import { logoAttachment } from "./email-logo.js";
 
 const ADDRESS = "hello@tlt-studios.com";
+// The inquiry notification comes from its own address, not from hello@ to hello@: mail a mailbox sends to itself through an outside
+// server is easily mistaken for spoofing. Replying goes to the visitor (replyTo).
+const FORM_SENDER = "forms@tlt-studios.com";
 const TYPES = new Set(["New website", "Website Essentials ($750)", "Website + Lifetime Support ($1500)", "Website redesign", "Technical support", "Other inquiry", "Demo website", "Event Page ($150 + $15/mo)", "Event Site ($250 + $20/mo)"]);
 const DEMO_SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 // Gmail's iOS dark mode inverts colors but leaves background images alone. Navy panels paint
@@ -14,7 +17,7 @@ const escape = value => String(value).replace(/[&<>"']/g, c => ({"&":"&amp;","<"
 export function inquiryMessage({name, email, project_type, message, subject}) {
   return {
     to: ADDRESS,
-    from: {email: ADDRESS, name: "The Little Things Studios"},
+    from: {email: FORM_SENDER, name: "TLT Studios website"},
     replyTo: {email, name},
     subject: subject || "New project inquiry: " + project_type,
     text: ["A little idea just landed.", "", "Name: " + name, "Email: " + email, "Project: " + project_type, "", message, "", "Reply to this email to contact " + name + ".", "The Little Things Studios | tlt-studios.com"].join("\n"),

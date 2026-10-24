@@ -18,7 +18,7 @@ test("sends a branded multipart inquiry to the fixed inbox, using safe Reply-To"
  const r=await onRequestPost({request:request({...fields,to:"attacker@example.com",from:"attacker@example.com"}),env});
  assert.equal(r.status,200);assert.equal((await r.json()).accepted,true);
  assert.equal(sent.length,1);assert.equal(sent[0].to,"hello@tlt-studios.com");
- assert.equal(sent[0].from.email,"hello@tlt-studios.com");assert.equal(sent[0].replyTo.email,fields.email);
+ assert.equal(sent[0].from.email,"forms@tlt-studios.com","the notification comes from its own address, not hello@ to hello@");assert.equal(sent[0].replyTo.email,fields.email);
  assert.match(sent[0].html,/Adam &lt;test&gt;/);assert.ok(!sent[0].html.includes("Adam <test>"));
  assert.match(sent[0].text,/Hello, I would like/);
 });

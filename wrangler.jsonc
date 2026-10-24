@@ -11,8 +11,9 @@
   },
   "send_email": [
     {
+      // Sent through Cloudflare's email sending service (not Email Routing, which is off now that mail lives at Google).
       "name": "CONTACT_EMAIL",
-      "destination_address": "hello@tlt-studios.com"
+      "allowed_sender_addresses": ["forms@tlt-studios.com"]
     },
     {
       "name": "CONTACT_CONFIRMATION_EMAIL",
