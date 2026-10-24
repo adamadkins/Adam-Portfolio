@@ -57,7 +57,7 @@
     Object.entries(steps).forEach(([key, step]) => step.classList.toggle("is-active", key === id));
     if (id === "path") {
       const first = form.querySelector('[name="name"]').value.trim().split(/\s+/)[0];
-      form.querySelector("[data-greeting]").textContent = first ? "Nice to meet you, " + first : "Nice to meet you";
+      form.querySelector("[data-greeting]").textContent = first ? "Nice to meet you, " + first + "." : "Nice to meet you.";
     }
     sync();
     if (focus) steps[id].querySelector("input:not([type=radio]):not([type=checkbox]):not(:disabled),textarea")?.focus({ preventScroll: true });
