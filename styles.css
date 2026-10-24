@@ -1432,3 +1432,25 @@ button:disabled{cursor:not-allowed}
 .philosophy-layout p .w{color:#a9b5bd;transition:color .35s}
 .philosophy-layout p .w.lit{color:var(--ink)}
 @media(prefers-reduced-motion:reduce){.about-visual::after,.about-visual:hover .about-monogram span{animation:none}.about-monogram,.about-monogram span,.philosophy-layout h2 em.whisper{transition:none}}
+
+
+/* Mobile cleanup */
+@media(max-width:700px){
+  .hero-actions .button-text{padding-left:2px}
+  .about-copy h2{font-size:clamp(30px,8.4vw,44px);text-wrap:balance}
+  .about-visual-top{font-size:8px;letter-spacing:.1em}
+  .about-visual-top span:last-child{display:none}
+  .about-visual{padding:22px 22px}
+  .philosophy-section{padding:84px 0 92px}
+  .philosophy-layout h2{text-wrap:balance}
+  .philosophy-layout h2 em.whisper{font-size:.52em;margin-left:.1em}
+  .philosophy-layout h2 em.whisper.is-loud{transform:scale(1.9)}
+  .whisper-hint{font-size:11px;margin-top:1.4em;letter-spacing:.08em}
+  .philosophy-signoff{align-items:center}
+  .section-heading h2{text-wrap:balance}
+  .specs{padding:12px 0}
+  .spec{padding:8px 18px 8px 8px;gap:12px}
+  .spec-art{width:46px;height:46px}
+  .spec-text strong{font-size:15px}
+  .spec-text small{font-size:12px}
+}
