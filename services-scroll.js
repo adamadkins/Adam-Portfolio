@@ -11,7 +11,7 @@
   const hint = hs.querySelector(".hs-hint");
   const desktop = matchMedia("(min-width: 901px) and (prefers-reduced-motion: no-preference)");
   const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
-  let travel = 0, pinned = false;
+  let travel = 0, pinned = false, watcher = null;
 
   const mark = () => {
     const vw = innerWidth;
@@ -25,7 +25,16 @@
     pinned = desktop.matches;
     hs.classList.toggle("is-pinned", pinned);
     track.style.transform = "";
-    if (!pinned) { hs.style.height = ""; panels.forEach(p => p.classList.add("is-in")); return; }
+    if (!pinned) {
+      hs.style.height = "";
+      // Swipe mode: only the panels actually on screen animate, which keeps scrolling light on phones.
+      if (!watcher && "IntersectionObserver" in window) {
+        watcher = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle("is-in", entry.isIntersecting)), { root: track, threshold: 0.5 });
+        panels.forEach(panel => watcher.observe(panel));
+      } else if (!watcher) panels.forEach(p => p.classList.add("is-in"));
+      return;
+    }
+    if (watcher) { watcher.disconnect(); watcher = null; }
     travel = Math.max(0, track.scrollWidth - innerWidth + parseFloat(getComputedStyle(track).paddingLeft));
     hs.style.height = stage.offsetHeight + travel + "px";
     update();
