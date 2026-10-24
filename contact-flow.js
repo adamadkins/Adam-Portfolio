@@ -1,49 +1,72 @@
-// The contact page asks one question at a time. Without JavaScript every question simply shows at once.
+// The contact page asks one question at a time, and the questions depend on the answers:
+// no website yet, an existing website, or something else. Without JavaScript every question shows at once.
 (() => {
   const form = document.querySelector(".convo");
   if (!form) return;
-  const steps = [...form.querySelectorAll(".convo-step")];
-  const dots = [...form.querySelectorAll(".convo-progress li")];
+  const steps = Object.fromEntries([...form.querySelectorAll(".convo-step")].map(step => [step.dataset.step, step]));
+  const progress = form.querySelector(".convo-progress");
   const back = form.querySelector(".convo-back");
   const next = form.querySelector(".convo-next");
-  const name = form.querySelector('[name="name"]');
-  const greeting = form.querySelector("[data-greeting]");
+  const projectType = form.querySelector('input[name="project_type"]');
+  const notes = form.querySelector("#contact-message");
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let index = 0;
+  const checked = name => form.querySelector('input[name="' + name + '"]:checked')?.value || "";
+  const preset = Boolean(checked("plan")); // a package link already chose "I need a website" and the plan
 
-  const valid = step => [...step.querySelectorAll("input,textarea")].every(field => field.reportValidity());
-  const show = (to, focus = true) => {
-    index = Math.max(0, Math.min(steps.length - 1, to));
-    steps.forEach((step, i) => step.classList.toggle("is-active", i === index));
-    dots.forEach((dot, i) => { dot.classList.toggle("done", i < index); dot.classList.toggle("now", i === index); });
-    form.classList.toggle("is-last", index === steps.length - 1);
-    back.hidden = index === 0;
-    if (index === 1) {
-      const first = name.value.trim().split(/\s+/)[0];
-      greeting.textContent = first ? "Nice to meet you, " + first : "Nice to meet you";
-    }
-    if (focus) {
-      const field = steps[index].querySelector("input:not([type=radio]),textarea") || steps[index].querySelector("input:checked");
-      if (field) field.focus({ preventScroll: true });
-    }
+  const path = () => (preset ? "new" : checked("path"));
+  const flow = () => {
+    const kind = path() || "new";
+    const middle = kind === "have" ? ["site", "changes", "tools"] : kind === "other" ? [] : preset ? ["vibe"] : ["plan", "vibe"];
+    return ["name", ...(preset ? [] : ["path"]), ...middle, "notes", "email"];
   };
-  const advance = () => { if (valid(steps[index])) show(index + 1); };
+  let current = "name";
+
+  const sync = () => {
+    const active = flow();
+    const kind = path();
+    projectType.value = kind === "have" ? "Website redesign" : kind === "other" ? "Other inquiry" : checked("plan") || "New website";
+    // Questions that are not part of this path must not block or join the submission.
+    Object.entries(steps).forEach(([id, step]) => step.querySelectorAll("input,textarea").forEach(field => { field.disabled = !active.includes(id); }));
+    notes.required = kind === "other";
+    notes.minLength = kind === "other" ? 10 : 0;
+    form.querySelector("[data-notes-title]").innerHTML = kind === "other" ? "Tell me about it<em>.</em>" : "Anything else I should know<em>?</em>";
+    form.querySelector("[data-notes-hint]").textContent = kind === "other" ? "A sentence or two is plenty." : "Optional. A sentence or two is plenty.";
+    progress.replaceChildren(...active.map(() => document.createElement("li")));
+    const here = active.indexOf(current);
+    [...progress.children].forEach((dot, i) => { dot.classList.toggle("done", i < here); dot.classList.toggle("now", i === here); });
+    back.hidden = here <= 0;
+    form.classList.toggle("is-last", current === "email");
+  };
+  const valid = step => [...step.querySelectorAll("input,textarea")].filter(field => !field.disabled).every(field => field.reportValidity());
+  const show = (id, focus = true) => {
+    current = id;
+    Object.entries(steps).forEach(([key, step]) => step.classList.toggle("is-active", key === id));
+    if (id === "path") {
+      const first = form.querySelector('[name="name"]').value.trim().split(/\s+/)[0];
+      form.querySelector("[data-greeting]").textContent = first ? "Nice to meet you, " + first : "Nice to meet you";
+    }
+    sync();
+    if (focus) steps[id].querySelector("input:not([type=radio]):not([type=checkbox]):not(:disabled),textarea")?.focus({ preventScroll: true });
+  };
+  const go = offset => { const active = flow(); show(active[Math.max(0, Math.min(active.length - 1, active.indexOf(current) + offset))]); };
+  const advance = () => { sync(); if (valid(steps[current])) go(1); };
 
   form.classList.add("is-stepper");
-  show(0, false);
+  show("name", false);
   next.addEventListener("click", advance);
-  back.addEventListener("click", () => show(index - 1));
+  back.addEventListener("click", () => go(-1));
   form.addEventListener("keydown", event => {
-    if (event.key !== "Enter" || event.isComposing || index === steps.length - 1) return;
+    if (event.key !== "Enter" || event.isComposing || current === "email") return;
     const target = event.target;
-    if (target.tagName === "TEXTAREA" && !(event.metaKey || event.ctrlKey)) return;
-    if (target.tagName === "BUTTON") return;
+    if (target.tagName === "BUTTON" || (target.tagName === "TEXTAREA" && !(event.metaKey || event.ctrlKey))) return;
     event.preventDefault();
     advance();
   });
-  form.querySelectorAll('input[type="radio"]').forEach(radio => radio.addEventListener("change", () => {
-    if (index === 1) setTimeout(() => show(2), reduced ? 0 : 260);
+  // Picking one answer moves on by itself; multi-select questions wait for Continue.
+  form.querySelectorAll('input[name="path"],input[name="plan"]').forEach(radio => radio.addEventListener("change", () => {
+    sync();
+    setTimeout(() => { if (current === radio.name) go(1); }, reduced ? 0 : 260);
   }));
-  form.addEventListener("inquiry:sent", () => { form.classList.add("is-sent"); form.classList.remove("is-last"); show(0, false); });
-  // A package link (?package=…) has already chosen what the visitor is after; start at the first question regardless.
+  form.addEventListener("change", sync);
+  form.addEventListener("inquiry:sent", () => { form.classList.add("is-sent"); form.classList.remove("is-last"); });
 })();

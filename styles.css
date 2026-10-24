@@ -1254,3 +1254,23 @@ button:disabled{cursor:not-allowed}
 .convo-direct a:hover{color:#fff}
 @media(prefers-reduced-motion:reduce){.convo.is-stepper .convo-step.is-active{animation:none}.convo-progress li{transition:none}}
 @media(max-width:700px){.convo-nav{gap:14px}.convo-next,.convo-go{flex:1;justify-content:center}}
+
+/* Contact conversation: path cards and the secondary colour question. */
+.path-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.path-card{position:relative;display:block;cursor:pointer}
+.path-card input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+.path-card span{display:grid;gap:6px;height:100%;padding:24px 26px;border:1px solid rgba(255,255,255,.24);border-radius:18px;transition:background-color .25s,border-color .25s,transform .35s var(--ease)}
+.path-card strong{color:#fff;font-size:clamp(20px,2.4vw,26px);font-weight:740;letter-spacing:-.035em;line-height:1.2}
+.path-card small{color:#9fb2bf;font-size:15px;line-height:1.5}
+.path-card:hover span{border-color:#fff;transform:translateY(-2px)}
+.path-card input:checked+span{background:#fff;border-color:#fff}
+.path-card input:checked+span strong{color:#14202e}
+.path-card input:checked+span small{color:#4d6272}
+.path-card input:focus-visible+span{box-shadow:0 0 0 3px rgba(255,255,255,.4)}
+.path-card-wide{grid-column:1/-1}
+.path-card-wide span{padding:18px 26px}
+.convo-sub{display:block;margin:34px 0 4px;color:#cfdbe3;font-size:15px;font-weight:600}
+.convo-sub span{color:#8ea5b3;font-weight:500}
+.contact-form .convo-input-sm{font-size:clamp(18px,2.4vw,24px);padding-bottom:12px}
+@media(max-width:700px){.path-cards{grid-template-columns:1fr}.path-card span{padding:20px}}
+.convo-q [data-greeting]{display:block}

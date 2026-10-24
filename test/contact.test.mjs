@@ -147,3 +147,20 @@ test("demo replies reject bad demo addresses, phone numbers and header injection
   const {env,sent}=setup();assert.equal((await onRequestPost({request:request({...base,...update}),env})).status,400,JSON.stringify(update));assert.equal(sent.length,0);
  }
 });
+
+test("the conversation's project details are folded into the message",async()=>{
+ const {env,sent}=setup();
+ const body=new URLSearchParams({name:"Chloe",email:"chloe@example.com",project_type:"Website redesign",message:"",site:"chloe.com",colors:"sage and cream"});
+ for(const value of ["Stripe","Squarespace"])body.append("tools",value);
+ body.append("changes","A fresh new look");
+ const response=await onRequestPost({request:new Request("https://tlt-studios.com/api/contact",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded","Accept":"application/json","Origin":"https://tlt-studios.com","CF-Connecting-IP":"203.0.113.9"},body}),env});
+ assert.equal(response.status,200);
+ assert.match(sent[0].text,/Current website: chloe\.com/);assert.match(sent[0].text,/Wants to change: A fresh new look/);
+ assert.match(sent[0].text,/Currently uses: Stripe, Squarespace/);assert.match(sent[0].text,/Colors: sage and cream/);
+});
+test("project details are validated",async()=>{
+ for(const update of [{site:"not a url"},{site:"x<y"},{colors:"a\r\nb"},{colors:"x".repeat(151)},{vibe:"<script>"}]){
+  const {env,sent}=setup();
+  assert.equal((await onRequestPost({request:request({...fields,...update}),env})).status,400,JSON.stringify(update));assert.equal(sent.length,0);
+ }
+});

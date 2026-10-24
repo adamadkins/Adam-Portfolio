@@ -133,11 +133,29 @@ export async function onRequestPost({request, env}) {
         "", "Phone: " + (phone || "not given"), "Website: " + (site || "not given"), "Good times for a Google Meet: " + (times || "not given"),
         ...(fields.message ? ["", "Anything to change or add:", fields.message] : [])].join("\n");
     }
+    // The conversation on /contact.html adds optional answers about the project; they are folded into the message.
+    const userMessage = fields.message;
+    let details = [];
+    if (fields.project_type !== "Demo website") {
+      const picks = key => data.getAll(key).map(value => value.trim()).filter(Boolean);
+      const site = (data.get("site")||"").trim(), colors = (data.get("colors")||"").trim();
+      const lists = {changes: picks("changes"), tools: picks("tools"), vibe: picks("vibe")};
+      const clean = value => value.length <= 80 && !/[\x00-\x1f<>]/.test(value);
+      if ((site && (site.length > 200 || /[\s<>\x00-\x1f]/.test(site))) || colors.length > 150 || !clean(colors)
+        || Object.values(lists).some(list => list.length > 12 || !list.every(clean)))
+        return respond(request,400,"Please check the website address and the details you picked.");
+      if (site) details.push("Current website: " + site);
+      if (lists.changes.length) details.push("Wants to change: " + lists.changes.join(", "));
+      if (lists.tools.length) details.push("Currently uses: " + lists.tools.join(", "));
+      if (lists.vibe.length) details.push("Vibe: " + lists.vibe.join(", "));
+      if (colors) details.push("Colors: " + colors);
+    }
     if (!fields.name || fields.name.length>120 || /[\r\n\x00-\x1f]/.test(fields.name)
       || fields.email.length>254 || !/^[^\s<>@]+@[^\s<>@]+\.[^\s<>@]+$/.test(fields.email)
       || /[\x00-\x1f\x7f]/.test(fields.email) || !TYPES.has(fields.project_type)
-      || fields.message.length<10 || fields.message.length>4000 || fields.message.includes("\0"))
+      || (fields.message.length<10 && !details.length) || fields.message.length>4000 || fields.message.includes("\0"))
       return respond(request,400,"Please check your name, email, project type, and message (10–4,000 characters).");
+    if (details.length) fields.message = details.join("\n") + (userMessage ? "\n\nIn their words:\n" + userMessage : "");
     const result = await env.CONTACT_EMAIL.send(inquiryMessage(fields));
     if (!result?.messageId) throw Object.assign(new Error("Missing acceptance"),{code:"NO_MESSAGE_ID"});
     // A receipt is deliberately separate from the required inbox notification.

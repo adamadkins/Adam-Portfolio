@@ -1,7 +1,7 @@
 (() => {
   const form = document.querySelector(".contact-form");
   if (!form) return;
-  const radios = [...form.querySelectorAll('input[type="radio"][name="project_type"]')];
+  const radios = [...form.querySelectorAll('input[type="radio"][name="plan"]')];
   const choices = {essential:"Website Essentials ($750)",lifetime:"Website + Lifetime Support ($1500)","event-page":"Event Page ($150 + $15/mo)","event-site":"Event Site ($250 + $20/mo)"};
   const choice = new URLSearchParams(location.search).get("package");
   if (Object.prototype.hasOwnProperty.call(choices,choice)) radios.forEach(radio => { radio.checked = radio.value === choices[choice]; });

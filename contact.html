@@ -60,21 +60,51 @@
     <p class="eyebrow contact-kicker" id="contact-title">LET’S MAKE SOMETHING</p>
     <form class="contact-form convo" action="/api/contact" method="POST">
       <input class="form-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
-      <ol class="convo-progress" aria-hidden="true"><li></li><li></li><li></li><li></li></ol>
-      <fieldset class="convo-step">
+      <input type="hidden" name="project_type" value="New website" />
+      <ol class="convo-progress" aria-hidden="true"></ol>
+      <fieldset class="convo-step" data-step="name">
         <legend class="convo-q">First, what should I call you<em>?</em></legend>
         <input class="convo-input" id="contact-name" name="name" type="text" placeholder="Your name" autocomplete="name" required maxlength="120" aria-label="Your name" />
       </fieldset>
-      <fieldset class="convo-step">
-        <legend class="convo-q"><span data-greeting>Nice to meet you</span>. What are you after<em>?</em></legend>
-        <div class="choices"><label class="choice"><input type="radio" name="project_type" value="New website" checked><span>A new website</span></label><label class="choice"><input type="radio" name="project_type" value="Website Essentials ($750)"><span>Essentials · $750</span></label><label class="choice"><input type="radio" name="project_type" value="Website + Lifetime Support ($1500)"><span>Lifetime Support · $1,500</span></label><label class="choice"><input type="radio" name="project_type" value="Event Page ($150 + $15/mo)"><span>Event Page · $150 + $15/mo</span></label><label class="choice"><input type="radio" name="project_type" value="Event Site ($250 + $20/mo)"><span>Event Site · $250 + $20/mo</span></label><label class="choice"><input type="radio" name="project_type" value="Website redesign"><span>A redesign or refresh</span></label><label class="choice"><input type="radio" name="project_type" value="Technical support"><span>Technical support</span></label><label class="choice"><input type="radio" name="project_type" value="Other inquiry"><span>Something else</span></label></div>
+      <fieldset class="convo-step" data-step="path">
+        <legend class="convo-q"><span data-greeting>Nice to meet you</span>. What brings you here<em>?</em></legend>
+        <div class="path-cards">
+          <label class="path-card"><input type="radio" name="path" value="new" required><span><strong>I need a website.</strong><small>I don’t have one yet.</small></span></label>
+          <label class="path-card"><input type="radio" name="path" value="have"><span><strong>I have a website.</strong><small>It needs some love.</small></span></label>
+          <label class="path-card path-card-wide"><input type="radio" name="path" value="other"><span><strong>Something else.</strong><small>A question, support, or a bit of both.</small></span></label>
+        </div>
       </fieldset>
-      <fieldset class="convo-step">
-        <legend class="convo-q">Tell me about it<em>.</em></legend>
-        <textarea class="convo-input" id="contact-message" name="message" placeholder="Your business, what you need, anything that helps…" rows="3" required minlength="10" maxlength="4000" aria-label="About your project"></textarea>
-        <p class="convo-hint">A sentence or two is plenty.</p>
+      <fieldset class="convo-step" data-step="plan">
+        <legend class="convo-q">Which sounds like you<em>?</em></legend>
+        <div class="choices"><label class="choice"><input type="radio" name="plan" value="Website Essentials ($750)"><span>Essentials · $750</span></label><label class="choice"><input type="radio" name="plan" value="Website + Lifetime Support ($1500)"><span>Lifetime Support · $1,500</span></label><label class="choice"><input type="radio" name="plan" value="Event Page ($150 + $15/mo)"><span>Event Page · $150 + $15/mo</span></label><label class="choice"><input type="radio" name="plan" value="Event Site ($250 + $20/mo)"><span>Event Site · $250 + $20/mo</span></label><label class="choice"><input type="radio" name="plan" value="New website"><span>Not sure yet</span></label></div>
+        <p class="convo-hint">Not sure yet? Pick that and we’ll figure it out together.</p>
       </fieldset>
-      <fieldset class="convo-step">
+      <fieldset class="convo-step" data-step="vibe">
+        <legend class="convo-q">What vibe are you going for<em>?</em></legend>
+        <div class="choices"><label class="choice"><input type="checkbox" name="vibe" value="Clean &amp; minimal"><span>Clean &amp; minimal</span></label><label class="choice"><input type="checkbox" name="vibe" value="Warm &amp; inviting"><span>Warm &amp; inviting</span></label><label class="choice"><input type="checkbox" name="vibe" value="Bold &amp; playful"><span>Bold &amp; playful</span></label><label class="choice"><input type="checkbox" name="vibe" value="Elegant &amp; refined"><span>Elegant &amp; refined</span></label><label class="choice"><input type="checkbox" name="vibe" value="Modern &amp; techy"><span>Modern &amp; techy</span></label><label class="choice"><input type="checkbox" name="vibe" value="Earthy &amp; natural"><span>Earthy &amp; natural</span></label><label class="choice"><input type="checkbox" name="vibe" value="Not sure yet"><span>Not sure yet</span></label></div>
+        <label class="convo-sub" for="contact-colors">Any colors you love, or a brand you admire? <span>(optional)</span></label>
+        <input class="convo-input convo-input-sm" id="contact-colors" name="colors" type="text" placeholder="Sage green and cream, like Aesop…" maxlength="150" />
+      </fieldset>
+      <fieldset class="convo-step" data-step="site">
+        <legend class="convo-q">What’s your website’s address<em>?</em></legend>
+        <input class="convo-input" id="contact-site" name="site" type="text" inputmode="url" placeholder="yourbusiness.com" autocomplete="url" required maxlength="200" aria-label="Your website address" />
+      </fieldset>
+      <fieldset class="convo-step" data-step="changes">
+        <legend class="convo-q">What do you want to change<em>?</em></legend>
+        <div class="choices"><label class="choice"><input type="checkbox" name="changes" value="A fresh new look"><span>A fresh new look</span></label><label class="choice"><input type="checkbox" name="changes" value="Easier to use on phones"><span>Easier to use on phones</span></label><label class="choice"><input type="checkbox" name="changes" value="Online ordering or a shop"><span>Online ordering or a shop</span></label><label class="choice"><input type="checkbox" name="changes" value="Bookings or appointments"><span>Bookings or appointments</span></label><label class="choice"><input type="checkbox" name="changes" value="Fix something that’s broken"><span>Fix something that’s broken</span></label><label class="choice"><input type="checkbox" name="changes" value="Update content &amp; photos"><span>Update content &amp; photos</span></label><label class="choice"><input type="checkbox" name="changes" value="Easier for me to manage"><span>Easier for me to manage</span></label></div>
+        <p class="convo-hint">Pick as many as you like.</p>
+      </fieldset>
+      <fieldset class="convo-step" data-step="tools">
+        <legend class="convo-q">What does it run on today<em>?</em></legend>
+        <div class="choices"><label class="choice"><input type="checkbox" name="tools" value="Stripe"><span>Stripe</span></label><label class="choice"><input type="checkbox" name="tools" value="Square"><span>Square</span></label><label class="choice"><input type="checkbox" name="tools" value="Shopify"><span>Shopify</span></label><label class="choice"><input type="checkbox" name="tools" value="Squarespace"><span>Squarespace</span></label><label class="choice"><input type="checkbox" name="tools" value="Wix"><span>Wix</span></label><label class="choice"><input type="checkbox" name="tools" value="WordPress"><span>WordPress</span></label><label class="choice"><input type="checkbox" name="tools" value="GoDaddy"><span>GoDaddy</span></label><label class="choice"><input type="checkbox" name="tools" value="Mailchimp"><span>Mailchimp</span></label><label class="choice"><input type="checkbox" name="tools" value="Google Business Profile"><span>Google Business Profile</span></label><label class="choice"><input type="checkbox" name="tools" value="Printful"><span>Printful</span></label><label class="choice"><input type="checkbox" name="tools" value="Calendly"><span>Calendly</span></label><label class="choice"><input type="checkbox" name="tools" value="Not sure"><span>Not sure</span></label></div>
+        <p class="convo-hint">Payments, shop, bookings, email. Pick anything you use, so nothing gets lost in the move.</p>
+      </fieldset>
+      <fieldset class="convo-step" data-step="notes">
+        <legend class="convo-q" data-notes-title>Anything else I should know<em>?</em></legend>
+        <textarea class="convo-input" id="contact-message" name="message" placeholder="Your business, a deadline, a site you love…" rows="3" maxlength="4000" aria-label="Anything else"></textarea>
+        <p class="convo-hint" data-notes-hint>Optional. A sentence or two is plenty.</p>
+      </fieldset>
+      <fieldset class="convo-step" data-step="email">
         <legend class="convo-q">And where can I reach you<em>?</em></legend>
         <input class="convo-input" id="contact-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required maxlength="254" aria-label="Your email address" />
         <p class="convo-hint">No payment is collected here. You’ll get a confirmation email (check spam if you don’t see it).</p>
