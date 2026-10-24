@@ -119,7 +119,7 @@ button:disabled{cursor:not-allowed}
 .about-copy h2{font-size:clamp(37px,4.15vw,58px)}
 .about-copy .about-lead{font-size:20px;color:#303941;font-weight:520;letter-spacing:-.025em;line-height:1.5;margin:36px 0 14px}
 .about-copy>p:not(.section-kicker):not(.about-lead){font-size:15px;color:#737e87;line-height:1.8;max-width:545px;margin:0 0 29px}
-.about-visual{height:465px;background:radial-gradient(circle at 60% 40%,#c7d4d8 0%,#dce5e6 44%,#e5e9e6 95%);border-radius:15px;display:flex;flex-direction:column;justify-content:space-between;padding:28px 29px;position:relative;overflow:hidden}
+.about-visual{height:465px;background:radial-gradient(circle at var(--mx,60%) var(--my,40%),#c3d1d6 0%,#dce5e6 44%,#e5e9e6 95%);border-radius:15px;display:flex;flex-direction:column;justify-content:space-between;padding:28px 29px;position:relative;overflow:hidden}
 .about-visual::after{content:"";position:absolute;left:-100px;bottom:60px;width:350px;height:350px;border:1px solid rgba(255,255,255,.75);border-radius:50%;box-shadow:0 0 0 65px rgba(255,255,255,.09),0 0 0 130px rgba(255,255,255,.075);pointer-events:none}
 .about-visual-top{display:flex;justify-content:space-between;gap:12px;color:#566775;font-weight:740;letter-spacing:.12em;font-size:9px;position:relative;z-index:1}
 .about-monogram{font-size:240px;font-weight:750;letter-spacing:-.13em;line-height:.8;text-align:center;color:#30424b;margin-right:25px;position:relative;z-index:1;text-shadow:15px 19px 35px rgba(46,62,70,.13)}
@@ -1411,3 +1411,24 @@ button:disabled{cursor:not-allowed}
 .spec:nth-child(2n) .v *{animation-delay:-.7s}
 .spec:nth-child(3n) .v *{animation-delay:-1.3s}
 @media(prefers-reduced-motion:reduce){.v,.v *{animation:none!important}.specs-viewport{-webkit-mask-image:none;mask-image:none;overflow-x:auto}.specs-group[aria-hidden="true"]{display:none}.spec,.spec:hover{transition:none;transform:none}}
+
+
+/* About and philosophy come alive: a card that follows the cursor, a whispered word that can be made to shout,
+   a paragraph that darkens as you read, and asterisks that turn with the page. */
+.about-visual{--px:0;--py:0;cursor:default}
+.about-monogram{transform:translate3d(calc(var(--px)*18px),calc(var(--py)*14px),0);transition:transform .35s var(--ease)}
+.about-monogram span{display:inline-block;transform:translate3d(calc(var(--px)*14px),calc(var(--py)*10px),0);transition:transform .35s var(--ease)}
+.about-visual:hover .about-monogram span{animation:about-dot .9s var(--ease)}
+@keyframes about-dot{35%{translate:0 -22px}70%{translate:0 0}85%{translate:0 -6px}}
+.about-visual::after{animation:about-rings 16s ease-in-out infinite alternate}
+@keyframes about-rings{to{transform:translate(28px,-18px) scale(1.06)}}
+.about-visual-cross,.philosophy-signoff span{display:inline-block;transform:rotate(calc(var(--spin,0)*1deg))}
+.philosophy-layout h2 em.whisper{display:inline-block;font-size:.4em;letter-spacing:0;opacity:.85;cursor:pointer;transform-origin:0 100%;margin-left:.12em;outline-offset:6px;transition:transform .6s cubic-bezier(.34,1.56,.64,1),color .3s,opacity .3s}
+.philosophy-layout h2 em.whisper.is-loud{transform:scale(2.3);font-style:normal;font-weight:900;text-transform:uppercase;letter-spacing:-.05em;color:var(--ink);opacity:1;position:relative;z-index:2}
+.whisper-hint{display:block;margin-top:1.6em;font-size:.15em;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8ca3b2;transition:opacity .4s}
+.philosophy-layout.has-shouted .whisper-hint{opacity:0}
+.philosophy-layout>div{transition:opacity .35s}
+.philosophy-layout.is-loud>div{opacity:.12}
+.philosophy-layout p .w{color:#a9b5bd;transition:color .35s}
+.philosophy-layout p .w.lit{color:var(--ink)}
+@media(prefers-reduced-motion:reduce){.about-visual::after,.about-visual:hover .about-monogram span{animation:none}.about-monogram,.about-monogram span,.philosophy-layout h2 em.whisper{transition:none}}
