@@ -124,53 +124,43 @@
           <div><p class="eyebrow section-kicker">01 / SELECTED WORK</p><h2 id="work-title">A few things<br />I've <span class="text-secondary">been building.</span></h2></div>
           <p>Live websites for real businesses, not mock-ups. Take a look around each one.</p>
         </div>
-        <!-- To add a project: copy one of the <article class="work-case"> blocks below, give it a new id and
-             data-name, set its colors in the CSS (--stage-bg, --stage-ink, --stage-soft, --stage-accent and the
-             tab dot --stage-swatch), and the project selector above builds itself. Only the first project
-             uses src on its preview iframe; give the others data-src so they load when first selected. -->
-        <div class="work-list">
-          <article class="work-case work-case--chasing" id="work-chasing606" data-name="Chasing606">
-            <div class="work-copy">
-              <p class="project-meta">E-COMMERCE / DESIGN &amp; DEVELOPMENT</p>
-              <h3>Chasing606</h3>
-              <p class="work-summary">An outdoor-inspired brand and its storefront, built so exploring the catalog feels as considered as the brand itself.</p>
-              <div class="work-actions">
-                <a class="work-visit" href="https://chasing606.adkins-adam04.workers.dev/" target="_blank" rel="noopener noreferrer">Visit website <span aria-hidden="true">↗</span></a>
-                <button class="project-view" type="button" data-case="chasing606">Project details <span aria-hidden="true">↗</span></button>
-              </div>
-              <p class="work-live"><i aria-hidden="true"></i>Live at <a href="https://chasing606.adkins-adam04.workers.dev/" target="_blank" rel="noopener noreferrer">chasing606.adkins-adam04.workers.dev</a></p>
+        <!-- To add a project: copy one of the <article class="spread"> blocks, give it a new id, set --panel on it,
+             and swap in two screenshots (a wide one and a phone one) in /images/work/. -->
+        <div class="spreads">
+          <article class="spread spread--chasing reveal" id="work-chasing606" style="--panel:#b7bd9a">
+            <div class="spread-stage">
+              <div class="spread-browser"><span class="spread-bar" aria-hidden="true"><i></i><i></i><i></i></span><img src="/images/work/chasing-desktop.webp" width="1280" height="712" loading="lazy" decoding="async" alt="The Chasing606 homepage: a bowhunter kneeling beside a mature buck, with the headline “From the heart of 606.”"></div>
+              <div class="spread-phone"><img src="/images/work/chasing-phone.webp" width="780" height="1572" loading="lazy" decoding="async" alt="The Chasing606 homepage on a phone"></div>
             </div>
-            <div class="work-shot">
-              <div class="site-preview-browser" aria-hidden="true">
-                <div class="site-preview-viewport">
-                  <iframe src="https://chasing606.adkins-adam04.workers.dev/" title="Chasing606 website preview" loading="lazy" scrolling="no" tabindex="-1" referrerpolicy="no-referrer"></iframe>
+            <div class="spread-copy">
+              <div><p class="project-meta">E-COMMERCE / DESIGN &amp; DEVELOPMENT</p><h3>Chasing606</h3></div>
+              <div>
+                <p class="work-summary">An outdoor-inspired brand and its storefront, built so exploring the catalog feels as considered as the brand itself.</p>
+                <div class="work-actions">
+                  <a class="work-visit" href="https://chasing606.adkins-adam04.workers.dev/" target="_blank" rel="noopener noreferrer">Visit website <span aria-hidden="true">↗</span></a>
+                  <button class="project-view" type="button" data-case="chasing606">Project details <span aria-hidden="true">↗</span></button>
                 </div>
               </div>
-              <a class="work-stage-link" href="https://chasing606.adkins-adam04.workers.dev/" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"></a>
             </div>
           </article>
-          <article class="work-case work-case--porter work-case-reverse" id="work-porter" data-name="Porter Property Maintenance" data-short="Porter Property">
-            <div class="work-copy">
-              <p class="project-meta">LOCAL BUSINESS / WEBSITE REDESIGN</p>
-              <h3>Porter Property Maintenance</h3>
-              <p class="work-summary">An established pressure-washing business, redesigned to be easier to understand and easier to contact.</p>
-              <div class="work-actions">
-                <a class="work-visit" href="https://porterpm.com/" target="_blank" rel="noopener noreferrer">Visit website <span aria-hidden="true">↗</span></a>
-                <button class="project-view" type="button" data-case="ppm">Project details <span aria-hidden="true">↗</span></button>
-              </div>
-              <p class="work-live"><i aria-hidden="true"></i>Live at <a href="https://porterpm.com/" target="_blank" rel="noopener noreferrer">porterpm.com</a></p>
+          <article class="spread spread--porter reveal" id="work-porter" style="--panel:#e5cf92">
+            <div class="spread-stage">
+              <div class="spread-browser"><span class="spread-bar" aria-hidden="true"><i></i><i></i><i></i></span><img src="/images/work/porter-desktop.webp" width="1280" height="786" loading="lazy" decoding="async" alt="The Porter Property Maintenance homepage: “Pressure washing, done right.” with a request-an-estimate button"></div>
+              <div class="spread-phone"><img src="/images/work/porter-phone.webp" width="780" height="1688" loading="lazy" decoding="async" alt="The Porter Property Maintenance homepage on a phone"></div>
             </div>
-            <div class="work-shot">
-              <div class="site-preview-browser" aria-hidden="true">
-                <div class="site-preview-viewport">
-                  <iframe data-src="https://porterpm.com/" title="Porter Property Maintenance website preview" loading="lazy" scrolling="no" tabindex="-1" referrerpolicy="no-referrer"></iframe>
+            <div class="spread-copy">
+              <div><p class="project-meta">LOCAL BUSINESS / WEBSITE REDESIGN</p><h3>Porter Property Maintenance</h3></div>
+              <div>
+                <p class="work-summary">An established pressure-washing business, redesigned to be easier to understand and easier to contact.</p>
+                <div class="work-actions">
+                  <a class="work-visit" href="https://porterpm.com/" target="_blank" rel="noopener noreferrer">Visit website <span aria-hidden="true">↗</span></a>
+                  <button class="project-view" type="button" data-case="ppm">Project details <span aria-hidden="true">↗</span></button>
                 </div>
               </div>
-              <a class="work-stage-link" href="https://porterpm.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"></a>
             </div>
           </article>
         </div>
-        <div class="work-footer reveal"><span>BUILT WITH CARE. SHARED WITH PRIDE.</span><a class="inline-link" href="/contact.html">Your project could be next <span aria-hidden="true">↗</span></a></div>
+        <p class="spreads-next reveal">Want one of these for your business? <a class="inline-link" href="/contact.html">Tell me about it <span aria-hidden="true">↗</span></a></p>
       </div>
     </section>
 
@@ -349,6 +339,5 @@
 <script src="/pricing-tabs.js" defer></script>
 <script src="/specs-band.js" defer></script>
 <script src="/alive.js" defer></script>
-  <script src="/work-selector.js" defer></script>
 </body>
 </html>

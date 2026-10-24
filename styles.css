@@ -1454,3 +1454,42 @@ button:disabled{cursor:not-allowed}
   .spec-text strong{font-size:15px}
   .spec-text small{font-size:12px}
 }
+
+
+/* Selected work as two spreads: a coloured panel, a browser and a phone that break out of it, and the words underneath. */
+.spreads{display:grid;gap:clamp(90px,11vw,150px);padding-top:clamp(30px,5vw,60px)}
+.spread{--panel:#c9d2d8}
+.spread-stage{position:relative;height:clamp(300px,40vw,500px);border-radius:28px;background:var(--panel)}
+.spread-browser{position:absolute;left:6%;top:-9%;width:64%;border-radius:12px;background:#0e1411;box-shadow:0 30px 60px rgba(20,32,46,.28),0 4px 10px rgba(20,32,46,.16);overflow:hidden;transform:rotate(-1.4deg);transition:transform .8s var(--ease)}
+.spread-bar{display:flex;gap:6px;padding:9px 12px;background:#1c2420}
+.spread-bar i{width:8px;height:8px;border-radius:50%;background:#46514b}
+.spread-browser img,.spread-phone img{display:block;width:100%;height:auto}
+.spread-phone{position:absolute;right:7%;bottom:-13%;width:clamp(120px,17%,210px);padding:6px;border-radius:26px;background:#10151a;box-shadow:0 28px 50px rgba(20,32,46,.32),0 4px 10px rgba(20,32,46,.18);transform:rotate(3.2deg);transition:transform .8s var(--ease)}
+.spread-phone img{border-radius:20px}
+.spread:hover .spread-browser,.spread:focus-within .spread-browser{transform:rotate(0) translateY(-6px)}
+.spread:hover .spread-phone,.spread:focus-within .spread-phone{transform:rotate(0) translateY(-6px)}
+.spread--porter .spread-browser{left:auto;right:6%;transform:rotate(1.2deg)}
+.spread--porter .spread-phone{right:auto;left:8%;transform:rotate(-3deg)}
+.spread--porter:hover .spread-browser,.spread--porter:focus-within .spread-browser{transform:rotate(0) translateY(-6px)}
+.spread--porter:hover .spread-phone,.spread--porter:focus-within .spread-phone{transform:rotate(0) translateY(-6px)}
+.spread-copy{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:start;margin-top:clamp(70px,9vw,110px)}
+.spread-copy .project-meta{margin:0 0 14px;font-size:10px;font-weight:750;letter-spacing:.14em;color:var(--text-label)}
+.spread-copy h3{margin:0;font-size:clamp(36px,4.6vw,66px);line-height:1.02;letter-spacing:-.06em;font-weight:740;color:var(--ink)}
+.spread-copy .work-summary{margin:0;max-width:40ch;color:#5d6a74;font-size:clamp(16px,1.35vw,18px);line-height:1.7}
+.spread-copy .work-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;margin-top:26px}
+.spread-copy .work-visit{background:var(--ink);color:#fff;padding:14px 22px;border-radius:12px}
+.spread-copy .work-visit:hover{box-shadow:0 12px 26px rgba(20,32,46,.22)}
+.spread-copy .project-view{border:0;border-bottom:1px solid #b7c3cb;background:none;padding:4px 0;color:var(--ink);font-size:14px;font-weight:650}
+.spread-copy .project-view:hover{border-color:var(--ink)}
+.spreads-next{margin:clamp(70px,8vw,110px) 0 0;padding-top:28px;border-top:1px solid #dde2e4;color:#5d6a74;font-size:16px}
+.spreads-next .inline-link{margin-left:8px;color:var(--ink);font-weight:700}
+@media(max-width:800px){
+  .spreads{gap:96px;padding-top:44px}
+  .spread-stage{height:clamp(230px,62vw,330px);border-radius:22px}
+  .spread-browser{left:5%;top:-14%;width:80%}
+  .spread--porter .spread-browser{right:5%}
+  .spread-phone{right:5%;bottom:-18%;width:27%}
+  .spread--porter .spread-phone{left:5%}
+  .spread-copy{grid-template-columns:1fr;gap:16px;margin-top:84px}
+}
+@media(prefers-reduced-motion:reduce){.spread-browser,.spread-phone{transition:none}.spread:hover .spread-browser,.spread:hover .spread-phone{transform:none}}
