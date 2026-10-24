@@ -56,52 +56,44 @@
 
 <main id="main" class="contact-page-main">
 <section class="contact-section" id="contact" aria-labelledby="contact-title">
-      <div class="container contact-inner reveal">
-        <div class="contact-copy">
-          <p class="eyebrow contact-kicker">LET’S MAKE SOMETHING</p>
-          <h1 id="contact-title">Tell me about<br /><span>your project.</span></h1>
-          <p>Pick what fits and share what you have in mind. I'll read it personally, confirm the details, and send a proposal before any payment is requested.</p>
-          <ol class="hello-steps">
-            <li><strong>I review your project.</strong> You'll get a confirmation email right away, and a personal reply soon after.</li>
-            <li><strong>You get a proposal.</strong> Scope, timeline and price in writing. No payment until you say yes.</li>
-            <li><strong>We build it together.</strong> Your website, live on your own domain, in an account that belongs to you.</li>
-          </ol>
-          <div class="contact-direct" aria-label="Direct contact details">
-            <a href="mailto:hello@tlt-studios.com"><span class="direct-label">EMAIL</span><span>hello@tlt-studios.com</span></a>
-          </div>
-        </div>
-        <form class="contact-form" action="/api/contact" method="POST">
-          <p class="form-heading">Tell me about it<span>.</span></p>
-          <p class="form-intro">Takes about a minute. Fields marked * are required.</p>
-          <input class="form-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
-          <div class="form-row">
-            <div class="form-field">
-              <label for="contact-name">Your name <span aria-hidden="true">*</span></label>
-              <input id="contact-name" name="name" type="text" placeholder="Your name" autocomplete="name" required maxlength="120" />
-            </div>
-            <div class="form-field">
-              <label for="contact-email">Email address <span aria-hidden="true">*</span></label>
-              <input id="contact-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required maxlength="254" />
-            </div>
-          </div>
-          <fieldset class="form-field choice-group">
-            <legend>What are you looking for?</legend>
-            <div class="choices"><label class="choice"><input type="radio" name="project_type" value="New website" checked><span>A new website</span></label><label class="choice"><input type="radio" name="project_type" value="Website Essentials ($750)"><span>Essentials · $750</span></label><label class="choice"><input type="radio" name="project_type" value="Website + Lifetime Support ($1500)"><span>Lifetime Support · $1,500</span></label><label class="choice"><input type="radio" name="project_type" value="Event Page ($150 + $15/mo)"><span>Event Page · $150 + $15/mo</span></label><label class="choice"><input type="radio" name="project_type" value="Event Site ($250 + $20/mo)"><span>Event Site · $250 + $20/mo</span></label><label class="choice"><input type="radio" name="project_type" value="Website redesign"><span>A redesign or refresh</span></label><label class="choice"><input type="radio" name="project_type" value="Technical support"><span>Technical support</span></label><label class="choice"><input type="radio" name="project_type" value="Other inquiry"><span>Something else</span></label></div>
-          </fieldset>
-          <div class="form-field">
-            <label for="contact-message">What are you hoping to make? <span aria-hidden="true">*</span></label>
-            <textarea id="contact-message" name="message" placeholder="Your business, what you need, anything that would help me say yes with confidence…" rows="5" required minlength="10" maxlength="4000"></textarea>
-          </div>
-          <button type="submit" class="button button-form">Send my project details <span aria-hidden="true">↗</span></button>
-          <div class="inquiry-feedback" id="inquiry-feedback" role="status" aria-live="polite" tabindex="-1" hidden></div>
-          <p class="form-note">No payment is collected here. Your message goes straight to me, and you'll get an email confirming it arrived (check spam if you don't see it).</p>
-        </form>
+  <div class="container convo-wrap">
+    <p class="eyebrow contact-kicker" id="contact-title">LET’S MAKE SOMETHING</p>
+    <form class="contact-form convo" action="/api/contact" method="POST">
+      <input class="form-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <ol class="convo-progress" aria-hidden="true"><li></li><li></li><li></li><li></li></ol>
+      <fieldset class="convo-step">
+        <legend class="convo-q">First, what should I call you<em>?</em></legend>
+        <input class="convo-input" id="contact-name" name="name" type="text" placeholder="Your name" autocomplete="name" required maxlength="120" aria-label="Your name" />
+      </fieldset>
+      <fieldset class="convo-step">
+        <legend class="convo-q"><span data-greeting>Nice to meet you</span>. What are you after<em>?</em></legend>
+        <div class="choices"><label class="choice"><input type="radio" name="project_type" value="New website" checked><span>A new website</span></label><label class="choice"><input type="radio" name="project_type" value="Website Essentials ($750)"><span>Essentials · $750</span></label><label class="choice"><input type="radio" name="project_type" value="Website + Lifetime Support ($1500)"><span>Lifetime Support · $1,500</span></label><label class="choice"><input type="radio" name="project_type" value="Event Page ($150 + $15/mo)"><span>Event Page · $150 + $15/mo</span></label><label class="choice"><input type="radio" name="project_type" value="Event Site ($250 + $20/mo)"><span>Event Site · $250 + $20/mo</span></label><label class="choice"><input type="radio" name="project_type" value="Website redesign"><span>A redesign or refresh</span></label><label class="choice"><input type="radio" name="project_type" value="Technical support"><span>Technical support</span></label><label class="choice"><input type="radio" name="project_type" value="Other inquiry"><span>Something else</span></label></div>
+      </fieldset>
+      <fieldset class="convo-step">
+        <legend class="convo-q">Tell me about it<em>.</em></legend>
+        <textarea class="convo-input" id="contact-message" name="message" placeholder="Your business, what you need, anything that helps…" rows="3" required minlength="10" maxlength="4000" aria-label="About your project"></textarea>
+        <p class="convo-hint">A sentence or two is plenty.</p>
+      </fieldset>
+      <fieldset class="convo-step">
+        <legend class="convo-q">And where can I reach you<em>?</em></legend>
+        <input class="convo-input" id="contact-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required maxlength="254" aria-label="Your email address" />
+        <p class="convo-hint">No payment is collected here. You’ll get a confirmation email (check spam if you don’t see it).</p>
+      </fieldset>
+      <div class="convo-nav">
+        <button class="convo-back" type="button" hidden>← Back</button>
+        <button class="convo-next" type="button">Continue <span aria-hidden="true">↵</span></button>
+        <button class="convo-go" type="submit">Send it<span aria-hidden="true">.</span></button>
       </div>
-    </section>
+      <div class="inquiry-feedback" id="inquiry-feedback" role="status" aria-live="polite" tabindex="-1" hidden></div>
+      <p class="convo-direct">Prefer email? <a href="mailto:hello@tlt-studios.com">hello@tlt-studios.com</a></p>
+    </form>
+  </div>
+</section>
 </main>
   <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year">2026</span> THE LITTLE THINGS STUDIOS. THE DIFFERENCE IS IN THE DETAILS.</span><nav class="footer-legal" aria-label="Legal information"><a href="/client-portal">Client Portal</a><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a></nav><a href="/">RETURN HOME ↑</a></div></footer>
 
 <script src="/script.js" defer></script>
 <script src="/inquiry.js" defer></script>
+<script src="/contact-flow.js" defer></script>
 </body>
 </html>
