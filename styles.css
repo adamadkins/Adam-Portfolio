@@ -1352,3 +1352,15 @@ button:disabled{cursor:not-allowed}
 .price-more a{color:#324f63;text-decoration:underline;text-underline-offset:3px;margin-right:8px}
 @media(max-width:800px){.price-grid{grid-template-columns:1fr}.price-intro{font-size:16px}}
 @media(prefers-reduced-motion:reduce){.price-button,.price-tab{transition:none}.price-button:hover{transform:none}}
+
+/* Smooth switch: panels slide, the viewport eases to the new height, a pill glides between the tabs. */
+.price-tabs{position:relative}
+.price-pill{position:absolute;top:5px;bottom:5px;left:0;width:0;border-radius:999px;background:#14202e;pointer-events:none;opacity:0}
+.price-tabs.is-ready .price-pill{opacity:1;transition:transform .5s var(--ease),width .5s var(--ease)}
+.price-tab{position:relative;z-index:1;background:none!important}
+.price-tab[aria-selected="true"]{color:#fff}
+.price-viewport.is-slider{overflow:hidden;transition:height .55s var(--ease);margin:0 -12px;padding:0 12px}
+.price-viewport.is-slider .price-track{display:flex;transition:transform .6s var(--ease)}
+.price-viewport.is-slider .price-panel{flex:0 0 100%;min-width:0;margin:0!important;align-self:flex-start}
+.price-viewport:not(.is-slider) .price-panel[hidden]{display:block}
+@media(prefers-reduced-motion:reduce){.price-tabs.is-ready .price-pill,.price-viewport.is-slider,.price-viewport.is-slider .price-track{transition:none}}

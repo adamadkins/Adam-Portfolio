@@ -193,10 +193,12 @@
           <p>Simple prices, shown up front. Choose a starting point, share your project, and receive a proposal before any payment.</p>
         </div>
         <div class="price-tabs reveal" role="tablist" aria-label="What are you planning?" hidden>
+          <span class="price-pill" aria-hidden="true"></span>
           <button class="price-tab" role="tab" type="button" id="tab-website" aria-controls="panel-website" aria-selected="true">A website</button>
           <button class="price-tab" role="tab" type="button" id="tab-event" aria-controls="panel-event" aria-selected="false" tabindex="-1">An event</button>
         </div>
-        <div class="price-panel reveal" id="panel-website" role="tabpanel" aria-labelledby="tab-website">
+        <div class="price-viewport reveal"><div class="price-track">
+        <div class="price-panel" id="panel-website" role="tabpanel" aria-labelledby="tab-website">
           <p class="price-intro">One-time prices for a website that lasts.</p>
           <div class="price-grid">
             <article class="price-card">
@@ -217,7 +219,7 @@
             </article>
           </div>
         </div>
-        <div class="price-panel reveal" id="panel-event" role="tabpanel" aria-labelledby="tab-event">
+        <div class="price-panel" id="panel-event" role="tabpanel" aria-labelledby="tab-event">
           <p class="price-intro">For anything with a date on it: a wedding, a reunion, a fundraiser, your church’s VBS. Pay once to set it up, then only for the months it’s live. Between events it rests, kept and ready, and comes back updated whenever you renew.</p>
           <div class="price-grid">
             <article class="price-card">
@@ -238,6 +240,7 @@
             </article>
           </div>
         </div>
+        </div></div>
         <details class="price-fine reveal">
           <summary>The fine print</summary>
           <p><strong>Event websites.</strong> The setup fee is paid once. Months are paid ahead, only for the time you want the site live, with no subscription and nothing charged automatically. When the paid months end, the site rests: it goes offline but is kept, and you can renew from your client portal whenever you need it again.</p>
