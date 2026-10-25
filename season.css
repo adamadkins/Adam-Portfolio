@@ -100,20 +100,20 @@ html[data-season="newyear"]{--season:#d9a826;--season-dark:#12131f;--specs-bg:#e
 
 /* Halloween extras: bats crossing the sky now and then, a witch's hat on the logo, a flickering candle in the pumpkin. */
 .season-bats{position:fixed;top:83px;left:0;width:100%;height:120px;z-index:898;pointer-events:none;overflow:hidden}
-.season-bats .bat{position:absolute;left:0;top:0;width:40px;height:96px;animation:bat-fly 34s linear infinite backwards}
-.season-bats .bat:nth-child(1){--hx:24vw}
-.season-bats .bat:nth-child(2){--hx:52vw;animation-delay:.9s}
-.season-bats .bat:nth-child(3){--hx:76vw;animation-delay:1.8s}
-.season-bats .hang{position:absolute;left:0;top:-4px;width:15px;height:auto;display:block;animation:bat-hang 34s linear infinite backwards;animation-delay:inherit}
-.season-bats .fly{position:absolute;left:-12px;top:-2px;width:38px;height:27px;animation:bat-wings 34s linear infinite backwards;animation-delay:inherit}
+.season-bats .bat{position:absolute;left:0;top:0;width:40px;height:96px;animation:bat-fly 10s linear both}
+.season-bats .bat:nth-child(1){--hx:5vw}
+.season-bats .bat:nth-child(2){--hx:9vw;animation-delay:.35s}
+.season-bats .bat:nth-child(3){--hx:13vw;animation-delay:.7s}
+.season-bats .hang{position:absolute;left:0;top:-4px;width:15px;height:auto;display:block;animation:bat-hang 10s linear both;animation-delay:inherit}
+.season-bats .fly{position:absolute;left:-12px;top:-2px;width:38px;height:27px;animation:bat-wings 10s linear both;animation-delay:inherit}
 .season-bats .fly img{position:absolute;left:0;top:0;width:38px;height:auto;display:block}
 .season-bats .wing-up{animation:wing-a .36s steps(1,end) infinite}
 .season-bats .wing-down{animation:wing-b .36s steps(1,end) infinite}
 @keyframes wing-a{0%{opacity:1}50%{opacity:0}}
 @keyframes wing-b{0%{opacity:0}50%{opacity:1}}
-@keyframes bat-hang{0%{opacity:0}4%,35%{opacity:1}35.6%,100%{opacity:0}}
-@keyframes bat-wings{0%,35%{opacity:0}35.6%,56%{opacity:1}58%,100%{opacity:0}}
-@keyframes bat-fly{0%,35%{transform:translate3d(var(--hx),0,0)}39%{transform:translate3d(calc(var(--hx) + 5vw),34px,0)}50%{transform:translate3d(calc(var(--hx) + 50vw),12px,0)}58%,99%{transform:translate3d(120vw,-8px,0)}100%{transform:translate3d(var(--hx),0,0)}}
+@keyframes bat-hang{0%{opacity:0}5%,22%{opacity:1}22.6%,100%{opacity:0}}
+@keyframes bat-wings{0%,22%{opacity:0}22.6%,70%{opacity:1}72%,100%{opacity:0}}
+@keyframes bat-fly{0%,22%{transform:translate3d(var(--hx),0,0)}27%{transform:translate3d(calc(var(--hx) + 5vw),34px,0)}48%{transform:translate3d(calc(var(--hx) + 50vw),12px,0)}72%,100%{transform:translate3d(120vw,-8px,0)}}
 .idea-bulb .season-lit .flick{animation:candle 3.4s steps(1,end) infinite}
 @keyframes candle{0%{opacity:1}12%{opacity:.82}20%{opacity:1}34%{opacity:.9}41%{opacity:.7}47%{opacity:1}63%{opacity:.88}74%{opacity:1}86%{opacity:.78}93%{opacity:1}}
 [data-season="halloween"] .nav-link:hover,[data-season="halloween"] .inline-link:hover{color:#e8741e}
