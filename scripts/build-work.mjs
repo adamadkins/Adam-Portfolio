@@ -23,7 +23,7 @@ const webpSize = (file) => {
 // The site's own header and footer come from about.html, so the work pages never drift from the rest of the site.
 const about = readFileSync(join(root, "about.html"), "utf8");
 const top = about.slice(about.indexOf('  <a class="skip-link"'), about.indexOf("  <main"))
-  .replace('<a class="nav-link" href="/#work">Work</a>', '<a class="nav-link" href="/work.html" aria-current="page">Work</a>')
+  .replace('<a class="nav-link" href="/work.html">Showcase</a>', '<a class="nav-link" href="/work.html" aria-current="page">Showcase</a>')
   .replace(' aria-current="page">About', ">About");
 const foot = about.slice(about.indexOf("  <footer"), about.indexOf("</footer>") + 9)
   .replace('href="/#work"', 'href="/work.html"')
@@ -108,7 +108,7 @@ const filters = cats.length > 1 ? `
 const sorted = [...projects].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
 const word = projects.length === 1 ? "project" : "projects";
 const indexBody = `    <section class="wk-hero container" aria-labelledby="wk-title">
-      <p class="eyebrow section-kicker">SELECTED WORK / ${pad(projects.length)} ${word.toUpperCase()}</p>
+      <p class="eyebrow section-kicker">SHOWCASE / ${pad(projects.length)} ${word.toUpperCase()}</p>
       <h1 id="wk-title">Real sites,<br /><span class="text-secondary">for real businesses.</span></h1>
       <p class="wk-intro">Everything here is live and in use. Open any project to scroll through the site, see it on a phone, and read how I approached it.</p>${filters}
     </section>
@@ -133,15 +133,15 @@ const detail = (p, i) => {
   const more = projects.length > 1 ? `
     <nav class="wk-more container" aria-label="More work">
       <a class="wk-more-link wk-more-prev" href="/work/${prev.slug}.html"><span>← Previous</span><b>${prev.name}</b></a>
-      <a class="wk-more-all" href="/work.html">All work</a>
+      <a class="wk-more-all" href="/work.html">Full showcase</a>
       <a class="wk-more-link wk-more-next" href="/work/${next.slug}.html"><span>Next →</span><b>${next.name}</b></a>
     </nav>` : "";
   return page({
-    title: `${p.name} | Work | The Little Things Studios`,
+    title: `${p.name} | Showcase | The Little Things Studios`,
     description: p.summary,
     path: `/work/${p.slug}.html`,
     body: `    <section class="wk-chapter wk-chapter--solo" id="${p.slug}" style="--panel:${p.panel}" aria-labelledby="${p.slug}-title">
-      <div class="container"><a class="wk-back" href="/work.html"><span aria-hidden="true">←</span> All work</a></div>
+      <div class="container"><a class="wk-back" href="/work.html"><span aria-hidden="true">←</span> Full showcase</a></div>
       <div class="container wk-grid">
         <div class="wk-copy reveal">
           <p class="wk-num" aria-hidden="true">${pad(i + 1)}</p>
@@ -167,10 +167,10 @@ const detail = (p, i) => {
 
 const out = new Map();
 out.set("work.html", page({
-  title: "Work | The Little Things Studios",
+  title: "Showcase | The Little Things Studios",
   description: "Live websites for real businesses, built by Adam Adkins at The Little Things Studios. Scroll through each one, see it on a phone, then visit it.",
   path: "/work.html",
-  ogTitle: "Work | The Little Things Studios",
+  ogTitle: "Showcase | The Little Things Studios",
   body: indexBody,
 }));
 projects.forEach((p, i) => out.set(`work/${p.slug}.html`, detail(p, i)));
