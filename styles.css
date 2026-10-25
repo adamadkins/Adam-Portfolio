@@ -1388,25 +1388,27 @@ button:disabled{cursor:not-allowed}
 .spec-text small{font-size:13px;color:#6b7881}
 .v{overflow:visible}
 .v *{transform-box:fill-box;transform-origin:center}
-.v-phone .v-bar{animation:v-slide 2.8s var(--ease) infinite alternate}
+.spec.is-live .v-phone .v-bar{animation:v-slide 2.8s var(--ease) infinite alternate}
 @keyframes v-slide{from{transform:translateY(-1px)}to{transform:translateY(4px)}}
-.v-find .v-pin{animation:v-drop 2.6s var(--ease) infinite}
-.v-find .v-pin-dot{animation:v-drop 2.6s var(--ease) infinite}
+.spec.is-live .v-find .v-pin{animation:v-drop 2.6s var(--ease) infinite}
+.spec.is-live .v-find .v-pin-dot{animation:v-drop 2.6s var(--ease) infinite}
 @keyframes v-drop{0%{transform:translateY(-6px);opacity:0}25%,100%{transform:none;opacity:1}}
-.v-bag .v-badge{animation:v-pop 2.4s ease-in-out infinite}
+.spec.is-live .v-bag .v-badge{animation:v-pop 2.4s ease-in-out infinite}
 @keyframes v-pop{0%,60%,100%{transform:scale(1)}75%{transform:scale(1.5)}}
-.v-cal .v-check{stroke-dasharray:20;animation:v-draw 2.6s ease-in-out infinite}
+.v-cal .v-check{stroke-dasharray:20}
+.spec.is-live .v-cal .v-check{animation:v-draw 2.6s ease-in-out infinite}
 @keyframes v-draw{0%{stroke-dashoffset:20}35%,85%{stroke-dashoffset:0}100%{stroke-dashoffset:20}}
-.v-switch .v-knob{animation:v-flip 3.2s var(--ease) infinite}
+.spec.is-live .v-switch .v-knob{animation:v-flip 3.2s var(--ease) infinite}
 @keyframes v-flip{0%,35%{transform:translateX(0)}50%,85%{transform:translateX(12px)}100%{transform:translateX(0)}}
-.v-speed .v-needle{transform-origin:16px 20px;animation:v-rev 2.8s var(--ease) infinite alternate}
+.v-speed .v-needle{transform-origin:16px 20px}
+.spec.is-live .v-speed .v-needle{animation:v-rev 2.8s var(--ease) infinite alternate}
 .v-speed .v-needle{transform-box:view-box}
 @keyframes v-rev{from{transform:rotate(-70deg)}to{transform:rotate(30deg)}}
-.v-care .v-heart{animation:v-beat 1.8s ease-in-out infinite}
+.spec.is-live .v-care .v-heart{animation:v-beat 1.8s ease-in-out infinite}
 @keyframes v-beat{0%,55%,100%{transform:scale(1)}70%{transform:scale(1.14)}}
-.v-globe{animation:v-spin 14s linear infinite}
+.spec.is-live .v-globe{animation:v-spin 14s linear infinite}
 @keyframes v-spin{to{transform:rotate(360deg)}}
-.v-mail .v-ping{animation:v-notify 2.6s ease-in-out infinite}
+.spec.is-live .v-mail .v-ping{animation:v-notify 2.6s ease-in-out infinite}
 @keyframes v-notify{0%,50%{transform:scale(0)}65%{transform:scale(1.3)}80%,100%{transform:scale(1)}}
 .spec:nth-child(2n) .v *{animation-delay:-.7s}
 .spec:nth-child(3n) .v *{animation-delay:-1.3s}
@@ -1544,7 +1546,7 @@ button:disabled{cursor:not-allowed}
 .ac-bar i{width:9px;height:9px;border-radius:50%;background:#2d3e50}
 .ac-bar span{margin-left:10px}
 .ac-body{margin:0;padding:18px 20px;font:inherit;font-size:clamp(11.5px,1.1vw,14px);line-height:1.9;white-space:pre;overflow:hidden}
-.ac-body span{display:block;white-space:pre;opacity:0;transform:translate3d(-8px,0,0);transition:opacity .4s ease,transform .5s var(--ease)}
+.ac-body span{display:block;white-space:pre;opacity:0;transform:translateX(-8px);transition:opacity .4s ease,transform .5s var(--ease)}
 .ac-body b{color:#8ec5ff;font-weight:500}.ac-body em{color:#e5cf92;font-style:normal}.ac-body u{color:#a8d8a0;text-decoration:none}
 .hs-panel.is-in .ac-body span{opacity:1;transform:none}
 .hs-panel.is-in .ac-body .l1{transition-delay:.15s}.hs-panel.is-in .ac-body .l2{transition-delay:.55s}.hs-panel.is-in .ac-body .l3{transition-delay:.95s}.hs-panel.is-in .ac-body .l4{transition-delay:1.35s}.hs-panel.is-in .ac-body .l5{transition-delay:1.75s}.hs-panel.is-in .ac-body .l6{transition-delay:2.15s}
@@ -1620,7 +1622,7 @@ button:disabled{cursor:not-allowed}
 .spread-bar{padding:10px 14px}
 /* Smoother sideways swipe on phones. */
 @media(max-width:900px){
-  .hs-track{scroll-snap-type:x mandatory;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
+  .hs-track{scroll-snap-type:x mandatory;overscroll-behavior-x:contain}
   .hs-panel{contain:layout paint;scroll-snap-stop:normal}
   .hs-panel,.art-code,.ad-page,.art-care li{box-shadow:none}
 }
@@ -1629,18 +1631,22 @@ button:disabled{cursor:not-allowed}
 .specs::before,.specs::after{content:"";position:absolute;top:0;bottom:0;width:7%;z-index:2;pointer-events:none}
 .specs::before{left:0;background:linear-gradient(90deg,#e1e9ee,rgba(225,233,238,0))}
 .specs::after{right:0;background:linear-gradient(270deg,#e1e9ee,rgba(225,233,238,0))}
-/* Only the chips on screen animate their icons. */
-.spec:not(.is-live) .v,.spec:not(.is-live) .v *{animation-play-state:paused!important}
 @media(prefers-reduced-motion:reduce){.specs-dots{transform:none!important}}
 
 
 /* The sideways strip: constant drift runs on the compositor; scrolling the page nudges it by a plain transform. */
 .specs-slide{will-change:transform}
-.specs-track{will-change:auto;animation:specs-drift var(--dur,90s) linear infinite}
+.specs.is-ready .specs-track{animation:specs-drift var(--dur,90s) linear infinite}
 @keyframes specs-drift{to{transform:translate3d(-33.3333%,0,0)}}
-.specs-dots{animation:specs-dots 2.02s linear infinite}
+.specs.is-ready .specs-dots{animation:specs-dots 2.02s linear infinite}
 @keyframes specs-dots{to{transform:translate3d(-24px,0,0)}}
-.specs.is-paused .specs-track,.specs.is-paused .specs-dots{animation-play-state:paused}
-@media(prefers-reduced-motion:reduce){.specs-track,.specs-dots{animation:none}.spec[aria-hidden="true"]{display:none}}
+.specs.is-ready.is-paused .specs-track,.specs.is-ready.is-paused .specs-dots{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){.specs.is-ready .specs-track,.specs.is-ready .specs-dots{animation:none}.spec[aria-hidden="true"]{display:none}}
 /* A blurred header over scrolling content is costly on phones; a nearly opaque one looks the same. */
 @media(max-width:900px){.site-header,.site-header.scrolled{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(250,250,250,.97)}}
+
+/* Without JavaScript the chips are a plain row you can scroll by hand. */
+.specs:not(.is-ready) .specs-viewport{overflow-x:auto;scrollbar-width:none}
+
+/* Touch screens: no ambient decoration running behind the scrolling. */
+@media(hover:none){.about-visual::after,.about-visual-cross,.philosophy-signoff span{animation:none}}
