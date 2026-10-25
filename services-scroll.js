@@ -11,7 +11,28 @@
   const hint = hs.querySelector(".hs-hint");
   const desktop = matchMedia("(min-width: 901px) and (prefers-reduced-motion: no-preference)");
   const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
-  let travel = 0, pinned = false, watcher = null;
+  let travel = 0, pinned = false, onScreen = false, settleTimer = 0, stickyTop = 0, queued = false;
+
+  // Swipe mode: while you are swiping nothing starts or stops (so the swipe stays light); once it comes to rest the
+  // card in the middle plays its illustration, and the others stand still.
+  const settle = () => {
+    if (pinned) return;
+    if (!onScreen) { panels.forEach(panel => panel.classList.remove("is-in")); return; }
+    const view = track.getBoundingClientRect();
+    const middle = view.left + view.width / 2;
+    let best = panels[0], bestGap = Infinity;
+    panels.forEach(panel => {
+      const box = panel.getBoundingClientRect();
+      const gap = Math.abs((box.left + box.right) / 2 - middle);
+      if (gap < bestGap) { bestGap = gap; best = panel; }
+    });
+    panels.forEach(panel => panel.classList.toggle("is-in", panel === best));
+  };
+  const queueSettle = delay => { clearTimeout(settleTimer); settleTimer = setTimeout(settle, delay); };
+  track.addEventListener("scroll", () => { if (!pinned) queueSettle(150); }, { passive: true });
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(entries => { onScreen = entries[0].isIntersecting; if (!pinned) queueSettle(200); }, { threshold: 0.2 }).observe(hs);
+  } else onScreen = true;
 
   const mark = () => {
     const vw = innerWidth;
@@ -27,28 +48,25 @@
     track.style.transform = "";
     if (!pinned) {
       hs.style.height = "";
-      // Swipe mode: only the panels actually on screen animate, which keeps scrolling light on phones.
-      if (!watcher && "IntersectionObserver" in window) {
-        watcher = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle("is-in", entry.isIntersecting)), { root: track, threshold: 0.5 });
-        panels.forEach(panel => watcher.observe(panel));
-      } else if (!watcher) panels.forEach(p => p.classList.add("is-in"));
+      queueSettle(60);
       return;
     }
-    if (watcher) { watcher.disconnect(); watcher = null; }
+    stickyTop = parseFloat(getComputedStyle(stage).top) || 0;
     travel = Math.max(0, track.scrollWidth - innerWidth + parseFloat(getComputedStyle(track).paddingLeft));
     hs.style.height = stage.offsetHeight + travel + "px";
     update();
   };
   const update = () => {
+    queued = false;
     if (!pinned) return;
-    const top = hs.getBoundingClientRect().top - parseFloat(getComputedStyle(stage).top || 0);
+    const top = hs.getBoundingClientRect().top - stickyTop;
     const progress = clamp(-top / travel, 0, 1);
     track.style.transform = "translate3d(" + -progress * travel + "px,0,0)";
     fill.style.transform = "scaleX(" + progress + ")";
     hint.style.opacity = progress < 0.04 ? 1 : 0;
     mark();
   };
-  addEventListener("scroll", update, { passive: true });
+  addEventListener("scroll", () => { if (pinned && !queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
   addEventListener("resize", measure);
   desktop.addEventListener("change", measure);
   if (document.fonts?.ready) document.fonts.ready.then(measure);

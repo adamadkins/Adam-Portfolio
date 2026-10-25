@@ -1422,7 +1422,8 @@ button:disabled{cursor:not-allowed}
 @keyframes about-dot{35%{translate:0 -22px}70%{translate:0 0}85%{translate:0 -6px}}
 .about-visual::after{animation:about-rings 16s ease-in-out infinite alternate}
 @keyframes about-rings{to{transform:translate(28px,-18px) scale(1.06)}}
-.about-visual-cross,.philosophy-signoff span{display:inline-block;transform:rotate(calc(var(--spin,0)*1deg))}
+.about-visual-cross,.philosophy-signoff span{display:inline-block;animation:star-turn 30s linear infinite}
+@keyframes star-turn{to{transform:rotate(360deg)}}
 .philosophy-layout h2 em.whisper{display:inline-block;font-size:.4em;letter-spacing:0;opacity:.85;cursor:pointer;transform-origin:0 100%;margin-left:.12em;outline-offset:6px;transition:transform .6s cubic-bezier(.34,1.56,.64,1),color .3s,opacity .3s}
 .philosophy-layout h2 em.whisper.is-loud{transform:scale(2.3);font-style:normal;font-weight:900;text-transform:uppercase;letter-spacing:-.05em;color:var(--ink);opacity:1;position:relative;z-index:2}
 .whisper-hint{display:block;margin-top:1.6em;font-size:.15em;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8ca3b2;transition:opacity .4s}
@@ -1431,7 +1432,7 @@ button:disabled{cursor:not-allowed}
 .philosophy-layout.is-loud>div{opacity:.12}
 .philosophy-layout p .w{color:#a9b5bd;transition:color .35s}
 .philosophy-layout p .w.lit{color:var(--ink)}
-@media(prefers-reduced-motion:reduce){.about-visual::after,.about-visual:hover .about-monogram span{animation:none}.about-monogram,.about-monogram span,.philosophy-layout h2 em.whisper{transition:none}}
+@media(prefers-reduced-motion:reduce){.about-visual-cross,.philosophy-signoff span,.about-visual::after,.about-visual:hover .about-monogram span{animation:none}.about-monogram,.about-monogram span,.philosophy-layout h2 em.whisper{transition:none}}
 
 
 /* Mobile cleanup */
@@ -1521,37 +1522,40 @@ button:disabled{cursor:not-allowed}
 .services-section .section-heading{margin-bottom:34px}
 
 /* Illustrations. Each plays when its panel is on screen (.is-in); static and complete without motion. */
-.art{position:relative;justify-self:stretch;min-width:0;aspect-ratio:1.18;max-height:min(380px,48svh);border-radius:20px;overflow:hidden}
+.art{position:relative;justify-self:stretch;min-width:0;aspect-ratio:1.18;max-height:min(380px,48svh);border-radius:20px}
 .art-design{background:#eef2f5;display:grid;place-items:center}
 .ad-page{width:68%;padding:14px;border-radius:12px;background:#fff;box-shadow:0 18px 40px rgba(20,32,46,.14);display:grid;gap:10px}
 .ad-bar{height:9px;width:46%;border-radius:5px;background:#14202e}
-.ad-hero{height:70px;border-radius:9px;background:#8a9faf;animation:ad-tone 6s ease-in-out infinite alternate;animation-play-state:paused}
+.ad-hero{position:relative;overflow:hidden;height:70px;border-radius:9px;background:#8a9faf}
+.ad-hero::after{content:"";position:absolute;inset:0;background:#14202e;opacity:0;animation:ad-tone 6s ease-in-out infinite alternate;animation-play-state:paused}
 .ad-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .ad-cards i{height:34px;border-radius:7px;background:#dbe4ea}
 .ad-swatches{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);display:flex;align-items:center;gap:9px}
 .ad-swatches i{width:22px;height:22px;border-radius:50%;box-shadow:0 0 0 3px #eef2f5}
 .ad-swatches b{margin-left:8px;font-size:20px;letter-spacing:-.05em;color:#14202e}
-@keyframes ad-tone{to{background:#14202e}}
+@keyframes ad-tone{to{opacity:1}}
 .hs-panel:not(.is-in) .ad-bar,.hs-panel:not(.is-in) .ad-hero,.hs-panel:not(.is-in) .ad-cards i,.hs-panel:not(.is-in) .ad-swatches i,.hs-panel:not(.is-in) .ad-swatches b{opacity:0;transform:translateY(14px) scale(.96)}
 .ad-bar,.ad-hero,.ad-cards i,.ad-swatches i,.ad-swatches b{transition:opacity .6s var(--ease),transform .7s var(--ease)}
 .ad-hero{transition-delay:.12s}.ad-cards i:nth-child(1){transition-delay:.26s}.ad-cards i:nth-child(2){transition-delay:.34s}.ad-cards i:nth-child(3){transition-delay:.42s}
 .ad-swatches i:nth-child(1){transition-delay:.5s}.ad-swatches i:nth-child(2){transition-delay:.56s}.ad-swatches i:nth-child(3){transition-delay:.62s}.ad-swatches i:nth-child(4){transition-delay:.68s}.ad-swatches b{transition-delay:.76s}
-.hs-panel.is-in .ad-hero{animation-play-state:running}
+.hs-panel.is-in .ad-hero::after{animation-play-state:running}
 .art-code{background:#0d151e;border:1px solid rgba(255,255,255,.1);color:#cfdbe3;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;box-shadow:0 20px 44px rgba(0,0,0,.28)}
-.ac-bar{display:flex;align-items:center;gap:6px;padding:11px 14px;background:#142030;color:#7d93a3;font-size:11px}
+.ac-bar{display:flex;align-items:center;gap:6px;padding:11px 14px;background:#142030;color:#7d93a3;font-size:11px;border-radius:19px 19px 0 0}
 .ac-bar i{width:9px;height:9px;border-radius:50%;background:#2d3e50}
 .ac-bar span{margin-left:10px}
 .ac-body{margin:0;padding:18px 20px;font:inherit;font-size:clamp(11.5px,1.1vw,14px);line-height:1.9;white-space:pre;overflow:hidden}
-.ac-body span{display:block;max-width:0;overflow:hidden;white-space:pre}
+.ac-body span{display:block;white-space:pre;opacity:0;transform:translate3d(-8px,0,0);transition:opacity .4s ease,transform .5s var(--ease)}
 .ac-body b{color:#8ec5ff;font-weight:500}.ac-body em{color:#e5cf92;font-style:normal}.ac-body u{color:#a8d8a0;text-decoration:none}
-.hs-panel.is-in .ac-body span{max-width:40ch;transition:max-width .9s steps(30,end)}
-.hs-panel.is-in .ac-body .l2{transition-delay:.7s}.hs-panel.is-in .ac-body .l3{transition-delay:1.5s}.hs-panel.is-in .ac-body .l4{transition-delay:2.3s}.hs-panel.is-in .ac-body .l5{transition-delay:3.1s}.hs-panel.is-in .ac-body .l6{transition-delay:3.6s}
+.hs-panel.is-in .ac-body span{opacity:1;transform:none}
+.hs-panel.is-in .ac-body .l1{transition-delay:.15s}.hs-panel.is-in .ac-body .l2{transition-delay:.55s}.hs-panel.is-in .ac-body .l3{transition-delay:.95s}.hs-panel.is-in .ac-body .l4{transition-delay:1.35s}.hs-panel.is-in .ac-body .l5{transition-delay:1.75s}.hs-panel.is-in .ac-body .l6{transition-delay:2.15s}
 .ac-caret{display:inline-block;width:8px;height:1.1em;margin-left:3px;vertical-align:text-bottom;background:#cfdbe3;animation:ac-blink 1s steps(1) infinite}
 @keyframes ac-blink{50%{opacity:0}}
 .ac-ok{position:absolute;right:16px;bottom:16px;padding:6px 11px;border-radius:999px;background:#2f8f5b;color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;opacity:0;transform:scale(.6);transition:opacity .4s,transform .5s cubic-bezier(.34,1.56,.64,1)}
-.hs-panel.is-in .ac-ok{opacity:1;transform:none;transition-delay:4.1s}
-.art-redo{background:#fff;border:1px solid #d1dde5;container-type:inline-size}
-.ar-old,.ar-new{position:absolute;inset:0;overflow:hidden}
+.hs-panel.is-in .ac-ok{opacity:1;transform:none;transition-delay:2.7s}
+.art-redo{background:#fff;border:1px solid #d1dde5;container-type:inline-size;overflow:hidden}
+.ar-old,.ar-new,.ar-slide{position:absolute;inset:0}
+.ar-slide{overflow:hidden;transform:translate3d(50%,0,0);will-change:transform}
+.ar-rail{position:absolute;inset:0;transform:translate3d(50%,0,0);will-change:transform;pointer-events:none}
 .ar-old{padding:5cqw 6cqw;background:#fff;color:#000;font-family:"Times New Roman",Times,serif}
 .art-redo .ro-nav{margin:0 0 5cqw;font-size:3.2cqw;color:#00e;text-align:left}
 .ro-nav u{color:#00e}
@@ -1561,7 +1565,7 @@ button:disabled{cursor:not-allowed}
 .art-redo .ro-row p,.art-redo .ro-text{margin:0;font-size:3.1cqw;line-height:1.45;color:#000;text-align:left;max-width:none}
 .art-redo .ro-text{margin-top:5cqw;color:#555;font-size:2.7cqw}
 .ro-btn{display:inline-block;margin-top:4cqw;padding:1cqw 3.5cqw;border:2px outset #ccc;background:#e0e0e0;color:#000;font:3cqw Arial,sans-serif}
-.ar-new{background:#fafafa;clip-path:inset(0 0 0 var(--cut,50%));font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;display:flex;flex-direction:column}
+.ar-new{background:#fafafa;transform:translate3d(-50%,0,0);will-change:transform;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;display:flex;flex-direction:column}
 .art-redo .rn-nav{display:flex;align-items:center;gap:4cqw;margin:0;padding:3cqw 5cqw;font-size:2.7cqw;font-weight:600;color:#5d6a74;background:#fff;border-bottom:1px solid #e4e7e9}
 .rn-nav b{width:5cqw;height:5cqw;margin-right:auto;border-radius:1.4cqw;background:#14202e}
 .rn-nav em{font-style:normal;padding:1.2cqw 2.6cqw;border-radius:99px;background:#14202e;color:#fff}
@@ -1573,13 +1577,14 @@ button:disabled{cursor:not-allowed}
 .rn-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:3cqw;margin:4cqw 5cqw 0}
 .rn-cards i{height:15cqw;border-radius:2.4cqw;background:#e1e9ee}
 .rn-cards i:nth-child(2){background:#b7bd9a}.rn-cards i:nth-child(3){background:#e5cf92}
-.ar-handle{position:absolute;top:0;bottom:0;left:var(--cut,50%);width:2px;background:#14202e}
+.ar-handle{position:absolute;top:0;bottom:0;left:0;width:2px;background:#14202e}
 .ar-handle::after{content:"↔";position:absolute;top:50%;left:50%;width:30px;height:30px;margin:-15px;display:grid;place-items:center;border-radius:50%;background:#14202e;color:#fff;font-size:15px}
 .ar-tag{position:absolute;bottom:12px;z-index:2;padding:4px 9px;border-radius:999px;background:rgba(20,32,46,.86);color:#fff;font-size:9px;font-weight:760;letter-spacing:.14em}
 .ar-tag-old{left:12px}.ar-tag-new{right:12px}
-.hs-panel.is-in .art-redo{animation:ar-sweep 7s ease-in-out infinite}
-@property --cut{syntax:"<percentage>";inherits:true;initial-value:50%}
-@keyframes ar-sweep{0%,10%{--cut:92%}45%,60%{--cut:8%}95%,100%{--cut:92%}}
+.hs-panel.is-in .ar-slide,.hs-panel.is-in .ar-rail{animation:ar-slide 7s ease-in-out infinite}
+.hs-panel.is-in .ar-new{animation:ar-counter 7s ease-in-out infinite}
+@keyframes ar-slide{0%,10%{transform:translate3d(92%,0,0)}45%,60%{transform:translate3d(8%,0,0)}95%,100%{transform:translate3d(92%,0,0)}}
+@keyframes ar-counter{0%,10%{transform:translate3d(-92%,0,0)}45%,60%{transform:translate3d(-8%,0,0)}95%,100%{transform:translate3d(-92%,0,0)}}
 .art-care{background:#f1f4f6;border:1px solid #dfe6ea;padding:clamp(20px,3vw,34px);display:grid;align-content:center;gap:16px}
 .aw-head{margin:0;color:#758796;font-size:11px;font-weight:760;letter-spacing:.12em;text-transform:uppercase}
 .art-care ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
@@ -1596,9 +1601,9 @@ button:disabled{cursor:not-allowed}
 @media(prefers-reduced-motion:reduce){
   .art *{animation:none!important;transition:none!important}
   .hs-panel .ad-bar,.hs-panel .ad-hero,.hs-panel .ad-cards i,.hs-panel .ad-swatches i,.hs-panel .ad-swatches b{opacity:1!important;transform:none!important}
-  .ac-body span{max-width:40ch!important}.ac-ok{opacity:1!important;transform:none!important}
+  .ac-body span{opacity:1!important;transform:none!important}.ac-ok{opacity:1!important;transform:none!important}
   .art-care li i{background:#2f8f5b;border-color:#2f8f5b}.art-care li i::after{transform:rotate(45deg) scale(1)}
-  .ar-new{clip-path:inset(0 0 0 50%)}
+  .ad-hero::after{opacity:0!important}
 }
 @media(max-width:900px){.art{aspect-ratio:1.08}.art-design .ad-page{margin-top:-12%}}
 
@@ -1627,3 +1632,15 @@ button:disabled{cursor:not-allowed}
 /* Only the chips on screen animate their icons. */
 .spec:not(.is-live) .v,.spec:not(.is-live) .v *{animation-play-state:paused!important}
 @media(prefers-reduced-motion:reduce){.specs-dots{transform:none!important}}
+
+
+/* The sideways strip: constant drift runs on the compositor; scrolling the page nudges it by a plain transform. */
+.specs-slide{will-change:transform}
+.specs-track{will-change:auto;animation:specs-drift var(--dur,90s) linear infinite}
+@keyframes specs-drift{to{transform:translate3d(-33.3333%,0,0)}}
+.specs-dots{animation:specs-dots 2.02s linear infinite}
+@keyframes specs-dots{to{transform:translate3d(-24px,0,0)}}
+.specs.is-paused .specs-track,.specs.is-paused .specs-dots{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){.specs-track,.specs-dots{animation:none}.spec[aria-hidden="true"]{display:none}}
+/* A blurred header over scrolling content is costly on phones; a nearly opaque one looks the same. */
+@media(max-width:900px){.site-header,.site-header.scrolled{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(250,250,250,.97)}}

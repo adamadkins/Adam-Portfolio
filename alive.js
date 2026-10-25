@@ -41,25 +41,31 @@
     });
   }
 
-  // The paragraph darkens word by word as the section scrolls into view, and the asterisks turn with the page.
+  // The paragraph darkens word by word as the section scrolls into view. The work only happens while the section is
+  // near the screen, once per frame, and only when the number of lit words actually changes.
   const copy = layout?.querySelector("p");
   const words = [];
   if (copy) {
     copy.innerHTML = copy.textContent.trim().split(/\s+/).map(text => '<span class="w">' + text.replace(/[<>&]/g, "") + "</span>").join(" ");
     words.push(...copy.querySelectorAll(".w"));
   }
-  const spinners = document.querySelectorAll(".about-visual-cross,.philosophy-signoff span");
+  let near = false, queued = false, litNow = -1;
   const update = () => {
+    queued = false;
+    if (!copy) return;
     if (calm) { words.forEach(w => w.classList.add("lit")); return; }
-    if (copy) {
-      const top = copy.getBoundingClientRect().top;
-      const progress = clamp((innerHeight * 0.92 - top) / (innerHeight * 0.45), 0, 1);
-      const lit = Math.round(progress * words.length);
-      words.forEach((w, i) => w.classList.toggle("lit", i < lit));
-    }
-    spinners.forEach(spin => spin.style.setProperty("--spin", (scrollY * 0.12).toFixed(1)));
+    const top = copy.getBoundingClientRect().top;
+    const progress = clamp((innerHeight * 0.92 - top) / (innerHeight * 0.45), 0, 1);
+    const lit = Math.round(progress * words.length);
+    if (lit === litNow) return;
+    litNow = lit;
+    words.forEach((w, i) => w.classList.toggle("lit", i < lit));
   };
-  addEventListener("scroll", update, { passive: true });
-  addEventListener("resize", update);
-  update();
+  if (copy) {
+    if ("IntersectionObserver" in window) new IntersectionObserver(entries => { near = entries[0].isIntersecting; if (near) update(); }, { rootMargin: "120px" }).observe(copy);
+    else near = true;
+    addEventListener("scroll", () => { if (near && !queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
+    addEventListener("resize", update);
+    update();
+  }
 })();
