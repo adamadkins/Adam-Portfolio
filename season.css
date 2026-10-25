@@ -100,7 +100,7 @@ html[data-season="newyear"]{--season:#d9a826;--season-dark:#12131f;--specs-bg:#e
 
 /* Halloween extras: bats crossing the sky now and then, a witch's hat on the logo, a flickering candle in the pumpkin. */
 .season-bats{position:fixed;top:104px;left:0;width:100%;height:90px;z-index:898;pointer-events:none;overflow:hidden}
-.season-bats .bat{position:absolute;left:0;top:0;width:38px;height:27px;animation:bat-fly 34s linear infinite}
+.season-bats .bat{position:absolute;left:0;top:0;width:38px;height:27px;animation:bat-fly 34s linear infinite backwards}
 .season-bats .bat img{position:absolute;left:0;top:0;width:38px;height:auto;display:block}
 .season-bats .wing-up{animation:wing-a .36s steps(1,end) infinite}
 .season-bats .wing-down{animation:wing-b .36s steps(1,end) infinite}
