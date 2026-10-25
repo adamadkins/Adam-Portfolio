@@ -43,3 +43,5 @@ Add `?season=halloween` (or any theme name, or `off`) to any page to preview a t
 To add a theme: draw its pieces in `season-art.js` (a function in `themes`, plus an entry in `icons` for the lightbulb's replacement),
 style them in `season.css`, add its name to `NAMES` in `season.js`, and add it to `THEMES` in the portal's `src/site-theme.js` with its dates.
 Keep moving parts to one transform or opacity animation each (a falling effect is one tiled layer), so a theme stays light on phones.
+
+Images under `/images/` are cached by browsers for a week (see `_headers`), so when a picture changes, give it a new file name (for example `leaves-near-v3.webp`) and update the reference; otherwise visitors keep seeing the old one.

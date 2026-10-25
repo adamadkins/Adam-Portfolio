@@ -60,8 +60,8 @@ html[data-season="newyear"]{--season:#d9a826;--season-dark:#12131f;--specs-bg:#e
 .season-snow{position:fixed;left:0;width:100%;z-index:899;pointer-events:none}
 .season-leaves-wrap{position:fixed;inset:0;z-index:899;pointer-events:none;overflow:hidden;-webkit-mask-image:linear-gradient(to bottom,#000 0,#000 36%,transparent 88%);mask-image:linear-gradient(to bottom,#000 0,#000 36%,transparent 88%)}
 .season-leaves{position:absolute;left:0;width:100%}
-.season-leaves-near{top:-700px;height:calc(100% + 700px);background:url(/images/season/leaves-near.webp) 0 0/700px 700px repeat;animation:fall-near 32s linear infinite}
-.season-leaves-far{top:-960px;height:calc(100% + 960px);background:url(/images/season/leaves-far.webp) 0 0/960px 960px repeat;animation:fall-far 66s linear infinite}
+.season-leaves-near{top:-700px;height:calc(100% + 700px);background:url(/images/season/leaves-near-v2.webp) 0 0/700px 700px repeat;animation:fall-near 32s linear infinite}
+.season-leaves-far{top:-960px;height:calc(100% + 960px);background:url(/images/season/leaves-far-v2.webp) 0 0/960px 960px repeat;animation:fall-far 66s linear infinite}
 @keyframes fall-near{to{transform:translate3d(0,700px,0)}}
 @keyframes fall-far{to{transform:translate3d(0,960px,0)}}
 .season-snow-near{top:-480px;height:calc(100% + 480px);background-image:radial-gradient(circle 5px at 416px 295px,#fff 38%,#a9c4dc 62%,transparent 70%),radial-gradient(circle 4.5px at 276px 375px,#fff 38%,#a9c4dc 62%,transparent 70%),radial-gradient(circle 3.5px at 67px 418px,#fff 38%,#a9c4dc 62%,transparent 70%),radial-gradient(circle 4.5px at 186px 235px,#fff 38%,#a9c4dc 62%,transparent 70%),radial-gradient(circle 5px at 42px 37px,#fff 38%,#a9c4dc 62%,transparent 70%),radial-gradient(circle 4.5px at 30px 270px,#fff 38%,#a9c4dc 62%,transparent 70%),radial-gradient(circle 5px at 358px 51px,#fff 38%,#a9c4dc 62%,transparent 70%),radial-gradient(circle 4.5px at 387px 441px,#fff 38%,#a9c4dc 62%,transparent 70%),radial-gradient(circle 4.5px at 193px 74px,#fff 38%,#a9c4dc 62%,transparent 70%);background-size:480px 480px;animation:snow-near 16s linear infinite}
