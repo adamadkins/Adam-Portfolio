@@ -108,8 +108,8 @@
     },
     easter: {
       glow: "#f6b8ee",
-      outline: `<path d="M110 70c-40 0-62 62-62 112 0 44 28 74 62 74s62-30 62-74c0-50-22-112-62-112z"/><path d="M54 158l14-14 14 14 14-14 14 14 14-14 14 14 14-14 14 14M50 214q15-14 30 0t30 0 30 0 30 0"/><circle cx="84" cy="116" r="3.5"/><circle cx="116" cy="100" r="3.5"/><circle cx="142" cy="126" r="3.5"/>`,
-      lit: `<path d="M110 70c-40 0-62 62-62 112 0 44 28 74 62 74s62-30 62-74c0-50-22-112-62-112z" fill="rgba(246,184,238,.16)" stroke="#f6b8ee" stroke-width="3"/><path d="M54 158l14-14 14 14 14-14 14 14 14-14 14 14 14-14 14 14 14-14" stroke="#9fd8ff" stroke-width="4"/><path d="M50 214q15-14 30 0t30 0 30 0 30 0" stroke="#ffe08a" stroke-width="4"/><circle cx="84" cy="116" r="4.5" fill="#9fd8ff" stroke="none"/><circle cx="116" cy="100" r="4.5" fill="#ffe08a" stroke="none"/><circle cx="142" cy="126" r="4.5" fill="#b9f0c8" stroke="none"/>`,
+      outline: `<image href="/images/season/egg-outline.webp" x="40" y="68" width="140" height="190"/>`,
+      lit: `<image href="/images/season/egg-lit.webp" x="40" y="68" width="140" height="190"/>`,
     },
     july4: {
       glow: "#8fb8ff",
