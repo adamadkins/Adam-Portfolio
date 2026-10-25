@@ -1,0 +1,77 @@
+/* Seasonal themes (see season.js and season-art.js). Loaded only when a theme is on. */
+html[data-season]{--season:#8a9faf;--season-dark:#19222a;--specs-bg:#e1e9ee}
+html[data-season="halloween"]{--season:#f08a24;--season-dark:#1e1627;--specs-bg:#f2e6d8}
+html[data-season="thanksgiving"]{--season:#c8641e;--season-dark:#261b13;--specs-bg:#f0e2cd}
+html[data-season="christmas"]{--season:#d6303a;--season-dark:#13251b;--specs-bg:#e2eee6}
+html[data-season="easter"]{--season:#b48fe0;--season-dark:#221f35;--specs-bg:#ece5f4}
+html[data-season="july4"]{--season:#e5484d;--season-dark:#131c36;--specs-bg:#e2e8f4}
+[data-season] .hero-title-stacked .hero-period{background:var(--season)}
+[data-season] .brand-name-dot,[data-season] .package-period{color:var(--season)}
+[data-season] .contact-section{background-color:var(--season-dark)}
+[data-season] .brand{position:relative}
+::selection{background:color-mix(in srgb,var(--season,#d7e2ea) 35%,white)}
+
+/* The lightbulb becomes something seasonal. */
+.idea-bulb .season-outline{stroke:#7d8e9b}
+.idea-bulb .season-lit{opacity:0}
+.idea-bulb.visible .season-lit{animation:bulb-glass .8s linear .5s both}
+.idea-bulb .season-lit .tw{animation:twinkle 2.2s ease-in-out infinite}
+.idea-bulb .season-lit .tw1{animation-delay:-.7s}.idea-bulb .season-lit .tw2{animation-delay:-1.4s}
+[data-season="halloween"] .idea-bulb::before{background:radial-gradient(circle,rgba(255,150,50,.15) 0%,rgba(255,150,50,.05) 38%,rgba(255,150,50,0) 68%)}
+[data-season="christmas"] .idea-bulb::before{background:radial-gradient(circle,rgba(140,240,170,.13) 0%,rgba(140,240,170,.05) 38%,rgba(140,240,170,0) 68%)}
+[data-season="easter"] .idea-bulb::before{background:radial-gradient(circle,rgba(246,184,238,.14) 0%,rgba(246,184,238,.05) 38%,rgba(246,184,238,0) 68%)}
+[data-season="july4"] .idea-bulb::before{background:radial-gradient(circle,rgba(130,170,255,.15) 0%,rgba(130,170,255,.05) 38%,rgba(130,170,255,0) 68%)}
+[data-season="thanksgiving"] .idea-bulb::before{background:radial-gradient(circle,rgba(255,190,100,.14) 0%,rgba(255,190,100,.05) 38%,rgba(255,190,100,0) 68%)}
+@keyframes twinkle{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* Halloween: a spider spinning down from the header. */
+.season-spider{position:absolute;top:100%;right:clamp(64px,13%,240px);width:40px;height:0;z-index:3;pointer-events:none;transform-origin:20px 0;animation:spider-sway 7s ease-in-out infinite alternate;--drop:112px}
+.season-spider .thread{position:absolute;left:19.2px;top:0;width:1.6px;height:var(--drop);background:#8d99a4;transform-origin:top;animation:thread-grow 2.6s var(--ease) 1s both,thread-bob 5s ease-in-out 3.6s infinite alternate}
+.season-spider .spider{position:absolute;left:0;top:-6px;display:block;transform:translateY(var(--drop));animation:spider-drop 2.6s var(--ease) 1s both,spider-bob 5s ease-in-out 3.6s infinite alternate}
+@keyframes thread-grow{from{transform:scaleY(.04)}}
+@keyframes spider-drop{from{transform:translateY(0)}}
+@keyframes thread-bob{to{transform:scaleY(.86)}}
+@keyframes spider-bob{to{transform:translateY(calc(var(--drop)*.86))}}
+@keyframes spider-sway{from{transform:rotate(-2.5deg)}to{transform:rotate(2.5deg)}}
+.season-web{position:absolute;top:0;left:0;z-index:1;pointer-events:none;opacity:.55}
+.season-web path{stroke:#fff;stroke-width:1.1}
+.season-web.flip{left:auto;right:0;transform:scaleX(-1)}
+.site-footer{position:relative}
+
+/* Hanging strips: Christmas lights, Fourth of July bunting, Easter eggs. */
+.season-strip{position:absolute;left:0;top:100%;z-index:2;max-width:100%;pointer-events:none;overflow:visible}
+.season-lights .wire{stroke:#2f5a45;stroke-width:2}
+.season-eggs .wire{stroke:#a893c9;stroke-width:1.6}
+.season-bunting .wire{stroke:#8996a8;stroke-width:1.6}
+.season-lights .g0{animation:twinkle 2.4s ease-in-out infinite}
+.season-lights .g1{animation:twinkle 2.4s ease-in-out -.6s infinite}
+.season-lights .g2{animation:twinkle 2.4s ease-in-out -1.2s infinite}
+.season-lights .g3{animation:twinkle 2.4s ease-in-out -1.8s infinite}
+.season-hat{position:absolute;left:-8px;top:-14px;z-index:2;pointer-events:none;transform:rotate(-12deg)}
+.season-ears{position:absolute;left:3px;top:-17px;z-index:2;pointer-events:none}
+
+/* Falling leaves and snow: each is one tiled layer that drifts down, so the browser animates it in a single move. */
+.season-leaves,.season-snow{position:fixed;left:0;width:100%;z-index:899;pointer-events:none}
+.season-leaves-near{top:-840px;height:calc(100% + 840px);background:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22840%22 height=%22840%22 viewBox=%220 0 840 840%22%3E%3Cg transform=%22translate(393 53) rotate(31) scale(1.58)%22 opacity=%221%22%3E%3Cpath d=%22M12 1c3 4 7 5 10 5-1 5-4 8-8 9 0 3-1 6-2 8-1-2-2-5-2-8-4-1-7-4-8-9 3 0 7-1 10-5z%22 fill=%22%23e0a93a%22/%3E%3Cpath d=%22M12 6v16%22 stroke=%22rgba(0,0,0,.28)%22 stroke-width=%221%22 fill=%22none%22/%3E%3C/g%3E%3Cg transform=%22translate(141 609) rotate(25) scale(1.79)%22 opacity=%221%22%3E%3Cpath d=%22M12 1c3 4 7 5 10 5-1 5-4 8-8 9 0 3-1 6-2 8-1-2-2-5-2-8-4-1-7-4-8-9 3 0 7-1 10-5z%22 fill=%22%23c8641e%22/%3E%3Cpath d=%22M12 6v16%22 stroke=%22rgba(0,0,0,.28)%22 stroke-width=%221%22 fill=%22none%22/%3E%3C/g%3E%3Cg transform=%22translate(406 615) rotate(285) scale(1.73)%22 opacity=%221%22%3E%3Cpath d=%22M12 1c3 4 7 5 10 5-1 5-4 8-8 9 0 3-1 6-2 8-1-2-2-5-2-8-4-1-7-4-8-9 3 0 7-1 10-5z%22 fill=%22%23a8431a%22/%3E%3Cpath d=%22M12 6v16%22 stroke=%22rgba(0,0,0,.28)%22 stroke-width=%221%22 fill=%22none%22/%3E%3C/g%3E%3Cg transform=%22translate(339 405) rotate(214) scale(1.35)%22 opacity=%221%22%3E%3Cpath d=%22M12 1c3 4 7 5 10 5-1 5-4 8-8 9 0 3-1 6-2 8-1-2-2-5-2-8-4-1-7-4-8-9 3 0 7-1 10-5z%22 fill=%22%23c8641e%22/%3E%3Cpath d=%22M12 6v16%22 stroke=%22rgba(0,0,0,.28)%22 stroke-width=%221%22 fill=%22none%22/%3E%3C/g%3E%3Cg transform=%22translate(204 66) rotate(292) scale(1.44)%22 opacity=%221%22%3E%3Cpath d=%22M12 1c3 4 7 5 10 5-1 5-4 8-8 9 0 3-1 6-2 8-1-2-2-5-2-8-4-1-7-4-8-9 3 0 7-1 10-5z%22 fill=%22%23cf7a22%22/%3E%3Cpath d=%22M12 6v16%22 stroke=%22rgba(0,0,0,.28)%22 stroke-width=%221%22 fill=%22none%22/%3E%3C/g%3E%3Cg transform=%22translate(645 724) rotate(92) scale(1.33)%22 opacity=%221%22%3E%3Cpath d=%22M12 1c3 4 7 5 10 5-1 5-4 8-8 9 0 3-1 6-2 8-1-2-2-5-2-8-4-1-7-4-8-9 3 0 7-1 10-5z%22 fill=%22%23b5521c%22/%3E%3Cpath d=%22M12 6v16%22 stroke=%22rgba(0,0,0,.28)%22 stroke-width=%221%22 fill=%22none%22/%3E%3C/g%3E%3C/svg%3E");background-size:840px 840px;animation:fall-near 38s linear infinite}
+.season-leaves-far{top:-1100px;height:calc(100% + 1100px);background:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221100%22 height=%221100%22 viewBox=%220 0 1100 1100%22%3E%3Cg transform=%22translate(549 191) rotate(311) scale(1.13)%22 opacity=%220.8%22%3E%3Cpath d=%22M12 1c3 4 7 5 10 5-1 5-4 8-8 9 0 3-1 6-2 8-1-2-2-5-2-8-4-1-7-4-8-9 3 0 7-1 10-5z%22 fill=%22%23c8641e%22/%3E%3Cpath d=%22M12 6v16%22 stroke=%22rgba(0,0,0,.28)%22 stroke-width=%221%22 fill=%22none%22/%3E%3C/g%3E%3Cg transform=%22translate(987 907) rotate(262) scale(0.95)%22 opacity=%220.8%22%3E%3Cpath d=%22M12 1c3 4 7 5 10 5-1 5-4 8-8 9 0 3-1 6-2 8-1-2-2-5-2-8-4-1-7-4-8-9 3 0 7-1 10-5z%22 fill=%22%23a8431a%22/%3E%3Cpath d=%22M12 6v16%22 stroke=%22rgba(0,0,0,.28)%22 stroke-width=%221%22 fill=%22none%22/%3E%3C/g%3E%3Cg transform=%22translate(1025 147) rotate(77) scale(1.12)%22 opacity=%220.8%22%3E%3Cpath d=%22M12 1c3 4 7 5 10 5-1 5-4 8-8 9 0 3-1 6-2 8-1-2-2-5-2-8-4-1-7-4-8-9 3 0 7-1 10-5z%22 fill=%22%23e0a93a%22/%3E%3Cpath d=%22M12 6v16%22 stroke=%22rgba(0,0,0,.28)%22 stroke-width=%221%22 fill=%22none%22/%3E%3C/g%3E%3Cg transform=%22translate(485 834) rotate(20) scale(1.13)%22 opacity=%220.8%22%3E%3Cpath d=%22M12 1c3 4 7 5 10 5-1 5-4 8-8 9 0 3-1 6-2 8-1-2-2-5-2-8-4-1-7-4-8-9 3 0 7-1 10-5z%22 fill=%22%23c8641e%22/%3E%3Cpath d=%22M12 6v16%22 stroke=%22rgba(0,0,0,.28)%22 stroke-width=%221%22 fill=%22none%22/%3E%3C/g%3E%3Cg transform=%22translate(255 809) rotate(285) scale(1.00)%22 opacity=%220.8%22%3E%3Cpath d=%22M12 1c3 4 7 5 10 5-1 5-4 8-8 9 0 3-1 6-2 8-1-2-2-5-2-8-4-1-7-4-8-9 3 0 7-1 10-5z%22 fill=%22%23a8431a%22/%3E%3Cpath d=%22M12 6v16%22 stroke=%22rgba(0,0,0,.28)%22 stroke-width=%221%22 fill=%22none%22/%3E%3C/g%3E%3Cg transform=%22translate(498 548) rotate(174) scale(1.04)%22 opacity=%220.8%22%3E%3Cpath d=%22M12 1c3 4 7 5 10 5-1 5-4 8-8 9 0 3-1 6-2 8-1-2-2-5-2-8-4-1-7-4-8-9 3 0 7-1 10-5z%22 fill=%22%23b5521c%22/%3E%3Cpath d=%22M12 6v16%22 stroke=%22rgba(0,0,0,.28)%22 stroke-width=%221%22 fill=%22none%22/%3E%3C/g%3E%3Cg transform=%22translate(143 170) rotate(254) scale(1.00)%22 opacity=%220.8%22%3E%3Cpath d=%22M12 1c3 4 7 5 10 5-1 5-4 8-8 9 0 3-1 6-2 8-1-2-2-5-2-8-4-1-7-4-8-9 3 0 7-1 10-5z%22 fill=%22%23e0a93a%22/%3E%3Cpath d=%22M12 6v16%22 stroke=%22rgba(0,0,0,.28)%22 stroke-width=%221%22 fill=%22none%22/%3E%3C/g%3E%3C/svg%3E");background-size:1100px 1100px;opacity:.7;animation:fall-far 78s linear infinite}
+@keyframes fall-near{to{transform:translate3d(0,840px,0)}}
+@keyframes fall-far{to{transform:translate3d(0,1100px,0)}}
+.season-snow-near{top:-480px;height:calc(100% + 480px);background-image:radial-gradient(circle 5px at 416px 295px,#fff 38%,#a9c4dc 62%,transparent 70%),radial-gradient(circle 4.5px at 276px 375px,#fff 38%,#a9c4dc 62%,transparent 70%),radial-gradient(circle 3.5px at 67px 418px,#fff 38%,#a9c4dc 62%,transparent 70%),radial-gradient(circle 4.5px at 186px 235px,#fff 38%,#a9c4dc 62%,transparent 70%),radial-gradient(circle 5px at 42px 37px,#fff 38%,#a9c4dc 62%,transparent 70%),radial-gradient(circle 4.5px at 30px 270px,#fff 38%,#a9c4dc 62%,transparent 70%),radial-gradient(circle 5px at 358px 51px,#fff 38%,#a9c4dc 62%,transparent 70%),radial-gradient(circle 4.5px at 387px 441px,#fff 38%,#a9c4dc 62%,transparent 70%),radial-gradient(circle 4.5px at 193px 74px,#fff 38%,#a9c4dc 62%,transparent 70%);background-size:480px 480px;animation:snow-near 16s linear infinite}
+.season-snow-far{top:-640px;height:calc(100% + 640px);background-image:radial-gradient(circle 3px at 360px 243px,#fff 38%,#b5cde3 62%,transparent 70%),radial-gradient(circle 2.5px at 572px 219px,#fff 38%,#b5cde3 62%,transparent 70%),radial-gradient(circle 2.5px at 198px 280px,#fff 38%,#b5cde3 62%,transparent 70%),radial-gradient(circle 3px at 450px 417px,#fff 38%,#b5cde3 62%,transparent 70%),radial-gradient(circle 3.5px at 586px 555px,#fff 38%,#b5cde3 62%,transparent 70%),radial-gradient(circle 2.5px at 121px 290px,#fff 38%,#b5cde3 62%,transparent 70%),radial-gradient(circle 2.5px at 100px 406px,#fff 38%,#b5cde3 62%,transparent 70%),radial-gradient(circle 2.5px at 68px 68px,#fff 38%,#b5cde3 62%,transparent 70%),radial-gradient(circle 3.5px at 237px 388px,#fff 38%,#b5cde3 62%,transparent 70%),radial-gradient(circle 2.5px at 365px 614px,#fff 38%,#b5cde3 62%,transparent 70%);background-size:640px 640px;opacity:.75;animation:snow-far 36s linear infinite}
+@keyframes snow-near{to{transform:translate3d(0,480px,0)}}
+@keyframes snow-far{to{transform:translate3d(0,640px,0)}}
+
+/* Fourth of July: a few bursts, one at a time. */
+.season-fw{position:fixed;z-index:900;pointer-events:none;opacity:0;transform:scale(.15);animation:fw-burst 7.5s ease-out infinite}
+.fw-a{top:110px;left:5%;animation-delay:.8s}
+.fw-b{top:140px;right:6%;animation-delay:3.4s}
+.fw-c{top:38%;right:24%;animation-delay:5.8s}
+@keyframes fw-burst{0%{opacity:0;transform:scale(.15)}6%{opacity:1}22%{opacity:1;transform:scale(1)}34%{opacity:0;transform:scale(1.12)}100%{opacity:0;transform:scale(1.12)}}
+@media(max-width:700px){.season-fw{width:104px;height:104px}.season-spider{right:22%}}
+
+/* Calm: no motion for visitors who ask for none. The spider simply hangs; falling things stay away. */
+@media(prefers-reduced-motion:reduce){
+  [data-season] *{animation:none!important}
+  .season-leaves,.season-snow,.season-fw{display:none}
+  .idea-bulb .season-lit{opacity:1}
+}

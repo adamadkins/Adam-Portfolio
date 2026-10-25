@@ -1,0 +1,151 @@
+// The art for each seasonal theme, built when a theme is switched on and removed when it is switched off. Everything
+// is light on purpose: a handful of SVG pieces, and moving parts that are single compositor-friendly animations (a
+// snowfall is one tiled layer, not hundreds of flakes), so a theme never makes the page heavy on a phone.
+(() => {
+  const $ = selector => document.querySelector(selector);
+  const touch = matchMedia("(hover: none)").matches;
+  const made = [];
+  let bulbBackup = null, onResize = null, resizeTimer = 0;
+
+  const make = markup => { const t = document.createElement("template"); t.innerHTML = markup.trim(); return t.content.firstElementChild; };
+  const put = (parent, markup) => {
+    if (!parent) return null;
+    const node = typeof markup === "string" ? make(markup) : markup;
+    parent.append(node); made.push(node);
+    return node;
+  };
+
+  // ---------- a string of things hanging from the header: lights, bunting or eggs ----------
+  // `piece` draws one hanging item at x, y; `colors` are grouped so each group can twinkle as ONE animation.
+  const strip = (className, step, sag, piece, groups = 1) => {
+    const header = $(".site-header");
+    if (!header) return;
+    const build = () => {
+      const w = innerWidth, s = w < 600 ? step * 0.78 : step;
+      let wire = "M0 2";
+      const buckets = Array.from({ length: groups }, () => "");
+      let i = 0;
+      for (let x = 0; x < w; x += s, i++) {
+        const end = Math.min(x + s, w);
+        wire += ` Q${(x + end) / 2} ${2 + sag * 2} ${end} 2`;
+        if (end - x > s * 0.6) buckets[i % groups] += piece((x + end) / 2, 2 + sag, i);
+      }
+      return `<svg class="season-strip ${className}" width="${w}" height="${sag + 34}" viewBox="0 0 ${w} ${sag + 34}" aria-hidden="true" focusable="false"><path class="wire" d="${wire}" fill="none"/>${buckets.map((b, k) => `<g class="g${k}">${b}</g>`).join("")}</svg>`;
+    };
+    let node = put(header, build());
+    const rebuild = () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { const next = make(build()); node.replaceWith(next); made[made.indexOf(node)] = next; node = next; }, 200); };
+    let width = innerWidth;
+    onResize = () => { if (innerWidth !== width) { width = innerWidth; rebuild(); } };
+    addEventListener("resize", onResize);
+  };
+
+  // ---------- small things ----------
+  const web = (size, flip) => {
+    const n = 6, rays = Array.from({ length: n }, (_, i) => { const a = (i / (n - 1)) * Math.PI / 2; return [Math.cos(a) * size, Math.sin(a) * size]; });
+    let d = rays.map(([x, y]) => `M0 0L${x.toFixed(1)} ${y.toFixed(1)}`).join("");
+    for (let r = 1; r <= 5; r++) {
+      const k = r / 5.4;
+      d += `M${rays[0][0] * k} ${rays[0][1] * k}` + rays.slice(1).map(([x, y], i) => { const px = rays[i][0] * k, py = rays[i][1] * k, qx = x * k, qy = y * k; return `Q${((px + qx) / 2 * 0.82).toFixed(1)} ${((py + qy) / 2 * 0.82).toFixed(1)} ${qx.toFixed(1)} ${qy.toFixed(1)}`; }).join("");
+    }
+    return `<svg class="season-web${flip ? " flip" : ""}" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true" focusable="false"><path d="${d}" fill="none"/></svg>`;
+  };
+  const hat = () => `<svg class="season-hat" width="34" height="30" viewBox="0 0 34 30" aria-hidden="true" focusable="false"><path d="M5 22C6 10 14 3 25 5c-4 3-5 8-4 17z" fill="#d6303a"/><path d="M3 21c4-2 16-2 28 0l-1 5c-8 2-18 2-26 0z" fill="#fff"/><circle cx="26" cy="5" r="4" fill="#fff"/></svg>`;
+  const ears = () => `<svg class="season-ears" width="36" height="32" viewBox="0 0 36 32" aria-hidden="true" focusable="false"><g><ellipse cx="11" cy="15" rx="5" ry="13" fill="#fff" stroke="#c9b9dd" stroke-width="1.2" transform="rotate(-10 11 15)"/><ellipse cx="11" cy="15" rx="2.4" ry="9" fill="#f6b8cf" transform="rotate(-10 11 15)"/></g><g><ellipse cx="25" cy="15" rx="5" ry="13" fill="#fff" stroke="#c9b9dd" stroke-width="1.2" transform="rotate(12 25 15)"/><ellipse cx="25" cy="15" rx="2.4" ry="9" fill="#f6b8cf" transform="rotate(12 25 15)"/></g></svg>`;
+  const spider = () => `<div class="season-spider" aria-hidden="true"><span class="thread"></span><svg class="spider" width="40" height="40" viewBox="0 0 40 40" focusable="false"><g stroke="#1b2430" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M15 20L6 12L3 18M14 22L4 20L2 27M15 24L5 29L4 36M17 26L10 34L10 39M25 20L34 12L37 18M26 22L36 20L38 27M25 24L35 29L36 36M23 26L30 34L30 39"/></g><ellipse cx="20" cy="25" rx="7" ry="8.5" fill="#1b2430"/><circle cx="20" cy="15.5" r="4.6" fill="#1b2430"/><path d="M18.4 22.5h3.2l-1.6 3 1.6 3h-3.2l1.6-3z" fill="#d4332b"/><circle cx="18.3" cy="14.6" r="1.1" fill="#fff"/><circle cx="21.7" cy="14.6" r="1.1" fill="#fff"/></svg></div>`;
+  const layer = className => put(document.body, `<div class="${className}" aria-hidden="true"></div>`);
+  const firework = (className, colors) => {
+    const rays = Array.from({ length: 12 }, (_, i) => { const a = i / 12 * Math.PI * 2, c = colors[i % colors.length]; return `<line x1="${50 + Math.cos(a) * 9}" y1="${50 + Math.sin(a) * 9}" x2="${50 + Math.cos(a) * 36}" y2="${50 + Math.sin(a) * 36}" stroke="${c}" stroke-width="3" stroke-linecap="round"/><circle cx="${50 + Math.cos(a) * 44}" cy="${50 + Math.sin(a) * 44}" r="2.4" fill="${c}"/>`; }).join("");
+    return put(document.body, `<svg class="season-fw ${className}" width="150" height="150" viewBox="0 0 100 100" aria-hidden="true" focusable="false">${rays}</svg>`);
+  };
+
+  // ---------- the lightbulb in the closing section becomes something seasonal ----------
+  const OUT = `fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"`;
+  const icons = {
+    halloween: {
+      glow: "#ffb347",
+      outline: `<path d="M96 130C60 124 30 152 30 192c0 40 30 66 66 62M124 130c36-6 66 22 66 62 0 40-30 66-66 62M96 130c-14 20-18 42-18 62s4 42 18 62M124 130c14 20 18 42 18 62s-4 42-18 62M96 130q14 8 28 0M96 254q14 8 28 0M104 128c0-14 2-22 8-30 4-6 10-8 14-6M104 128q10 5 20 0M74 172l16-18 16 18zM114 172l16-18 16 18zM104 192l6-10 6 10zM68 208l16 16 12-10 14 14 14-14 12 10 16-16-6 20-16 12-20-6-20 6-16-12z"/>`,
+      lit: `<path d="M74 172l16-18 16 18zM114 172l16-18 16 18zM104 192l6-10 6 10zM68 208l16 16 12-10 14 14 14-14 12 10 16-16-6 20-16 12-20-6-20 6-16-12z" fill="#ffc46b" stroke="#ffe0a6" stroke-width="3"/><path d="M96 130C60 124 30 152 30 192c0 40 30 66 66 62h28c36 4 66-22 66-62 0-40-30-68-66-62z" fill="rgba(255,150,50,.12)" stroke="#ffb347" stroke-width="3"/>`,
+    },
+    thanksgiving: {
+      glow: "#ffc267",
+      outline: `<path d="M70 152c0-26 18-42 40-42s40 16 40 42zM110 110V94M76 152c2 50 14 92 34 108 20-16 32-58 34-108M80 124l14 14M96 114l14 14M124 114l-14 14M140 124l-14 14M92 138l12 14M128 138l-12 14M110 94c8-18 28-24 44-16-4 16-24 26-44 16z"/>`,
+      lit: `<path d="M76 152c2 50 14 92 34 108 20-16 32-58 34-108z" fill="rgba(255,176,72,.28)" stroke="#ffc267" stroke-width="3"/><path d="M70 152c0-26 18-42 40-42s40 16 40 42z" fill="rgba(190,110,50,.35)" stroke="#e9a35a" stroke-width="3"/><path d="M110 94c8-18 28-24 44-16-4 16-24 26-44 16z" fill="rgba(226,120,40,.4)" stroke="#f0a050" stroke-width="3"/>`,
+    },
+    christmas: {
+      glow: "#9cf0b6",
+      outline: `<path d="M110 66L80 118H96L64 168H84L50 222H170L136 168H156L124 118H140Z"/><path d="M100 222V252H120V222"/><path d="M110 46l4.4 9 9.9 1.4-7.2 7 1.7 9.8-8.8-4.7-8.8 4.7 1.7-9.8-7.2-7 9.9-1.4z"/>`,
+      lit: `<path d="M110 66L80 118H96L64 168H84L50 222H170L136 168H156L124 118H140Z" fill="rgba(80,200,120,.16)" stroke="#8ee6a8" stroke-width="3"/><path d="M110 46l4.4 9 9.9 1.4-7.2 7 1.7 9.8-8.8-4.7-8.8 4.7 1.7-9.8-7.2-7 9.9-1.4z" fill="#ffd75e" stroke="#fff0a8" stroke-width="2.5"/><g class="tw tw0"><circle cx="96" cy="146" r="5" fill="#ff5a64"/><circle cx="116" cy="190" r="5" fill="#ff5a64"/><circle cx="142" cy="208" r="5" fill="#ff5a64"/></g><g class="tw tw1"><circle cx="122" cy="132" r="5" fill="#ffd75e"/><circle cx="84" cy="198" r="5" fill="#ffd75e"/><circle cx="156" cy="214" r="0" fill="#ffd75e"/></g><g class="tw tw2"><circle cx="106" cy="104" r="4.5" fill="#6bb4ff"/><circle cx="132" cy="168" r="5" fill="#6bb4ff"/><circle cx="70" cy="212" r="5" fill="#6bb4ff"/></g>`,
+    },
+    easter: {
+      glow: "#f6b8ee",
+      outline: `<path d="M110 70c-40 0-62 62-62 112 0 44 28 74 62 74s62-30 62-74c0-50-22-112-62-112z"/><path d="M54 158l14-14 14 14 14-14 14 14 14-14 14 14 14-14 14 14M50 214q15-14 30 0t30 0 30 0 30 0"/><circle cx="84" cy="116" r="3.5"/><circle cx="116" cy="100" r="3.5"/><circle cx="142" cy="126" r="3.5"/>`,
+      lit: `<path d="M110 70c-40 0-62 62-62 112 0 44 28 74 62 74s62-30 62-74c0-50-22-112-62-112z" fill="rgba(246,184,238,.16)" stroke="#f6b8ee" stroke-width="3"/><path d="M54 158l14-14 14 14 14-14 14 14 14-14 14 14 14-14 14 14 14-14" stroke="#9fd8ff" stroke-width="4"/><path d="M50 214q15-14 30 0t30 0 30 0 30 0" stroke="#ffe08a" stroke-width="4"/><circle cx="84" cy="116" r="4.5" fill="#9fd8ff" stroke="none"/><circle cx="116" cy="100" r="4.5" fill="#ffe08a" stroke="none"/><circle cx="142" cy="126" r="4.5" fill="#b9f0c8" stroke="none"/>`,
+    },
+    july4: {
+      glow: "#8fb8ff",
+      outline: `<path d="M110 118v-36M110 222v36M58 170H22M198 170h-36M73 133l-26-26M147 207l26 26M147 133l26-26M73 207l-26 26"/><path d="M110 132l9.6 19.4 21.4 3.1-15.5 15.1 3.7 21.3-19.2-10.1-19.2 10.1 3.7-21.3-15.5-15.1 21.4-3.1z"/>`,
+      lit: `<g stroke-width="4"><path d="M110 118v-36M110 222v36M73 133l-26-26M147 207l26 26" stroke="#ff6a70"/><path d="M58 170H22M198 170h-36M147 133l26-26M73 207l-26 26" stroke="#7ab0ff"/></g><path d="M110 132l9.6 19.4 21.4 3.1-15.5 15.1 3.7 21.3-19.2-10.1-19.2 10.1 3.7-21.3-15.5-15.1 21.4-3.1z" fill="#fff" stroke="#dfe9ff" stroke-width="2.5"/><circle cx="110" cy="76" r="4" fill="#ff6a70" stroke="none"/><circle cx="110" cy="264" r="4" fill="#ff6a70" stroke="none"/><circle cx="16" cy="170" r="4" fill="#7ab0ff" stroke="none"/><circle cx="204" cy="170" r="4" fill="#7ab0ff" stroke="none"/>`,
+    },
+  };
+  const swapBulb = name => {
+    const bulb = $(".idea-bulb"), art = icons[name];
+    if (!bulb || !art) return;
+    if (bulbBackup === null) bulbBackup = bulb.innerHTML;
+    bulb.innerHTML = `<svg class="season-icon" viewBox="0 0 220 320" focusable="false"><defs><radialGradient id="season-glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="${art.glow}" stop-opacity=".42"/><stop offset=".55" stop-color="${art.glow}" stop-opacity=".12"/><stop offset="1" stop-color="${art.glow}" stop-opacity="0"/></radialGradient></defs><g class="season-outline" ${OUT}>${art.outline}</g><g class="season-lit" ${OUT}><circle class="season-halo" cx="110" cy="170" r="124" fill="url(#season-glow)" stroke="none"/>${art.lit}</g></svg>`;
+  };
+
+  // ---------- the themes ----------
+  const themes = {
+    halloween() {
+      put($(".site-header"), spider());
+      put($(".contact-teaser"), web(240));
+      put($(".site-footer"), web(150, true));
+    },
+    thanksgiving() {
+      layer("season-leaves season-leaves-far");
+      layer("season-leaves season-leaves-near");
+    },
+    christmas() {
+      strip("season-lights", 46, 9, (x, y, i) => {
+        const color = ["#ff4d57", "#ffc83d", "#4ddc8a", "#5aa7ff"][i % 4];
+        return `<path d="M${x} ${y - 2}v4" stroke="#2d4a3a" stroke-width="2"/><circle cx="${x}" cy="${y + 9}" r="12" fill="${color}" opacity=".18"/><circle cx="${x}" cy="${y + 9}" r="5.2" fill="${color}"/>`;
+      }, 4);
+      layer("season-snow season-snow-far");
+      layer("season-snow season-snow-near");
+      put($(".brand"), hat());
+    },
+    easter() {
+      strip("season-eggs", 58, 9, (x, y, i) => {
+        const [base, band] = [["#f6b8cf", "#fff"], ["#bfe3ff", "#ffe08a"], ["#cfeec9", "#fff"], ["#e3d2ff", "#ffd1e3"], ["#ffe9a8", "#bfe3ff"]][i % 5];
+        return `<path d="M${x} ${y - 2}v5" stroke="#8b7aa6" stroke-width="1.6"/><ellipse cx="${x}" cy="${y + 13}" rx="8" ry="10.5" fill="${base}"/><path d="M${x - 7.4} ${y + 11}l3.7-3 3.7 3 3.7-3 3.7 3" fill="none" stroke="${band}" stroke-width="2.2"/>`;
+      });
+      put($(".brand"), ears());
+    },
+    july4() {
+      strip("season-bunting", 52, 8, (x, y, i) => {
+        const fill = ["#e5484d", "#ffffff", "#3b6fd4"][i % 3];
+        return `<path d="M${x - 11} ${y - 1}h22l-11 20z" fill="${fill}" stroke="${fill === "#ffffff" ? "#c9d3df" : "none"}" stroke-width="1"/>`;
+      });
+      firework("fw-a", ["#ff6a70", "#ffffff", "#7ab0ff"]);
+      firework("fw-b", ["#ffd75e", "#ff6a70", "#ffffff"]);
+      if (!touch) firework("fw-c", ["#7ab0ff", "#ffffff", "#ff6a70"]);
+    },
+  };
+
+  window.TLTSeason = {
+    mount(name) {
+      this.unmount();
+      if (!themes[name]) return;
+      document.documentElement.dataset.season = name;
+      themes[name]();
+      swapBulb(name);
+    },
+    unmount() {
+      made.splice(0).forEach(node => node.remove());
+      const bulb = $(".idea-bulb");
+      if (bulb && bulbBackup !== null) { bulb.innerHTML = bulbBackup; bulbBackup = null; }
+      if (onResize) { removeEventListener("resize", onResize); onResize = null; }
+      delete document.documentElement.dataset.season;
+    },
+  };
+})();

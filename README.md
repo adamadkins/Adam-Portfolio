@@ -30,3 +30,16 @@ Deploy with `npx wrangler@latest deploy` (Wrangler 4.36.0 or newer is required f
 The endpoint validates bounded input, escapes HTML, rejects cross-origin browser submissions, traps the existing honeypot, and limits requests to five per minute per connecting IP per Cloudflare location. This is basic abuse mitigation, not a global quota or a CAPTCHA. It never accepts a client-supplied recipient, sender, or subject. Failed submissions preserve the form in JavaScript-enabled browsers; native form submission gets a styled result page.
 
 Run `node --test test/contact.test.mjs`. Tests use mocked email/rate-limit bindings and send no real email. After deployment, submit one inquiry from an email address you control and verify both messages: the studio notification arriving in Gmail with the correct Reply-To and the visitor's branded acknowledgment with a visible inline PNG logo. Also verify the mobile form layout and the ability to reply to the acknowledgment. Provider acceptance is not proof of inbox delivery. FormSubmit is no longer used.
+
+## Seasonal themes
+
+The studio switches the site's holiday dress-up from the client portal (Settings, "Seasonal themes"), with no redeploy. `season.js`
+(loaded on every page) asks `https://portal.tlt-studios.com/api/site/theme` which theme is live, remembers the answer in
+`localStorage` so repeat visits dress instantly, and only then downloads `season.css` and `season-art.js`. With no theme on, nothing else
+is fetched. Themes: `halloween`, `thanksgiving`, `christmas`, `easter`, `july4`.
+
+Add `?season=halloween` (or any theme name, or `off`) to any page to preview a theme without changing what visitors see.
+
+To add a theme: draw its pieces in `season-art.js` (a function in `themes`, plus an entry in `icons` for the lightbulb's replacement),
+style them in `season.css`, add its name to `NAMES` in `season.js`, and add it to `THEMES` in the portal's `src/site-theme.js` with its dates.
+Keep moving parts to one transform or opacity animation each (a falling effect is one tiled layer), so a theme stays light on phones.
