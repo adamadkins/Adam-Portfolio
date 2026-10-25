@@ -29,13 +29,17 @@ html[data-season="newyear"]{--season:#d9a826;--season-dark:#12131f;--specs-bg:#e
 @keyframes twinkle{0%,100%{opacity:1}50%{opacity:.3}}
 
 /* Halloween: a spider spinning down from the header. */
-.season-spider{position:absolute;top:100%;right:clamp(64px,13%,240px);width:40px;height:0;z-index:3;pointer-events:none;transform-origin:20px 0;animation:spider-sway 7s ease-in-out infinite alternate;--drop:112px}
-.season-spider .thread{position:absolute;left:19.2px;top:0;width:1.6px;height:var(--drop);background:#8d99a4;transform-origin:top;animation:thread-grow 2.6s var(--ease) 1s both,thread-bob 5s ease-in-out 3.6s infinite alternate}
-.season-spider .spider{position:absolute;left:0;top:-6px;display:block;transform:translateY(var(--drop));animation:spider-drop 2.6s var(--ease) 1s both,spider-bob 5s ease-in-out 3.6s infinite alternate}
+.season-spider{position:absolute;top:100%;right:clamp(28px,6%,130px);width:54px;height:0;z-index:3;pointer-events:none;transform-origin:27px 0;animation:spider-sway 7s ease-in-out infinite alternate;--drop:124px}
+.season-spider .thread{position:absolute;left:26.2px;top:0;width:1.6px;height:var(--drop);background:#8d99a4;transform-origin:top;animation:thread-grow 2.6s var(--ease) 1s both,thread-bob 5s ease-in-out 3.6s infinite alternate}
+.season-spider .spider{position:absolute;left:0;top:-8px;display:block;pointer-events:auto;cursor:pointer;transform:translateY(var(--drop));animation:spider-drop 2.6s var(--ease) 1s both,spider-bob 5s ease-in-out 3.6s infinite alternate}
 @keyframes thread-grow{from{transform:scaleY(.04)}}
 @keyframes spider-drop{from{transform:translateY(0)}}
 @keyframes thread-bob{to{transform:scaleY(.86)}}
 @keyframes spider-bob{to{transform:translateY(calc(var(--drop)*.86))}}
+.season-spider.is-climbing .thread{animation:thread-climb .8s cubic-bezier(.5,0,.8,.4) both}
+.season-spider.is-climbing .spider{animation:spider-climb .8s cubic-bezier(.5,0,.8,.4) both}
+@keyframes thread-climb{from{transform:scaleY(1)}to{transform:scaleY(.04)}}
+@keyframes spider-climb{from{transform:translateY(var(--drop))}to{transform:translateY(0)}}
 @keyframes spider-sway{from{transform:rotate(-2.5deg)}to{transform:rotate(2.5deg)}}
 .season-web{position:absolute;top:0;left:0;z-index:1;pointer-events:none;opacity:.55}
 .season-web path{stroke:#fff;stroke-width:1.1}
@@ -71,7 +75,7 @@ html[data-season="newyear"]{--season:#d9a826;--season-dark:#12131f;--specs-bg:#e
 .fw-b{top:140px;right:6%;animation-delay:3.4s}
 .fw-c{top:38%;right:24%;animation-delay:5.8s}
 @keyframes fw-burst{0%{opacity:0;transform:scale(.15)}6%{opacity:1}22%{opacity:1;transform:scale(1)}34%{opacity:0;transform:scale(1.12)}100%{opacity:0;transform:scale(1.12)}}
-@media(max-width:700px){.season-fw{width:104px;height:104px}.season-spider{right:22%}}
+@media(max-width:700px){.season-fw{width:104px;height:104px}}
 
 
 /* Valentine's Day: hearts drift upward. New Year's: confetti falls. Each is one tiled layer. */
@@ -91,6 +95,23 @@ html[data-season="newyear"]{--season:#d9a826;--season-dark:#12131f;--specs-bg:#e
 /* Calm: no motion for visitors who ask for none. The spider simply hangs; falling things stay away. */
 @media(prefers-reduced-motion:reduce){
   [data-season] *{animation:none!important}
-  .season-leaves,.season-snow,.season-fw,.season-hearts-near,.season-hearts-far,.season-confetti-near,.season-confetti-far{display:none}
+  .season-bats,.season-leaves,.season-snow,.season-fw,.season-hearts-near,.season-hearts-far,.season-confetti-near,.season-confetti-far{display:none}
   .idea-bulb .season-lit{opacity:1}
 }
+
+/* Halloween extras: bats crossing the sky now and then, a witch's hat on the logo, a flickering candle in the pumpkin. */
+.season-hat.witch{left:-9px;top:-17px;transform:rotate(-10deg)}
+.season-bats{position:fixed;top:104px;left:0;width:100%;height:90px;z-index:898;pointer-events:none;overflow:hidden}
+.season-bats .bat{position:absolute;left:0;top:0;animation:bat-fly 34s linear infinite,bat-flap .32s ease-in-out infinite alternate}
+.season-bats .bat:nth-child(2){top:34px;animation-delay:.7s,-.1s}
+.season-bats .bat:nth-child(3){top:12px;animation-delay:1.5s,-.2s}
+@keyframes bat-fly{0%{transform:translate3d(-8vw,0,0)}3%{transform:translate3d(-8vw,0,0)}17%{transform:translate3d(60vw,22px,0)}26%{transform:translate3d(112vw,-10px,0)}100%{transform:translate3d(112vw,-10px,0)}}
+@keyframes bat-flap{to{transform-origin:center;scale:1 .55}}
+.idea-bulb .season-lit .flick{animation:candle 3.4s steps(1,end) infinite}
+@keyframes candle{0%{opacity:1}12%{opacity:.82}20%{opacity:1}34%{opacity:.9}41%{opacity:.7}47%{opacity:1}63%{opacity:.88}74%{opacity:1}86%{opacity:.78}93%{opacity:1}}
+[data-season="halloween"] .nav-link:hover,[data-season="halloween"] .inline-link:hover{color:#e8741e}
+[data-season="halloween"] ::selection{background:#ffd5a8}
+@media(max-width:700px){.season-spider{right:8%;--drop:44px}.season-bats{top:84px}}
+.site-header .season-web{opacity:.75}
+.site-header .season-web path{stroke:#9aa5ae}
+@media(max-width:700px){.site-header .season-web{display:none}}

@@ -53,7 +53,10 @@
   const ears = () => `<svg class="season-ears" width="36" height="32" viewBox="0 0 36 32" aria-hidden="true" focusable="false"><g><ellipse cx="11" cy="15" rx="5" ry="13" fill="#fff" stroke="#c9b9dd" stroke-width="1.2" transform="rotate(-10 11 15)"/><ellipse cx="11" cy="15" rx="2.4" ry="9" fill="#f6b8cf" transform="rotate(-10 11 15)"/></g><g><ellipse cx="25" cy="15" rx="5" ry="13" fill="#fff" stroke="#c9b9dd" stroke-width="1.2" transform="rotate(12 25 15)"/><ellipse cx="25" cy="15" rx="2.4" ry="9" fill="#f6b8cf" transform="rotate(12 25 15)"/></g></svg>`;
   const partyHat = () => `<svg class="season-hat party" width="30" height="34" viewBox="0 0 30 34" aria-hidden="true" focusable="false"><path d="M6 30L17 5l9 25z" fill="#f4c542"/><path d="M10 22l13-6M8 27l17-8" stroke="#e0457b" stroke-width="3"/><circle cx="17" cy="4" r="3.6" fill="#fff"/></svg>`;
   const heartBadge = () => `<svg class="season-badge" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#e0457b" stroke="#fff" stroke-width="1.6"/></svg>`;
-  const spider = () => `<div class="season-spider" aria-hidden="true"><span class="thread"></span><svg class="spider" width="40" height="40" viewBox="0 0 40 40" focusable="false"><g stroke="#1b2430" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M15 20L6 12L3 18M14 22L4 20L2 27M15 24L5 29L4 36M17 26L10 34L10 39M25 20L34 12L37 18M26 22L36 20L38 27M25 24L35 29L36 36M23 26L30 34L30 39"/></g><ellipse cx="20" cy="25" rx="7" ry="8.5" fill="#1b2430"/><circle cx="20" cy="15.5" r="4.6" fill="#1b2430"/><path d="M18.4 22.5h3.2l-1.6 3 1.6 3h-3.2l1.6-3z" fill="#d4332b"/><circle cx="18.3" cy="14.6" r="1.1" fill="#fff"/><circle cx="21.7" cy="14.6" r="1.1" fill="#fff"/></svg></div>`;
+  const spider = () => `<div class="season-spider" aria-hidden="true"><span class="thread"></span><svg class="spider" width="54" height="54" viewBox="0 0 54 54" focusable="false"><g stroke="#2b3644" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 27L9 16L3 24M19 30L5 28L1 38M20 34L7 40L7 51M24 37L15 47L16 53M34 27L45 16L51 24M35 30L49 28L53 38M34 34L47 40L47 51M30 37L39 47L38 53"/></g><ellipse cx="27" cy="34" rx="9.5" ry="11.5" fill="#1b2430" stroke="rgba(255,255,255,.4)" stroke-width=".9"/><circle cx="27" cy="21" r="6.4" fill="#1b2430" stroke="rgba(255,255,255,.4)" stroke-width=".9"/><path d="M24.4 31h5.2l-2.6 4.6 2.6 4.6h-5.2l2.6-4.6z" fill="#e0382f"/><path d="M23 17.6l-1.6 4M31 17.6l1.6 4" stroke="#1b2430" stroke-width="1.6" stroke-linecap="round"/><circle cx="24.6" cy="19.6" r="1.7" fill="#fff"/><circle cx="29.4" cy="19.6" r="1.7" fill="#fff"/><circle cx="24.9" cy="19.7" r=".8" fill="#e0382f"/><circle cx="29.7" cy="19.7" r=".8" fill="#e0382f"/><path d="M20 30c1-5 4-7 7-7" stroke="rgba(255,255,255,.28)" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg></div>`;
+  const witchHat = () => `<svg class="season-hat witch" width="36" height="36" viewBox="0 0 36 36" aria-hidden="true" focusable="false"><path d="M18 2c2 7 4 12 8 20H10C14 14 16 9 18 2z" fill="#3a2750"/><path d="M4 26c8-5 20-5 28 0-3 4-8 5-14 5S7 30 4 26z" fill="#4a3266"/><path d="M11 22c5 2 9 2 14 0l1 3c-6 2-10 2-16 0z" fill="#f08a24"/><rect x="16" y="21.4" width="4" height="4" rx="1" fill="#ffd27a"/></svg>`;
+  const bat = () => `<svg class="bat" width="34" height="18" viewBox="0 0 34 18" aria-hidden="true" focusable="false"><path d="M17 6c1.4 0 2 1.2 2.6 2.4 2-2.6 5.2-4.6 9.4-4.4-1.6 1.8-2 3.6-1.8 5.4 2.2.2 4.2 1 6.2 2.4-2.8 0-4.8.8-6 2.2-1.6-1.4-3.4-2-5.6-1.8L19 17c-.6-1-1-2-2-2s-1.4 1-2 2l-2-4.4c-2.2-.2-4 .4-5.6 1.8-1.2-1.4-3.2-2.2-6-2.2 2-1.4 4-2.2 6.2-2.4.2-1.8-.2-3.6-1.8-5.4 4.2-.2 7.4 1.8 9.4 4.4C15 7.2 15.6 6 17 6z" fill="#1b2430"/></svg>`;
+  const bats = () => `<div class="season-bats" aria-hidden="true">${bat()}${bat()}${touch ? "" : bat()}</div>`;
   const layer = className => put(document.body, `<div class="${className}" aria-hidden="true"></div>`);
   const firework = (className, colors) => {
     const rays = Array.from({ length: 12 }, (_, i) => { const a = i / 12 * Math.PI * 2, c = colors[i % colors.length]; return `<line x1="${50 + Math.cos(a) * 9}" y1="${50 + Math.sin(a) * 9}" x2="${50 + Math.cos(a) * 36}" y2="${50 + Math.sin(a) * 36}" stroke="${c}" stroke-width="3" stroke-linecap="round"/><circle cx="${50 + Math.cos(a) * 44}" cy="${50 + Math.sin(a) * 44}" r="2.4" fill="${c}"/>`; }).join("");
@@ -76,7 +79,7 @@
     halloween: {
       glow: "#ffb347",
       outline: `<path d="M96 130C60 124 30 152 30 192c0 40 30 66 66 62M124 130c36-6 66 22 66 62 0 40-30 66-66 62M96 130c-14 20-18 42-18 62s4 42 18 62M124 130c14 20 18 42 18 62s-4 42-18 62M96 130q14 8 28 0M96 254q14 8 28 0M104 128c0-14 2-22 8-30 4-6 10-8 14-6M104 128q10 5 20 0M74 172l16-18 16 18zM114 172l16-18 16 18zM104 192l6-10 6 10zM68 208l16 16 12-10 14 14 14-14 12 10 16-16-6 20-16 12-20-6-20 6-16-12z"/>`,
-      lit: `<path d="M74 172l16-18 16 18zM114 172l16-18 16 18zM104 192l6-10 6 10zM68 208l16 16 12-10 14 14 14-14 12 10 16-16-6 20-16 12-20-6-20 6-16-12z" fill="#ffc46b" stroke="#ffe0a6" stroke-width="3"/><path d="M96 130C60 124 30 152 30 192c0 40 30 66 66 62h28c36 4 66-22 66-62 0-40-30-68-66-62z" fill="rgba(255,150,50,.12)" stroke="#ffb347" stroke-width="3"/>`,
+      lit: `<path class="flick" d="M74 172l16-18 16 18zM114 172l16-18 16 18zM104 192l6-10 6 10zM68 208l16 16 12-10 14 14 14-14 12 10 16-16-6 20-16 12-20-6-20 6-16-12z" fill="#ffc46b" stroke="#ffe0a6" stroke-width="3"/><path d="M96 130C60 124 30 152 30 192c0 40 30 66 66 62h28c36 4 66-22 66-62 0-40-30-68-66-62z" fill="rgba(255,150,50,.12)" stroke="#ffb347" stroke-width="3"/>`,
     },
     thanksgiving: {
       glow: "#ffc267",
@@ -129,9 +132,19 @@
       if (!touch) firework("fw-b", ["#ffffff", "#ffd75e", "#ffe9a8"]);
     },
     halloween() {
-      put($(".site-header"), spider());
-      put($(".contact-teaser"), web(240));
-      put($(".site-footer"), web(150, true));
+      const spiderBox = put($(".site-header"), spider());
+      // Touch the spider and it scurries back up its thread, then lowers itself down again a few seconds later.
+      if (spiderBox) {
+        let timer = 0;
+        const flee = () => { clearTimeout(timer); spiderBox.classList.add("is-climbing"); timer = setTimeout(() => spiderBox.classList.remove("is-climbing"), 3800); };
+        spiderBox.addEventListener("pointerenter", flee);
+        spiderBox.addEventListener("pointerdown", flee);
+      }
+      put($(".site-header"), web(96));
+      put($(".contact-teaser"), web(260));
+      put($(".site-footer"), web(160, true));
+      put($(".brand"), witchHat());
+      put(document.body, bats());
     },
     thanksgiving() {
       layer("season-leaves season-leaves-far");
