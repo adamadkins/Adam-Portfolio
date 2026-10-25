@@ -46,6 +46,14 @@ Keep moving parts to one transform or opacity animation each (a falling effect i
 
 Images under `/images/` are cached by browsers for a week (see `_headers`), so when a picture changes, give it a new file name (for example `leaves-near-v3.webp`) and update the reference; otherwise visitors keep seeing the old one.
 
-## Work page
+## Work pages
 
-`work.html` (with `work.css` and `work.js`) is the full showcase. Each project is one `<section class="wk-chapter">` in `work.html`: copy one, change its id, `--panel` colour and text, and add a tall desktop screenshot plus three phone screenshots to `images/work/page/`. The tall image scrolls inside the browser as you scroll the page (CSS scroll-driven animation, with a slow automatic scroll where the browser lacks it). Add the project to the index at the top of the page too. Rename an image when you replace it, because images are cached for 7 days.
+The showcase (`work.html`) and one page per project (`work/<slug>.html`) are generated from `work/projects.json`, so adding a project never means editing HTML.
+
+To add a project:
+
+1. Add an entry to `work/projects.json` (copy an existing one: name, category, colour, summary, facts, notes, phone captions). New categories go in `categories`.
+2. Put its screenshots in `images/work/page/`: `<slug>-tall.webp` (a tall full-page desktop screenshot, about 960px wide) and `<slug>-m-1.webp`, `-m-2.webp`, `-m-3.webp` (phone screenshots, 390px wide). Rename an image if you replace it, because images are cached for 7 days.
+3. Run `node scripts/build-work.mjs`, then commit the generated files.
+
+`node --test test/` fails if the generated pages are out of date. The first project with `"featured": true` is shown large at the top; the filter chips and the previous / next links appear on their own as projects are added. The header and footer are copied from `about.html` at build time.

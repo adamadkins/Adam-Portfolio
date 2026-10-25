@@ -1,0 +1,56 @@
+{
+  "_help": "One entry per project, in the order they appear. Text may use HTML entities such as &amp;. Images live in images/work/page/ named <slug>-tall.webp (a tall full-page screenshot, about 960px wide) and <slug>-m-1.webp, -m-2.webp, -m-3.webp (phone screenshots, 390px wide). Then run: node scripts/build-work.mjs",
+  "categories": {
+    "ecommerce": "E-commerce",
+    "local": "Local business"
+  },
+  "projects": [
+    {
+      "slug": "chasing606",
+      "name": "Chasing606",
+      "category": "ecommerce",
+      "meta": "E-COMMERCE / DESIGN &amp; DEVELOPMENT",
+      "panel": "#b7bd9a",
+      "featured": true,
+      "url": "https://chasing606.adkins-adam04.workers.dev/",
+      "summary": "An outdoor-inspired brand and its storefront, built so exploring the catalog feels as considered as the brand itself.",
+      "lead": "An outdoor-inspired brand from eastern Kentucky, and a storefront built so that exploring the catalog feels as considered as the brand itself.",
+      "facts": [["What", "Brand site and online store"], ["Role", "Design and development"], ["Built for", "Mobile first, then desktop"]],
+      "tags": ["Web design", "Front-end development", "E-commerce", "Responsive UI"],
+      "notes": [
+        ["Story before store", "The first thing you see is the brand: a full-bleed photograph and one line, “From the heart of 606.” The shop comes second, once you know who you are buying from."],
+        ["A shop in the brand’s own look", "Product galleries, filtering and a cart sit inside the same design, so buying a shirt does not feel like leaving the site."],
+        ["Their latest hunt, front and center", "A film section puts the newest upload on the page, so the site feels alive and gives people a reason to come back."]
+      ],
+      "alt": "The Chasing606 website scrolling from the hero, to the latest hunt video, to the footer",
+      "phones": [
+        ["The Chasing606 home page on a phone: a bowhunter beside a buck and the headline “From the heart of 606.”", "The first screen"],
+        ["The Chasing606 “Watch the latest hunt” section on a phone", "On film"],
+        ["The Chasing606 footer on a phone, with shop help and social links", "Footer and help"]
+      ]
+    },
+    {
+      "slug": "porter",
+      "name": "Porter Property Maintenance",
+      "category": "local",
+      "meta": "LOCAL BUSINESS / WEBSITE REDESIGN",
+      "panel": "#e5cf92",
+      "url": "https://porterpm.com/",
+      "summary": "An established pressure-washing business, redesigned to be easier to understand and easier to contact.",
+      "lead": "A family-owned pressure-washing business in South Point, Ohio, redesigned so a homeowner can understand what they do and ask for an estimate in one tap.",
+      "facts": [["What", "Full website redesign"], ["Role", "Design and development"], ["Built for", "Homeowners and businesses"]],
+      "tags": ["Website redesign", "Local business", "Responsive UI", "UX"],
+      "notes": [
+        ["Say it in one line", "“Pressure washing, done right.” The logo, the town and two clear buttons answer who they are and what to do next before anyone scrolls."],
+        ["Two audiences, two doors", "Homeowners and businesses each get their own card with the exact services listed, so people find themselves quickly."],
+        ["Easy to say yes to", "An estimate button sits in the header, mid-page and footer, so reaching out is always one tap away on a phone."]
+      ],
+      "alt": "The Porter Property Maintenance website scrolling from the hero, to the about section, to the services",
+      "phones": [
+        ["The Porter Property Maintenance home page on a phone", "The first screen"],
+        ["The Porter Property Maintenance about section on a phone", "Local roots"],
+        ["The Porter Property Maintenance services on a phone", "Services"]
+      ]
+    }
+  ]
+}
