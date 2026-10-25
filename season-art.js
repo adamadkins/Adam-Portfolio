@@ -70,7 +70,7 @@
     });
   };
   const spider = () => `<div class="season-spider" aria-hidden="true"><span class="thread"></span><img class="spider" src="/images/season/spider.webp" width="48" height="39" alt=""></div>`;
-  const bat = () => `<span class="bat" aria-hidden="true"><img class="wing-up" src="/images/season/bat-up.webp" width="38" height="27" alt=""><img class="wing-down" src="/images/season/bat-down.webp" width="38" height="27" alt=""></span>`;
+  const bat = () => `<span class="bat"><img class="hang" src="/images/season/bat-hang.webp" width="15" height="36" alt=""><span class="fly"><img class="wing-up" src="/images/season/bat-up.webp" width="38" height="27" alt=""><img class="wing-down" src="/images/season/bat-down.webp" width="38" height="27" alt=""></span></span>`;
   const bats = () => `<div class="season-bats" aria-hidden="true">${bat()}${bat()}${touch ? "" : bat()}</div>`;
   const layer = className => put(document.body, `<div class="${className}" aria-hidden="true"></div>`);
   const firework = (className, colors) => {
