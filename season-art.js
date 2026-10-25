@@ -49,21 +49,22 @@
     }
     return `<svg class="season-web${flip ? " flip" : ""}" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true" focusable="false"><path d="${d}" fill="none"/></svg>`;
   };
-  const partyHat = () => `<svg class="season-hat party" width="30" height="34" viewBox="0 0 30 34" aria-hidden="true" focusable="false"><path d="M6 30L17 5l9 25z" fill="#f4c542"/><path d="M10 22l13-6M8 27l17-8" stroke="#e0457b" stroke-width="3"/><circle cx="17" cy="4" r="3.6" fill="#fff"/></svg>`;
   const heartBadge = () => `<svg class="season-badge" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#e0457b" stroke="#fff" stroke-width="1.6"/></svg>`;
   // Halloween, Christmas and Easter replace the logo with a version wearing the season's costume. The pictures are drawn on
-  // a larger canvas, so each is sized and offset (in logo-tiles) to put its tile exactly over the normal one.
+  // a larger canvas, so each is sized and offset (in logo-tiles, from the tile's centre) to put its tile exactly over the normal one. Easter's is drawn a little smaller so its tall ears stay on the page.
   const LOGOS = {
-    halloween: { k: 1.4299, x: -0.2509, y: -0.3398 },
-    christmas: { k: 1.4138, x: -0.2593, y: -0.3281 },
-    easter: { k: 1.6286, x: -0.3143, y: -0.5961, s: 0.86 },   // the ears are tall, so this one is drawn a little smaller to stay on the page
+    halloween: { k: 1.4266, x: -0.2486, y: -0.8623 },
+    christmas: { k: 1.4138, x: -0.2587, y: -0.8343 },
+    easter: { k: 1.3337, x: -0.1668, y: -0.9109 },
+    thanksgiving: { k: 1.3811, x: -0.2285, y: -0.8343 },
+    newyear: { k: 1.2875, x: -0.1607, y: -0.7136 },
   };
   const marked = [];
   const costume = name => {
     const art = LOGOS[name];
     document.querySelectorAll(".brand, .footer-brand").forEach(brand => {
       if (!brand.querySelector(".brand-symbol, .footer-brand-icon")) return;
-      put(brand, `<img class="season-logo" src="/images/season/logo-${name}.webp" alt="" width="300" height="300" aria-hidden="true" style="--k:${art.k};--x:${art.x};--y:${art.y};--s:${art.s || 1}">`);
+      put(brand, `<img class="season-logo" src="/images/season/logo-${name}.webp" alt="" width="300" height="300" aria-hidden="true" style="--k:${art.k};--x:${art.x};--y:${art.y}">`);
       brand.classList.add("has-season-logo");
       marked.push(brand);
     });
@@ -141,7 +142,7 @@
       });
       layer("season-confetti season-confetti-far");
       layer("season-confetti season-confetti-near");
-      put($(".brand"), partyHat());
+      costume("newyear");
       firework("fw-a", ["#ffd75e", "#ffffff", "#ffe9a8"]);
       if (!touch) firework("fw-b", ["#ffffff", "#ffd75e", "#ffe9a8"]);
     },
@@ -168,6 +169,7 @@
       put(document.body, bats());
     },
     thanksgiving() {
+      costume("thanksgiving");
       layer("season-leaves season-leaves-far");
       layer("season-leaves season-leaves-near");
     },

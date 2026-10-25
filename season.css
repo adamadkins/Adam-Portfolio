@@ -55,7 +55,6 @@ html[data-season="newyear"]{--season:#d9a826;--season-dark:#12131f;--specs-bg:#e
 .season-lights .g1{animation:twinkle 2.4s ease-in-out -.6s infinite}
 .season-lights .g2{animation:twinkle 2.4s ease-in-out -1.2s infinite}
 .season-lights .g3{animation:twinkle 2.4s ease-in-out -1.8s infinite}
-.season-hat{position:absolute;left:-8px;top:-14px;z-index:2;pointer-events:none;transform:rotate(-12deg)}
 
 /* Falling leaves and snow: each is one tiled layer that drifts down, so the browser animates it in a single move. */
 .season-leaves,.season-snow{position:fixed;left:0;width:100%;z-index:899;pointer-events:none}
@@ -88,7 +87,6 @@ html[data-season="newyear"]{--season:#d9a826;--season-dark:#12131f;--specs-bg:#e
 @keyframes fall-conf-far{to{transform:translate3d(0,760px,0)}}
 .season-hearts-garland .wire{stroke:#b86a86;stroke-width:1.6}
 .season-stars .wire{stroke:#a89a6a;stroke-width:1.6}
-.season-hat.party{left:9px;top:-15px;transform:rotate(14deg)}
 .season-badge{position:absolute;left:30px;top:-9px;z-index:2;pointer-events:none;transform:rotate(12deg)}
 
 /* Calm: no motion for visitors who ask for none. The spider simply hangs; falling things stay away. */
@@ -118,5 +116,5 @@ html[data-season="newyear"]{--season:#d9a826;--season-dark:#12131f;--specs-bg:#e
 .brand,.footer-brand{--tile:43px}
 .footer-brand{--tile:36px;position:relative}
 @media(max-width:700px){.brand{--tile:39px}}
-.season-logo{position:absolute;left:calc(var(--tile)*var(--x)*var(--s,1));top:50%;margin-top:calc(var(--tile)*(.5 - var(--s,1) + var(--y)*var(--s,1)));width:calc(var(--tile)*var(--k)*var(--s,1));height:auto;max-width:none;pointer-events:none;z-index:2}
+.season-logo{position:absolute;left:calc(var(--tile)*var(--x));top:50%;margin-top:calc(var(--tile)*var(--y));width:calc(var(--tile)*var(--k));height:auto;max-width:none;pointer-events:none;z-index:2}
 .has-season-logo .brand-symbol,.has-season-logo .footer-brand-icon{opacity:0}
