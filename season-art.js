@@ -82,8 +82,9 @@
   const OUT = `fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"`;
   const icons = {
     valentines: {
-      // Just a heart: no glow, no lighting up.
-      solid: `<image href="/images/season/heart.webp" x="20" y="93" width="180" height="154"/>`,
+      glow: "#ff5c8a",
+      outline: `<image href="/images/season/heart-outline.webp" x="20" y="93" width="180" height="154"/>`,
+      lit: `<image href="/images/season/heart-lit.webp" x="20" y="93" width="180" height="154"/>`,
     },
     newyear: {
       glow: "#ffd75e",
