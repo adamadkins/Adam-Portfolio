@@ -83,7 +83,7 @@
   const icons = {
     valentines: {
       // Just a heart: no glow, no lighting up.
-      solid: `<path d="M110 250s-70-44-70-102a38 38 0 0 1 70-22 38 38 0 0 1 70 22c0 58-70 102-70 102z" fill="#e0457b"/><path d="M62 146c0-14 9-24 22-27" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="7" stroke-linecap="round"/>`,
+      solid: `<image href="/images/season/heart.webp" x="20" y="93" width="180" height="154"/>`,
     },
     newyear: {
       glow: "#ffd75e",
