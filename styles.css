@@ -1652,3 +1652,8 @@ button:disabled{cursor:not-allowed}
 @media(hover:none){.about-visual::after,.about-visual-cross,.philosophy-signoff span{animation:none}}
 
 .about-copy .about-built{margin:-8px 0 24px;padding-left:16px;border-left:2px solid #8a9faf;color:var(--ink);font-size:15px;font-weight:600;line-height:1.6}
+
+/* Homepage work section links to the full work page. */
+.spread-copy a.project-view{display:inline-block}
+.spreads-next .spreads-all{margin-left:0}
+.spreads-sep{margin:0 6px;color:#b7c3cb}

@@ -45,3 +45,7 @@ style them in `season.css`, add its name to `NAMES` in `season.js`, and add it t
 Keep moving parts to one transform or opacity animation each (a falling effect is one tiled layer), so a theme stays light on phones.
 
 Images under `/images/` are cached by browsers for a week (see `_headers`), so when a picture changes, give it a new file name (for example `leaves-near-v3.webp`) and update the reference; otherwise visitors keep seeing the old one.
+
+## Work page
+
+`work.html` (with `work.css` and `work.js`) is the full showcase. Each project is one `<section class="wk-chapter">` in `work.html`: copy one, change its id, `--panel` colour and text, and add a tall desktop screenshot plus three phone screenshots to `images/work/page/`. The tall image scrolls inside the browser as you scroll the page (CSS scroll-driven animation, with a slow automatic scroll where the browser lacks it). Add the project to the index at the top of the page too. Rename an image when you replace it, because images are cached for 7 days.
