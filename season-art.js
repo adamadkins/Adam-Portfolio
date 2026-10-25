@@ -69,7 +69,7 @@
       marked.push(brand);
     });
   };
-  const spider = () => `<div class="season-spider" aria-hidden="true"><span class="thread"></span><svg class="spider" width="54" height="54" viewBox="0 0 54 54" focusable="false"><g stroke="#0d1117" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 27L9 16L3 24M19 30L5 28L1 38M20 34L7 40L7 51M24 37L15 47L16 53M34 27L45 16L51 24M35 30L49 28L53 38M34 34L47 40L47 51M30 37L39 47L38 53"/></g><ellipse cx="27" cy="34" rx="9.5" ry="11.5" fill="#0d1117"/><circle cx="27" cy="21" r="6.4" fill="#0d1117"/></svg></div>`;
+  const spider = () => `<div class="season-spider" aria-hidden="true"><span class="thread"></span><img class="spider" src="/images/season/spider.webp" width="60" height="49" alt=""></div>`;
   const bat = () => `<svg class="bat" width="34" height="18" viewBox="0 0 34 18" aria-hidden="true" focusable="false"><path d="M17 6c1.4 0 2 1.2 2.6 2.4 2-2.6 5.2-4.6 9.4-4.4-1.6 1.8-2 3.6-1.8 5.4 2.2.2 4.2 1 6.2 2.4-2.8 0-4.8.8-6 2.2-1.6-1.4-3.4-2-5.6-1.8L19 17c-.6-1-1-2-2-2s-1.4 1-2 2l-2-4.4c-2.2-.2-4 .4-5.6 1.8-1.2-1.4-3.2-2.2-6-2.2 2-1.4 4-2.2 6.2-2.4.2-1.8-.2-3.6-1.8-5.4 4.2-.2 7.4 1.8 9.4 4.4C15 7.2 15.6 6 17 6z" fill="#1b2430"/></svg>`;
   const bats = () => `<div class="season-bats" aria-hidden="true">${bat()}${bat()}${touch ? "" : bat()}</div>`;
   const layer = className => put(document.body, `<div class="${className}" aria-hidden="true"></div>`);
