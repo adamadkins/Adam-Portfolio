@@ -69,8 +69,8 @@
       marked.push(brand);
     });
   };
-  const spider = () => `<div class="season-spider" aria-hidden="true"><span class="thread"></span><img class="spider" src="/images/season/spider.webp" width="60" height="49" alt=""></div>`;
-  const bat = () => `<svg class="bat" width="34" height="18" viewBox="0 0 34 18" aria-hidden="true" focusable="false"><path d="M17 6c1.4 0 2 1.2 2.6 2.4 2-2.6 5.2-4.6 9.4-4.4-1.6 1.8-2 3.6-1.8 5.4 2.2.2 4.2 1 6.2 2.4-2.8 0-4.8.8-6 2.2-1.6-1.4-3.4-2-5.6-1.8L19 17c-.6-1-1-2-2-2s-1.4 1-2 2l-2-4.4c-2.2-.2-4 .4-5.6 1.8-1.2-1.4-3.2-2.2-6-2.2 2-1.4 4-2.2 6.2-2.4.2-1.8-.2-3.6-1.8-5.4 4.2-.2 7.4 1.8 9.4 4.4C15 7.2 15.6 6 17 6z" fill="#1b2430"/></svg>`;
+  const spider = () => `<div class="season-spider" aria-hidden="true"><span class="thread"></span><img class="spider" src="/images/season/spider.webp" width="48" height="39" alt=""></div>`;
+  const bat = () => `<span class="bat" aria-hidden="true"><img class="wing-up" src="/images/season/bat-up.webp" width="38" height="27" alt=""><img class="wing-down" src="/images/season/bat-down.webp" width="38" height="27" alt=""></span>`;
   const bats = () => `<div class="season-bats" aria-hidden="true">${bat()}${bat()}${touch ? "" : bat()}</div>`;
   const layer = className => put(document.body, `<div class="${className}" aria-hidden="true"></div>`);
   const firework = (className, colors) => {
