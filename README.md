@@ -36,7 +36,7 @@ Run `node --test test/contact.test.mjs`. Tests use mocked email/rate-limit bindi
 The studio switches the site's holiday dress-up from the client portal (Settings, "Seasonal themes"), with no redeploy. `season.js`
 (loaded on every page) asks `https://portal.tlt-studios.com/api/site/theme` which theme is live, remembers the answer in
 `localStorage` so repeat visits dress instantly, and only then downloads `season.css` and `season-art.js`. With no theme on, nothing else
-is fetched. Themes: `halloween`, `thanksgiving`, `christmas`, `easter`, `july4`.
+is fetched. Themes: `valentines`, `easter`, `july4`, `halloween`, `thanksgiving`, `christmas`, `newyear`.
 
 Add `?season=halloween` (or any theme name, or `off`) to any page to preview a theme without changing what visitors see.
 

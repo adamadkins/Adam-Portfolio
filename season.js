@@ -1,8 +1,8 @@
 // Seasonal themes. The studio picks the theme in the portal; this asks which one is live and dresses the site for it.
-// Nothing is downloaded unless a theme is on. Add ?season=halloween (or christmas, easter, thanksgiving, july4, off) to
+// Nothing is downloaded unless a theme is on. Add ?season=halloween (or christmas, easter, thanksgiving, july4, valentines, newyear, off) to
 // any page to preview a theme without changing what visitors see.
 (() => {
-  const NAMES = ["halloween", "thanksgiving", "christmas", "easter", "july4"];
+  const NAMES = ["valentines", "easter", "july4", "halloween", "thanksgiving", "christmas", "newyear"];
   const API = "https://portal.tlt-studios.com/api/site/theme";
   const KEY = "tlt-season";
   const html = document.documentElement;

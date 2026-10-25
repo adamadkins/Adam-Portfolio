@@ -51,6 +51,8 @@
   };
   const hat = () => `<svg class="season-hat" width="34" height="30" viewBox="0 0 34 30" aria-hidden="true" focusable="false"><path d="M5 22C6 10 14 3 25 5c-4 3-5 8-4 17z" fill="#d6303a"/><path d="M3 21c4-2 16-2 28 0l-1 5c-8 2-18 2-26 0z" fill="#fff"/><circle cx="26" cy="5" r="4" fill="#fff"/></svg>`;
   const ears = () => `<svg class="season-ears" width="36" height="32" viewBox="0 0 36 32" aria-hidden="true" focusable="false"><g><ellipse cx="11" cy="15" rx="5" ry="13" fill="#fff" stroke="#c9b9dd" stroke-width="1.2" transform="rotate(-10 11 15)"/><ellipse cx="11" cy="15" rx="2.4" ry="9" fill="#f6b8cf" transform="rotate(-10 11 15)"/></g><g><ellipse cx="25" cy="15" rx="5" ry="13" fill="#fff" stroke="#c9b9dd" stroke-width="1.2" transform="rotate(12 25 15)"/><ellipse cx="25" cy="15" rx="2.4" ry="9" fill="#f6b8cf" transform="rotate(12 25 15)"/></g></svg>`;
+  const partyHat = () => `<svg class="season-hat party" width="30" height="34" viewBox="0 0 30 34" aria-hidden="true" focusable="false"><path d="M6 30L17 5l9 25z" fill="#f4c542"/><path d="M10 22l13-6M8 27l17-8" stroke="#e0457b" stroke-width="3"/><circle cx="17" cy="4" r="3.6" fill="#fff"/></svg>`;
+  const heartBadge = () => `<svg class="season-badge" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#e0457b" stroke="#fff" stroke-width="1.6"/></svg>`;
   const spider = () => `<div class="season-spider" aria-hidden="true"><span class="thread"></span><svg class="spider" width="40" height="40" viewBox="0 0 40 40" focusable="false"><g stroke="#1b2430" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M15 20L6 12L3 18M14 22L4 20L2 27M15 24L5 29L4 36M17 26L10 34L10 39M25 20L34 12L37 18M26 22L36 20L38 27M25 24L35 29L36 36M23 26L30 34L30 39"/></g><ellipse cx="20" cy="25" rx="7" ry="8.5" fill="#1b2430"/><circle cx="20" cy="15.5" r="4.6" fill="#1b2430"/><path d="M18.4 22.5h3.2l-1.6 3 1.6 3h-3.2l1.6-3z" fill="#d4332b"/><circle cx="18.3" cy="14.6" r="1.1" fill="#fff"/><circle cx="21.7" cy="14.6" r="1.1" fill="#fff"/></svg></div>`;
   const layer = className => put(document.body, `<div class="${className}" aria-hidden="true"></div>`);
   const firework = (className, colors) => {
@@ -61,6 +63,16 @@
   // ---------- the lightbulb in the closing section becomes something seasonal ----------
   const OUT = `fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"`;
   const icons = {
+    valentines: {
+      glow: "#ff8fb5",
+      outline: `<path d="M110 250s-70-44-70-102a38 38 0 0 1 70-22 38 38 0 0 1 70 22c0 58-70 102-70 102z"/><path d="M52 96l124 140M52 96l-14 4M52 96l4 14M60 104l-12 2M60 104l2 12M176 236l-18-2M176 236l-2-18"/>`,
+      lit: `<path d="M110 250s-70-44-70-102a38 38 0 0 1 70-22 38 38 0 0 1 70 22c0 58-70 102-70 102z" fill="rgba(255,110,160,.3)" stroke="#ff8fb5" stroke-width="3"/><path d="M52 96l124 140" stroke="#ffd0e0" stroke-width="3"/><g class="tw tw0"><path d="M170 80l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#fff" stroke="none"/></g><g class="tw tw1"><path d="M44 196l2.4 6 6 2.4-6 2.4-2.4 6-2.4-6-6-2.4 6-2.4z" fill="#ffd0e0" stroke="none"/></g><g class="tw tw2"><path d="M190 168l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#fff" stroke="none"/></g>`,
+    },
+    newyear: {
+      glow: "#ffd75e",
+      outline: `<circle cx="110" cy="170" r="66"/><path d="M110 112v10M110 218v10M52 170h10M158 170h10M81 120l5 8.7M139 220l-5-8.7M81 220l5-8.7M139 120l-5 8.7M60 148l8.7 5M151 187l8.7 5M60 192l8.7-5M151 153l8.7-5"/><path d="M110 170V130M110 170V140"/><circle cx="110" cy="170" r="4"/>`,
+      lit: `<circle cx="110" cy="170" r="66" fill="rgba(255,215,94,.16)" stroke="#ffd75e" stroke-width="3"/><path d="M110 170V128M110 170V142" stroke="#fff3c4" stroke-width="4"/><circle cx="110" cy="170" r="5" fill="#fff3c4" stroke="none"/><g class="tw tw0"><path d="M182 96l3.5 9 9 3.5-9 3.5-3.5 9-3.5-9-9-3.5 9-3.5z" fill="#fff" stroke="none"/></g><g class="tw tw1"><path d="M36 112l2.6 7 7 2.6-7 2.6-2.6 7-2.6-7-7-2.6 7-2.6z" fill="#ffd75e" stroke="none"/></g><g class="tw tw2"><path d="M190 232l2.4 6 6 2.4-6 2.4-2.4 6-2.4-6-6-2.4 6-2.4z" fill="#fff" stroke="none"/></g>`,
+    },
     halloween: {
       glow: "#ffb347",
       outline: `<path d="M96 130C60 124 30 152 30 192c0 40 30 66 66 62M124 130c36-6 66 22 66 62 0 40-30 66-66 62M96 130c-14 20-18 42-18 62s4 42 18 62M124 130c14 20 18 42 18 62s-4 42-18 62M96 130q14 8 28 0M96 254q14 8 28 0M104 128c0-14 2-22 8-30 4-6 10-8 14-6M104 128q10 5 20 0M74 172l16-18 16 18zM114 172l16-18 16 18zM104 192l6-10 6 10zM68 208l16 16 12-10 14 14 14-14 12 10 16-16-6 20-16 12-20-6-20 6-16-12z"/>`,
@@ -96,6 +108,26 @@
 
   // ---------- the themes ----------
   const themes = {
+    valentines() {
+      strip("season-hearts-garland", 54, 9, (x, y, i) => {
+        const fill = ["#e0457b", "#ff8fb5", "#c2305f", "#ffc2d6"][i % 4];
+        return `<path d="M${x} ${y - 2}v5" stroke="#b86a86" stroke-width="1.6"/><path transform="translate(${x - 10.5} ${y + 1}) scale(.88)" d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="${fill}"/>`;
+      });
+      layer("season-hearts season-hearts-far");
+      layer("season-hearts season-hearts-near");
+      put($(".brand"), heartBadge());
+    },
+    newyear() {
+      strip("season-stars", 54, 9, (x, y, i) => {
+        const fill = ["#f4c542", "#d6dde4", "#f4c542", "#ffe9a8"][i % 4];
+        return `<path d="M${x} ${y - 2}v4" stroke="#a89a6a" stroke-width="1.6"/><path transform="translate(${x - 9.5} ${y + 1}) scale(.8)" d="M12 2l2.9 6.6 7.1.7-5.4 4.8 1.6 7L12 17.3 5.8 21.1l1.6-7L2 9.3l7.1-.7z" fill="${fill}"/>`;
+      });
+      layer("season-confetti season-confetti-far");
+      layer("season-confetti season-confetti-near");
+      put($(".brand"), partyHat());
+      firework("fw-a", ["#ffd75e", "#ffffff", "#ffe9a8"]);
+      if (!touch) firework("fw-b", ["#ffffff", "#ffd75e", "#ffe9a8"]);
+    },
     halloween() {
       put($(".site-header"), spider());
       put($(".contact-teaser"), web(240));
