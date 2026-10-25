@@ -1657,3 +1657,10 @@ button:disabled{cursor:not-allowed}
 .spread-copy a.project-view{display:inline-block}
 .spreads-next .spreads-all{margin-left:0}
 .spreads-sep{margin:0 6px;color:#b7c3cb}
+
+/* Lifetime care card: the heading leaves room for the wrench. */
+.art-care{position:relative}
+.art-care .aw-head{padding-right:58px}
+.aw-wrench{width:48px;height:auto;transform:rotate(-12deg)}
+.hs-panel.is-in .aw-wrench{transform:rotate(8deg)}
+@media(max-width:700px){.art-care .aw-head{padding-right:46px}.aw-wrench{width:38px;right:16px;top:16px}}
