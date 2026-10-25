@@ -98,8 +98,8 @@
     },
     thanksgiving: {
       glow: "#ffc267",
-      outline: `<path d="M70 152c0-26 18-42 40-42s40 16 40 42zM110 110V94M76 152c2 50 14 92 34 108 20-16 32-58 34-108M80 124l14 14M96 114l14 14M124 114l-14 14M140 124l-14 14M92 138l12 14M128 138l-12 14M110 94c8-18 28-24 44-16-4 16-24 26-44 16z"/>`,
-      lit: `<path d="M76 152c2 50 14 92 34 108 20-16 32-58 34-108z" fill="rgba(255,176,72,.28)" stroke="#ffc267" stroke-width="3"/><path d="M70 152c0-26 18-42 40-42s40 16 40 42z" fill="rgba(190,110,50,.35)" stroke="#e9a35a" stroke-width="3"/><path d="M110 94c8-18 28-24 44-16-4 16-24 26-44 16z" fill="rgba(226,120,40,.4)" stroke="#f0a050" stroke-width="3"/>`,
+      outline: `<path d="M84 262V164a26 8 0 0 1 52 0V262"/><path d="M84 164a26 8 0 0 0 52 0M96 168v18a4 4 0 0 0 8 0v-14M110 160v-14"/><path d="M110 92c10 16 18 26 18 40a18 18 0 0 1-36 0c0-14 8-24 18-40z"/><path d="M84 262c0 6 52 6 52 0"/><ellipse cx="110" cy="272" rx="54" ry="9"/>`,
+      lit: `<path d="M84 262V164a26 8 0 0 1 52 0V262" fill="rgba(255,226,170,.1)" stroke="#f0d9b0" stroke-width="3"/><g class="flame"><path d="M110 92c10 16 18 26 18 40a18 18 0 0 1-36 0c0-14 8-24 18-40z" fill="rgba(255,168,64,.85)" stroke="#ffd27a" stroke-width="3"/><path d="M110 112c5 9 9 14 9 21a9 9 0 0 1-18 0c0-7 4-12 9-21z" fill="#fff0bf" stroke="none"/></g>`,
     },
     christmas: {
       glow: "#9cf0b6",
@@ -170,8 +170,7 @@
     },
     thanksgiving() {
       costume("thanksgiving");
-      layer("season-leaves season-leaves-far");
-      layer("season-leaves season-leaves-near");
+      put(document.body, `<div class="season-leaves-wrap" aria-hidden="true"><div class="season-leaves season-leaves-far"></div><div class="season-leaves season-leaves-near"></div></div>`);
     },
     christmas() {
       strip("season-lights", 46, 9, (x, y, i) => {
