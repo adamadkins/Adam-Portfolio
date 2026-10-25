@@ -5,7 +5,7 @@
   const $ = selector => document.querySelector(selector);
   const touch = matchMedia("(hover: none)").matches;
   const made = [];
-  let bulbBackup = null, onResize = null, resizeTimer = 0;
+  let bulbBackup = null, onResize = null, resizeTimer = 0, scrollCleanup = null;
 
   const make = markup => { const t = document.createElement("template"); t.innerHTML = markup.trim(); return t.content.firstElementChild; };
   const put = (parent, markup) => {
@@ -133,12 +133,19 @@
     },
     halloween() {
       const spiderBox = put($(".site-header"), spider());
-      // Touch the spider and it scurries back up its thread, then lowers itself down again a few seconds later.
+      // The spider lowers itself at the top of the page and climbs back up out of sight as soon as you scroll; scroll back
+      // to the top and it comes down again. Touch it and it scurries away for a few seconds too.
       if (spiderBox) {
-        let timer = 0;
-        const flee = () => { clearTimeout(timer); spiderBox.classList.add("is-climbing"); timer = setTimeout(() => spiderBox.classList.remove("is-climbing"), 3800); };
+        let scrolled = scrollY > 40, fled = false, timer = 0;
+        const sync = () => spiderBox.classList.toggle("is-climbing", scrolled || fled);
+        const flee = () => { clearTimeout(timer); fled = true; sync(); timer = setTimeout(() => { fled = false; sync(); }, 3800); };
         spiderBox.addEventListener("pointerenter", flee);
         spiderBox.addEventListener("pointerdown", flee);
+        const onScroll = () => { const now = scrollY > (scrolled ? 8 : 40); if (now !== scrolled) { scrolled = now; sync(); } };
+        addEventListener("scroll", onScroll, { passive: true });
+        scrollCleanup = () => removeEventListener("scroll", onScroll);
+        sync();
+        setTimeout(() => spiderBox.style.setProperty("--delay", ".25s"), 4200);   // after the first long descent, coming back is quick
       }
       put($(".site-header"), web(96));
       put($(".contact-teaser"), web(260));
@@ -190,6 +197,7 @@
       const bulb = $(".idea-bulb");
       if (bulb && bulbBackup !== null) { bulb.innerHTML = bulbBackup; bulbBackup = null; }
       if (onResize) { removeEventListener("resize", onResize); onResize = null; }
+      if (scrollCleanup) { scrollCleanup(); scrollCleanup = null; }
       delete document.documentElement.dataset.season;
     },
   };
