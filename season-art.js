@@ -49,12 +49,26 @@
     }
     return `<svg class="season-web${flip ? " flip" : ""}" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true" focusable="false"><path d="${d}" fill="none"/></svg>`;
   };
-  const hat = () => `<svg class="season-hat" width="34" height="30" viewBox="0 0 34 30" aria-hidden="true" focusable="false"><path d="M5 22C6 10 14 3 25 5c-4 3-5 8-4 17z" fill="#d6303a"/><path d="M3 21c4-2 16-2 28 0l-1 5c-8 2-18 2-26 0z" fill="#fff"/><circle cx="26" cy="5" r="4" fill="#fff"/></svg>`;
-  const ears = () => `<svg class="season-ears" width="36" height="32" viewBox="0 0 36 32" aria-hidden="true" focusable="false"><g><ellipse cx="11" cy="15" rx="5" ry="13" fill="#fff" stroke="#c9b9dd" stroke-width="1.2" transform="rotate(-10 11 15)"/><ellipse cx="11" cy="15" rx="2.4" ry="9" fill="#f6b8cf" transform="rotate(-10 11 15)"/></g><g><ellipse cx="25" cy="15" rx="5" ry="13" fill="#fff" stroke="#c9b9dd" stroke-width="1.2" transform="rotate(12 25 15)"/><ellipse cx="25" cy="15" rx="2.4" ry="9" fill="#f6b8cf" transform="rotate(12 25 15)"/></g></svg>`;
   const partyHat = () => `<svg class="season-hat party" width="30" height="34" viewBox="0 0 30 34" aria-hidden="true" focusable="false"><path d="M6 30L17 5l9 25z" fill="#f4c542"/><path d="M10 22l13-6M8 27l17-8" stroke="#e0457b" stroke-width="3"/><circle cx="17" cy="4" r="3.6" fill="#fff"/></svg>`;
   const heartBadge = () => `<svg class="season-badge" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#e0457b" stroke="#fff" stroke-width="1.6"/></svg>`;
+  // Halloween, Christmas and Easter replace the logo with a version wearing the season's costume. The pictures are drawn on
+  // a larger canvas, so each is sized and offset (in logo-tiles) to put its tile exactly over the normal one.
+  const LOGOS = {
+    halloween: { k: 1.4299, x: -0.2509, y: -0.3398 },
+    christmas: { k: 1.4138, x: -0.2593, y: -0.3281 },
+    easter: { k: 1.6286, x: -0.3143, y: -0.5961, s: 0.86 },   // the ears are tall, so this one is drawn a little smaller to stay on the page
+  };
+  const marked = [];
+  const costume = name => {
+    const art = LOGOS[name];
+    document.querySelectorAll(".brand, .footer-brand").forEach(brand => {
+      if (!brand.querySelector(".brand-symbol, .footer-brand-icon")) return;
+      put(brand, `<img class="season-logo" src="/images/season/logo-${name}.webp" alt="" width="300" height="300" aria-hidden="true" style="--k:${art.k};--x:${art.x};--y:${art.y};--s:${art.s || 1}">`);
+      brand.classList.add("has-season-logo");
+      marked.push(brand);
+    });
+  };
   const spider = () => `<div class="season-spider" aria-hidden="true"><span class="thread"></span><svg class="spider" width="54" height="54" viewBox="0 0 54 54" focusable="false"><g stroke="#0d1117" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 27L9 16L3 24M19 30L5 28L1 38M20 34L7 40L7 51M24 37L15 47L16 53M34 27L45 16L51 24M35 30L49 28L53 38M34 34L47 40L47 51M30 37L39 47L38 53"/></g><ellipse cx="27" cy="34" rx="9.5" ry="11.5" fill="#0d1117"/><circle cx="27" cy="21" r="6.4" fill="#0d1117"/></svg></div>`;
-  const witchHat = () => `<svg class="season-hat witch" width="28" height="28" viewBox="0 0 36 36" aria-hidden="true" focusable="false"><path d="M18 2c2 7 4 12 8 20H10C14 14 16 9 18 2z" fill="#3a2750"/><path d="M4 26c8-5 20-5 28 0-3 4-8 5-14 5S7 30 4 26z" fill="#4a3266"/><path d="M11 22c5 2 9 2 14 0l1 3c-6 2-10 2-16 0z" fill="#f08a24"/><rect x="16" y="21.4" width="4" height="4" rx="1" fill="#ffd27a"/></svg>`;
   const bat = () => `<svg class="bat" width="34" height="18" viewBox="0 0 34 18" aria-hidden="true" focusable="false"><path d="M17 6c1.4 0 2 1.2 2.6 2.4 2-2.6 5.2-4.6 9.4-4.4-1.6 1.8-2 3.6-1.8 5.4 2.2.2 4.2 1 6.2 2.4-2.8 0-4.8.8-6 2.2-1.6-1.4-3.4-2-5.6-1.8L19 17c-.6-1-1-2-2-2s-1.4 1-2 2l-2-4.4c-2.2-.2-4 .4-5.6 1.8-1.2-1.4-3.2-2.2-6-2.2 2-1.4 4-2.2 6.2-2.4.2-1.8-.2-3.6-1.8-5.4 4.2-.2 7.4 1.8 9.4 4.4C15 7.2 15.6 6 17 6z" fill="#1b2430"/></svg>`;
   const bats = () => `<div class="season-bats" aria-hidden="true">${bat()}${bat()}${touch ? "" : bat()}</div>`;
   const layer = className => put(document.body, `<div class="${className}" aria-hidden="true"></div>`);
@@ -150,7 +164,7 @@
       put($(".site-header"), web(96));
       put($(".contact-teaser"), web(260));
       put($(".site-footer"), web(160, true));
-      put($(".brand"), witchHat());
+      costume("halloween");
       put(document.body, bats());
     },
     thanksgiving() {
@@ -164,14 +178,14 @@
       }, 4);
       layer("season-snow season-snow-far");
       layer("season-snow season-snow-near");
-      put($(".brand"), hat());
+      costume("christmas");
     },
     easter() {
       strip("season-eggs", 58, 9, (x, y, i) => {
         const [base, band] = [["#f6b8cf", "#fff"], ["#bfe3ff", "#ffe08a"], ["#cfeec9", "#fff"], ["#e3d2ff", "#ffd1e3"], ["#ffe9a8", "#bfe3ff"]][i % 5];
         return `<path d="M${x} ${y - 2}v5" stroke="#8b7aa6" stroke-width="1.6"/><ellipse cx="${x}" cy="${y + 13}" rx="8" ry="10.5" fill="${base}"/><path d="M${x - 7.4} ${y + 11}l3.7-3 3.7 3 3.7-3 3.7 3" fill="none" stroke="${band}" stroke-width="2.2"/>`;
       });
-      put($(".brand"), ears());
+      costume("easter");
     },
     july4() {
       strip("season-bunting", 52, 8, (x, y, i) => {
@@ -194,6 +208,7 @@
     },
     unmount() {
       made.splice(0).forEach(node => node.remove());
+      marked.splice(0).forEach(brand => brand.classList.remove("has-season-logo"));
       const bulb = $(".idea-bulb");
       if (bulb && bulbBackup !== null) { bulb.innerHTML = bulbBackup; bulbBackup = null; }
       if (onResize) { removeEventListener("resize", onResize); onResize = null; }

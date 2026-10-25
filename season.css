@@ -56,7 +56,6 @@ html[data-season="newyear"]{--season:#d9a826;--season-dark:#12131f;--specs-bg:#e
 .season-lights .g2{animation:twinkle 2.4s ease-in-out -1.2s infinite}
 .season-lights .g3{animation:twinkle 2.4s ease-in-out -1.8s infinite}
 .season-hat{position:absolute;left:-8px;top:-14px;z-index:2;pointer-events:none;transform:rotate(-12deg)}
-.season-ears{position:absolute;left:3px;top:-17px;z-index:2;pointer-events:none}
 
 /* Falling leaves and snow: each is one tiled layer that drifts down, so the browser animates it in a single move. */
 .season-leaves,.season-snow{position:fixed;left:0;width:100%;z-index:899;pointer-events:none}
@@ -100,7 +99,6 @@ html[data-season="newyear"]{--season:#d9a826;--season-dark:#12131f;--specs-bg:#e
 }
 
 /* Halloween extras: bats crossing the sky now and then, a witch's hat on the logo, a flickering candle in the pumpkin. */
-.season-hat.witch{left:-12px;top:-18px;transform:rotate(-14deg)}
 .season-bats{position:fixed;top:104px;left:0;width:100%;height:90px;z-index:898;pointer-events:none;overflow:hidden}
 .season-bats .bat{position:absolute;left:0;top:0;animation:bat-fly 34s linear infinite,bat-flap .32s ease-in-out infinite alternate}
 .season-bats .bat:nth-child(2){top:34px;animation-delay:.7s,-.1s}
@@ -115,3 +113,10 @@ html[data-season="newyear"]{--season:#d9a826;--season-dark:#12131f;--specs-bg:#e
 .site-header .season-web{opacity:.75}
 .site-header .season-web path{stroke:#9aa5ae}
 @media(max-width:700px){.site-header .season-web{display:none}}
+
+/* The costumed logos sit exactly over the normal logo (see LOGOS in season-art.js). */
+.brand,.footer-brand{--tile:43px}
+.footer-brand{--tile:36px;position:relative}
+@media(max-width:700px){.brand{--tile:39px}}
+.season-logo{position:absolute;left:calc(var(--tile)*var(--x)*var(--s,1));top:50%;margin-top:calc(var(--tile)*(.5 - var(--s,1) + var(--y)*var(--s,1)));width:calc(var(--tile)*var(--k)*var(--s,1));height:auto;max-width:none;pointer-events:none;z-index:2}
+.has-season-logo .brand-symbol,.has-season-logo .footer-brand-icon{opacity:0}
