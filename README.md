@@ -56,4 +56,4 @@ To add a project:
 2. Put its screenshots in `images/work/page/`: `<slug>-tall.webp` (a tall full-page desktop screenshot, about 960px wide) and `<slug>-m-1.webp`, `-m-2.webp`, `-m-3.webp` (phone screenshots, 390px wide). Rename an image if you replace it, because images are cached for 7 days.
 3. Run `node scripts/build-work.mjs`, then commit the generated files.
 
-`node --test test/` fails if the generated pages are out of date. The first project with `"featured": true` is shown large at the top; the filter chips and the previous / next links appear on their own as projects are added. The header and footer are copied from `about.html` at build time.
+`node --test test/contact.test.mjs test/work.test.mjs` fails if the generated pages are out of date. The first project with `"featured": true` is shown large at the top; the filter chips and the previous / next links appear on their own as projects are added. The header and footer are copied from `about.html` at build time.
