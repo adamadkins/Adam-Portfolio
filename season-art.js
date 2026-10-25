@@ -92,8 +92,8 @@
     },
     halloween: {
       glow: "#ffb347",
-      outline: `<path d="M96 130C60 124 30 152 30 192c0 40 30 66 66 62M124 130c36-6 66 22 66 62 0 40-30 66-66 62M96 130c-14 20-18 42-18 62s4 42 18 62M124 130c14 20 18 42 18 62s-4 42-18 62M96 130q14 8 28 0M96 254q14 8 28 0M104 128c0-14 2-22 8-30 4-6 10-8 14-6M104 128q10 5 20 0M74 172l16-18 16 18zM114 172l16-18 16 18zM104 192l6-10 6 10zM68 208l16 16 12-10 14 14 14-14 12 10 16-16-6 20-16 12-20-6-20 6-16-12z"/>`,
-      lit: `<path class="flick" d="M74 172l16-18 16 18zM114 172l16-18 16 18zM104 192l6-10 6 10zM68 208l16 16 12-10 14 14 14-14 12 10 16-16-6 20-16 12-20-6-20 6-16-12z" fill="#ffc46b" stroke="#ffe0a6" stroke-width="3"/><path d="M96 130C60 124 30 152 30 192c0 40 30 66 66 62h28c36 4 66-22 66-62 0-40-30-68-66-62z" fill="rgba(255,150,50,.12)" stroke="#ffb347" stroke-width="3"/>`,
+      outline: `<image href="/images/season/pumpkin-outline.webp" x="20" y="100" width="180" height="167"/><path d="M80 188l12-15 12 15zM116 188l12-15 12 15zM105 204l5-9 5 9zM78 218l11 11 9-7 12 9 12-9 9 7 11-11-5 15-15 9H98l-15-9z" stroke-width="2.5"/>`,
+      lit: `<image href="/images/season/pumpkin-lit.webp" x="20" y="100" width="180" height="167"/><path class="flick" d="M80 188l12-15 12 15zM116 188l12-15 12 15zM105 204l5-9 5 9zM78 218l11 11 9-7 12 9 12-9 9 7 11-11-5 15-15 9H98l-15-9z" fill="#ffd27a" stroke="#fff0c4" stroke-width="2.5"/>`,
     },
     thanksgiving: {
       glow: "#ffc267",
