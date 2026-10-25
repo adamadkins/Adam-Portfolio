@@ -82,9 +82,8 @@
   const OUT = `fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"`;
   const icons = {
     valentines: {
-      glow: "#ff8fb5",
-      outline: `<path d="M110 250s-70-44-70-102a38 38 0 0 1 70-22 38 38 0 0 1 70 22c0 58-70 102-70 102z"/><path d="M52 96l124 140M52 96l-14 4M52 96l4 14M60 104l-12 2M60 104l2 12M176 236l-18-2M176 236l-2-18"/>`,
-      lit: `<path d="M110 250s-70-44-70-102a38 38 0 0 1 70-22 38 38 0 0 1 70 22c0 58-70 102-70 102z" fill="rgba(255,110,160,.3)" stroke="#ff8fb5" stroke-width="3"/><path d="M52 96l124 140" stroke="#ffd0e0" stroke-width="3"/><g class="tw tw0"><path d="M170 80l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#fff" stroke="none"/></g><g class="tw tw1"><path d="M44 196l2.4 6 6 2.4-6 2.4-2.4 6-2.4-6-6-2.4 6-2.4z" fill="#ffd0e0" stroke="none"/></g><g class="tw tw2"><path d="M190 168l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#fff" stroke="none"/></g>`,
+      // Just a heart: no glow, no lighting up.
+      solid: `<path d="M110 250s-70-44-70-102a38 38 0 0 1 70-22 38 38 0 0 1 70 22c0 58-70 102-70 102z" fill="#e0457b"/><path d="M62 146c0-14 9-24 22-27" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="7" stroke-linecap="round"/>`,
     },
     newyear: {
       glow: "#ffd75e",
@@ -121,6 +120,7 @@
     const bulb = $(".idea-bulb"), art = icons[name];
     if (!bulb || !art) return;
     if (bulbBackup === null) bulbBackup = bulb.innerHTML;
+    if (art.solid) { bulb.innerHTML = `<svg class="season-icon season-solid" viewBox="0 0 220 320" focusable="false">${art.solid}</svg>`; return; }
     bulb.innerHTML = `<svg class="season-icon" viewBox="0 0 220 320" focusable="false"><defs><radialGradient id="season-glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="${art.glow}" stop-opacity=".42"/><stop offset=".55" stop-color="${art.glow}" stop-opacity=".12"/><stop offset="1" stop-color="${art.glow}" stop-opacity="0"/></radialGradient></defs><g class="season-outline" ${OUT}>${art.outline}</g><g class="season-lit" ${OUT}><circle class="season-halo" cx="110" cy="170" r="124" fill="url(#season-glow)" stroke="none"/>${art.lit}</g></svg>`;
   };
 

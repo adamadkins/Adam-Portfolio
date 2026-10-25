@@ -24,7 +24,7 @@ html[data-season="newyear"]{--season:#d9a826;--season-dark:#12131f;--specs-bg:#e
 [data-season="easter"] .idea-bulb::before{background:radial-gradient(circle,rgba(246,184,238,.14) 0%,rgba(246,184,238,.05) 38%,rgba(246,184,238,0) 68%)}
 [data-season="july4"] .idea-bulb::before{background:radial-gradient(circle,rgba(130,170,255,.15) 0%,rgba(130,170,255,.05) 38%,rgba(130,170,255,0) 68%)}
 [data-season="thanksgiving"] .idea-bulb::before{background:radial-gradient(circle,rgba(255,190,100,.14) 0%,rgba(255,190,100,.05) 38%,rgba(255,190,100,0) 68%)}
-[data-season="valentines"] .idea-bulb::before{background:radial-gradient(circle,rgba(255,130,175,.15) 0%,rgba(255,130,175,.05) 38%,rgba(255,130,175,0) 68%)}
+[data-season="valentines"] .idea-bulb::before{display:none}
 [data-season="newyear"] .idea-bulb::before{background:radial-gradient(circle,rgba(255,215,94,.15) 0%,rgba(255,215,94,.05) 38%,rgba(255,215,94,0) 68%)}
 @keyframes twinkle{0%,100%{opacity:1}50%{opacity:.3}}
 
