@@ -23,10 +23,10 @@ const webpSize = (file) => {
 // The site's own header and footer come from about.html, so the work pages never drift from the rest of the site.
 const about = readFileSync(join(root, "about.html"), "utf8");
 const top = about.slice(about.indexOf('  <a class="skip-link"'), about.indexOf("  <main"))
-  .replace('<a class="nav-link" href="/work.html">Showcase</a>', '<a class="nav-link" href="/work.html" aria-current="page">Showcase</a>')
+  .replace('<a class="nav-link" href="/work">Showcase</a>', '<a class="nav-link" href="/work" aria-current="page">Showcase</a>')
   .replace(' aria-current="page">About', ">About");
 const foot = about.slice(about.indexOf("  <footer"), about.indexOf("</footer>") + 9)
-  .replace('href="/#work"', 'href="/work.html"')
+  .replace('href="/#work"', 'href="/work"')
   .replace('<a href="/about.html" aria-current="page">About</a>', '<a href="/about.html">About</a>');
 
 const page = ({ title, description, path, body, ogTitle }) => `<!doctype html>
@@ -133,7 +133,7 @@ const detail = (p, i) => {
   const more = projects.length > 1 ? `
     <nav class="wk-more container" aria-label="More work">
       <a class="wk-more-link wk-more-prev" href="/work/${prev.slug}.html"><span>← Previous</span><b>${prev.name}</b></a>
-      <a class="wk-more-all" href="/work.html">Full showcase</a>
+      <a class="wk-more-all" href="/work">Full showcase</a>
       <a class="wk-more-link wk-more-next" href="/work/${next.slug}.html"><span>Next →</span><b>${next.name}</b></a>
     </nav>` : "";
   return page({
@@ -141,7 +141,7 @@ const detail = (p, i) => {
     description: p.summary,
     path: `/work/${p.slug}.html`,
     body: `    <section class="wk-chapter wk-chapter--solo" id="${p.slug}" style="--panel:${p.panel}" aria-labelledby="${p.slug}-title">
-      <div class="container"><a class="wk-back" href="/work.html"><span aria-hidden="true">←</span> Full showcase</a></div>
+      <div class="container"><a class="wk-back" href="/work"><span aria-hidden="true">←</span> Full showcase</a></div>
       <div class="container wk-grid">
         <div class="wk-copy reveal">
           <p class="wk-num" aria-hidden="true">${pad(i + 1)}</p>
@@ -169,7 +169,7 @@ const out = new Map();
 out.set("work.html", page({
   title: "Showcase | The Little Things Studios",
   description: "Live websites for real businesses, built by Adam Adkins at The Little Things Studios. Scroll through each one, see it on a phone, then visit it.",
-  path: "/work.html",
+  path: "/work",
   ogTitle: "Showcase | The Little Things Studios",
   body: indexBody,
 }));
