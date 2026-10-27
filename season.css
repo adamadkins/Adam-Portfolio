@@ -19,7 +19,7 @@ html[data-season="newyear"]{--season:#d9a826;--season-dark:#12131f;--specs-bg:#e
 .idea-bulb.visible .season-lit{animation:bulb-glass .8s linear .5s both}
 .idea-bulb .season-lit .tw{animation:twinkle 2.2s ease-in-out infinite}
 .idea-bulb .season-lit .tw1{animation-delay:-.7s}.idea-bulb .season-lit .tw2{animation-delay:-1.4s}
-[data-season="halloween"] .idea-bulb::before{background:radial-gradient(circle,rgba(255,150,50,.15) 0%,rgba(255,150,50,.05) 38%,rgba(255,150,50,0) 68%)}
+[data-season="halloween"] .idea-bulb::before{top:63%;background:radial-gradient(circle,rgba(255,150,50,.15) 0%,rgba(255,150,50,.05) 38%,rgba(255,150,50,0) 68%)}
 [data-season="christmas"] .idea-bulb::before{background:radial-gradient(circle,rgba(140,240,170,.13) 0%,rgba(140,240,170,.05) 38%,rgba(140,240,170,0) 68%)}
 [data-season="easter"] .idea-bulb::before{background:radial-gradient(circle,rgba(246,184,238,.14) 0%,rgba(246,184,238,.05) 38%,rgba(246,184,238,0) 68%)}
 [data-season="july4"] .idea-bulb::before{background:radial-gradient(circle,rgba(130,170,255,.15) 0%,rgba(130,170,255,.05) 38%,rgba(130,170,255,0) 68%)}

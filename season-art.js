@@ -93,6 +93,7 @@
     },
     halloween: {
       glow: "#ffb347",
+      glowY: 200,
       outline: `<image href="/images/season/pumpkin-outline.webp" x="20" y="100" width="180" height="167"/><g transform="translate(110 199) scale(1.1) translate(-110 -192)"><path d="M74 172l16-18 16 18zM114 172l16-18 16 18zM104 192l6-10 6 10zM68 208l16 16 12-10 14 14 14-14 12 10 16-16-6 20-16 12-20-6-20 6-16-12z" stroke-width="2.5"/></g>`,
       lit: `<image href="/images/season/pumpkin-lit.webp" x="20" y="100" width="180" height="167"/><g transform="translate(110 199) scale(1.1) translate(-110 -192)"><path class="flick" d="M74 172l16-18 16 18zM114 172l16-18 16 18zM104 192l6-10 6 10zM68 208l16 16 12-10 14 14 14-14 12 10 16-16-6 20-16 12-20-6-20 6-16-12z" fill="#ffd27a" stroke="#fff0c4" stroke-width="2.5"/></g>`,
     },
@@ -122,7 +123,7 @@
     if (!bulb || !art) return;
     if (bulbBackup === null) bulbBackup = bulb.innerHTML;
     if (art.solid) { bulb.innerHTML = `<svg class="season-icon season-solid" viewBox="0 0 220 320" focusable="false">${art.solid}</svg>`; return; }
-    bulb.innerHTML = `<svg class="season-icon" viewBox="0 0 220 320" focusable="false"><defs><radialGradient id="season-glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="${art.glow}" stop-opacity=".42"/><stop offset=".55" stop-color="${art.glow}" stop-opacity=".12"/><stop offset="1" stop-color="${art.glow}" stop-opacity="0"/></radialGradient></defs><g class="season-outline" ${OUT}>${art.outline}</g><g class="season-lit" ${OUT}><circle class="season-halo" cx="110" cy="170" r="124" fill="url(#season-glow)" stroke="none"/>${art.lit}</g></svg>`;
+    bulb.innerHTML = `<svg class="season-icon" viewBox="0 0 220 320" focusable="false"><defs><radialGradient id="season-glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="${art.glow}" stop-opacity=".42"/><stop offset=".55" stop-color="${art.glow}" stop-opacity=".12"/><stop offset="1" stop-color="${art.glow}" stop-opacity="0"/></radialGradient></defs><g class="season-outline" ${OUT}>${art.outline}</g><g class="season-lit" ${OUT}><circle class="season-halo" cx="110" cy="${art.glowY || 170}" r="124" fill="url(#season-glow)" stroke="none"/>${art.lit}</g></svg>`;
   };
 
   // ---------- the themes ----------
