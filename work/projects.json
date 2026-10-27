@@ -51,6 +51,29 @@
         ["The Porter Property Maintenance about section on a phone", "Local roots"],
         ["The Porter Property Maintenance services on a phone", "Services"]
       ]
+    },
+    {
+      "slug": "wonderfully-made",
+      "name": "Wonderfully Made",
+      "category": "local",
+      "meta": "LOCAL BUSINESS / DESIGN &amp; DEVELOPMENT",
+      "panel": "#d3c7ac",
+      "url": "https://wonderfully-made.adkins-adam04.workers.dev/",
+      "summary": "A faith-centered hair salon in Worthington, Kentucky, with a site that feels as warm as the chair: easy to book, and her real work front and center.",
+      "lead": "A faith-centered, vintage boho hair salon in Worthington, Kentucky, and a website that feels as warm as the chair: her own logo drawing itself on arrival, her real Facebook work on display, and booking as simple as a text.",
+      "facts": [["What", "Brand site and booking"], ["Role", "Design and development"], ["Built for", "Phones first, older browsers too"]],
+      "tags": ["Web design", "Front-end development", "Local business", "Booking flow"],
+      "notes": [
+        ["A logo that draws itself", "Her badge opens the site by drawing its own circle, writing out the name, then revealing the monogram. It is her artwork, just brought to life."],
+        ["Her work, straight from Facebook", "The salon already shares its color and blonding work on Facebook, so the portfolio shows those real posts instead of a second gallery she would have to keep up."],
+        ["Booking that fits how she works", "Pick your services and the site writes the text to Madison for you. No booking app to learn, and every request starts with a name and what the client wants."]
+      ],
+      "alt": "The Wonderfully Made website scrolling from the hero, to the services, to a Facebook post and the family story",
+      "phones": [
+        ["The Wonderfully Made home page on a phone, with the salon's badge logo and title", "The first screen"],
+        ["The Wonderfully Made services list on a phone, with starting prices", "Services"],
+        ["The Wonderfully Made portfolio section on a phone, showing a real Facebook post", "Her real work"]
+      ]
     }
   ]
 }
