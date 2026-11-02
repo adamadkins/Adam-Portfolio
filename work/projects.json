@@ -2,7 +2,8 @@
   "_help": "One entry per project, in the order they appear. Text may use HTML entities such as &amp;. Images live in images/work/page/ named <slug>-tall.webp (a tall full-page screenshot, about 960px wide) and <slug>-m-1.webp, -m-2.webp, -m-3.webp (phone screenshots, 390px wide). Then run: node scripts/build-work.mjs",
   "categories": {
     "ecommerce": "E-commerce",
-    "local": "Local business"
+    "local": "Local business",
+    "portfolio": "Portfolio"
   },
   "projects": [
     {
@@ -27,6 +28,29 @@
         ["The Chasing606 home page on a phone: a bowhunter beside a buck and the headline “From the heart of 606.”", "The first screen"],
         ["The Chasing606 “Watch the latest hunt” section on a phone", "On film"],
         ["The Chasing606 footer on a phone, with shop help and social links", "Footer and help"]
+      ]
+    },
+    {
+      "slug": "davis-brown",
+      "name": "Davis Brown",
+      "category": "portfolio",
+      "meta": "PORTFOLIO / DESIGN &amp; DEVELOPMENT",
+      "panel": "#b8c1ec",
+      "url": "https://www.davisbrownediting.com/",
+      "summary": "A video editor’s portfolio drawn as an 8-bit editing room, with his YouTube numbers kept up to date on their own.",
+      "lead": "Davis Brown edits YouTube videos, Shorts, and short films. His portfolio is a pixel-art room where he works late at night, built so he can change it himself: the words, his photo, and which videos show on each page.",
+      "facts": [["What", "Portfolio website"], ["Role", "Design, pixel art, and development"], ["Built for", "Clients and collaborators"]],
+      "tags": ["Web design", "Pixel art", "Front-end development", "YouTube integration"],
+      "notes": [
+        ["An 8-bit editing room", "The home page opens on a pixel-art room: Davis at his desk at night, an edit on the monitor. It says what he does before anyone reads a word."],
+        ["YouTube that keeps itself current", "A strip under the room shows live numbers from his channel, like his subscriber count, pulled from YouTube so it never goes out of date."],
+        ["His to change", "Davis updates the words, his photo, and which videos appear on each page himself, in the studio’s client portal. No code needed."]
+      ],
+      "alt": "The Davis Brown website scrolling from the 8-bit editing room and his YouTube numbers, to his About page and contact card",
+      "phones": [
+        ["The Davis Brown home page on a phone: his name, “Editor,” and the 8-bit editing room", "The first screen"],
+        ["Davis Brown’s About page on a phone, with his photo framed as a player card", "Player 1"],
+        ["The Davis Brown contact card on a phone, with Send an email and Copy email buttons", "Get in touch"]
       ]
     },
     {

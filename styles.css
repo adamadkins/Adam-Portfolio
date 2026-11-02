@@ -1471,10 +1471,10 @@ button:disabled{cursor:not-allowed}
 .spread-phone img{border-radius:20px}
 .spread:hover .spread-browser,.spread:focus-within .spread-browser{transform:rotate(0) translateY(-6px)}
 .spread:hover .spread-phone,.spread:focus-within .spread-phone{transform:rotate(0) translateY(-6px)}
-.spread--porter .spread-browser{left:auto;right:6%;transform:rotate(1.2deg)}
-.spread--porter .spread-phone{right:auto;left:8%;transform:rotate(-3deg)}
-.spread--porter:hover .spread-browser,.spread--porter:focus-within .spread-browser{transform:rotate(0) translateY(-6px)}
-.spread--porter:hover .spread-phone,.spread--porter:focus-within .spread-phone{transform:rotate(0) translateY(-6px)}
+.spread--flip .spread-browser{left:auto;right:6%;transform:rotate(1.2deg)}
+.spread--flip .spread-phone{right:auto;left:8%;transform:rotate(-3deg)}
+.spread--flip:hover .spread-browser,.spread--flip:focus-within .spread-browser{transform:rotate(0) translateY(-6px)}
+.spread--flip:hover .spread-phone,.spread--flip:focus-within .spread-phone{transform:rotate(0) translateY(-6px)}
 .spread-copy{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:start;margin-top:clamp(70px,9vw,110px)}
 .spread-copy .project-meta{margin:0 0 14px;font-size:10px;font-weight:750;letter-spacing:.14em;color:var(--text-label)}
 .spread-copy h3{margin:0;font-size:clamp(36px,4.6vw,66px);line-height:1.02;letter-spacing:-.06em;font-weight:740;color:var(--ink)}
@@ -1490,9 +1490,9 @@ button:disabled{cursor:not-allowed}
   .spreads{gap:96px;padding-top:44px}
   .spread-stage{height:clamp(230px,62vw,330px);border-radius:22px}
   .spread-browser{left:5%;top:-14%;width:80%}
-  .spread--porter .spread-browser{right:5%}
+  .spread--flip .spread-browser{right:5%}
   .spread-phone{right:5%;bottom:-18%;width:27%}
-  .spread--porter .spread-phone{left:5%}
+  .spread--flip .spread-phone{left:5%}
   .spread-copy{grid-template-columns:1fr;gap:16px;margin-top:84px}
 }
 @media(prefers-reduced-motion:reduce){.spread-browser,.spread-phone{transition:none}.spread:hover .spread-browser,.spread:hover .spread-phone{transform:none}}
