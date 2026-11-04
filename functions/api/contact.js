@@ -4,7 +4,7 @@ const ADDRESS = "hello@tlt-studios.com";
 // The inquiry notification comes from its own address, not from hello@ to hello@: mail a mailbox sends to itself through an outside
 // server is easily mistaken for spoofing. Replying goes to the visitor (replyTo).
 const FORM_SENDER = "forms@tlt-studios.com";
-const TYPES = new Set(["New website", "Website Essentials ($750)", "Website + Lifetime Support ($1500)", "Website redesign", "Technical support", "Other inquiry", "Demo website", "Event Page ($150 + $15/mo)", "Event Site ($250 + $20/mo)"]);
+const TYPES = new Set(["New website", "Website Essentials ($750)", "Website + Lifetime Support ($1500)", "Website redesign", "Technical support", "Other inquiry", "Demo website", "Event Page ($150 + $15/mo)", "Event Site ($250 + $20/mo)", "Joining the team"]);
 const DEMO_SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 // Gmail's iOS dark mode inverts colors but leaves background images alone. Navy panels paint
 // with a gradient so they stay navy, and the Gmail-only (u + .body) blend wrappers flip the
@@ -133,10 +133,22 @@ export async function onRequestPost({request, env}) {
         "", "Phone: " + (phone || "not given"), "Website: " + (site || "not given"), "Good times for a Google Meet: " + (times || "not given"),
         ...(fields.message ? ["", "Anything to change or add:", fields.message] : [])].join("\n");
     }
+    // Someone who'd like to work with the studio (/careers.html): phone, what they'd like to do, and a link to their
+    // resume or portfolio are folded into the message, and it's labeled as job interest, not a project.
+    const joining = fields.project_type === "Joining the team";
+    if (joining) {
+      const phone = (data.get("phone")||"").trim(), role = (data.get("role")||"").trim(), link = (data.get("link")||"").trim();
+      if (phone.length > 40 || !/^[0-9+().\-\s]*$/.test(phone) || role.length > 80 || /[\x00-\x1f<>]/.test(role)
+        || link.length > 300 || /[\x00-\x1f<>\s]/.test(link))
+        return respond(request,400,"Please check your phone number and the link to your resume.");
+      fields.subject = "Join the team: " + fields.name + (role ? " (" + role + ")" : "");
+      fields.message = ["Would like to work with the studio" + (role ? ": " + role : "") + ".", "",
+        "Phone: " + (phone || "not given"), "Resume or portfolio: " + (link || "not given"), "", "About them:", fields.message].join("\n");
+    }
     // The conversation on /contact.html adds optional answers about the project; they are folded into the message.
     const userMessage = fields.message;
     let details = [];
-    if (fields.project_type !== "Demo website") {
+    if (fields.project_type !== "Demo website" && !joining) {
       const picks = key => data.getAll(key).map(value => value.trim()).filter(Boolean);
       const site = (data.get("site")||"").trim(), colors = (data.get("colors")||"").trim();
       const lists = {changes: picks("changes"), tools: picks("tools"), vibe: picks("vibe")};
@@ -162,7 +174,7 @@ export async function onRequestPost({request, env}) {
     // Never tell a visitor to resubmit an already accepted inquiry.
     let confirmationAccepted = false;
     try {
-      if (env.CONTACT_CONFIRMATION_EMAIL?.send) {
+      if (env.CONTACT_CONFIRMATION_EMAIL?.send && !joining) {
         // Use a separate key in the existing limiter to reduce repeated unsolicited receipts
         // to one email address, even when requests originate from different IPs.
         const {success} = await env.CONTACT_RATE_LIMIT.limit({key:"contact-confirm:" + fields.email.toLowerCase()});
@@ -175,6 +187,7 @@ export async function onRequestPost({request, env}) {
     } catch (confirmationError) {
       console.warn("Contact receipt could not be queued:", confirmationError?.code || "UNKNOWN");
     }
+    if (joining) return respond(request,200,"Thanks! Your details are saved with Adam. When the studio starts hiring, you'll hear from him by email.",true);
     return respond(request,200,confirmationAccepted
       ? "Your inquiry has been submitted, and a confirmation email is on its way. I’ll review the details and get back to you. No payment is due."
       : "Your inquiry has been submitted. I’ll review the details and get back to you by email. We couldn't send a separate confirmation right now. No payment is due.",true);

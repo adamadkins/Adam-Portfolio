@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#fafafa" />
+<meta name="description" content="Join The Little Things Studios. See open roles, or leave your details so Adam can reach out when the studio is hiring." />
+  <link rel="canonical" href="https://tlt-studios.com/careers.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="The Little Things Studios" />
+  <meta property="og:url" content="https://tlt-studios.com/careers.html" />
+  <meta property="og:title" content="Join the Team | The Little Things Studios" />
+  <meta property="og:description" content="Small studio, big care. See open roles at The Little Things Studios, or get on the list for when we start hiring." />
+  <meta property="og:image" content="https://tlt-studios.com/social-preview.png" />
+  <meta property="og:image:secure_url" content="https://tlt-studios.com/social-preview.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="The Little Things Studios — The difference between good and great is the little things." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Join the Team | The Little Things Studios" />
+  <meta name="twitter:description" content="Small studio, big care. See open roles at The Little Things Studios, or get on the list for when we start hiring." />
+  <meta name="twitter:image" content="https://tlt-studios.com/social-preview.png" />
+<link rel="icon" href="/favicon.svg?v=3" type="image/svg+xml" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4" />
+<link rel="stylesheet" href="/styles.css" />
+<title>Join the Team | The Little Things Studios</title>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" id="site-header">
+    <div class="header-inner container">
+      <a class="brand" href="/" aria-label="The Little Things Studios, home">
+        <img class="brand-symbol" src="/favicon.svg?v=3" alt="" aria-hidden="true" width="43" height="43" />
+        <span class="brand-copy">
+          <span class="brand-name">the little things<span class="brand-name-dot">.</span></span>
+          <span class="brand-descriptor">WEBSITE DESIGN</span>
+        </span>
+      </a>
+
+      <nav class="nav" id="primary-navigation" aria-label="Main navigation">
+        <a class="nav-link" href="/work">Showcase</a>
+        <a class="nav-link" href="/#services">Services</a>
+        <a class="nav-link" href="/#packages">Pricing</a>
+        <a class="nav-link" href="/about.html">About</a>
+        <a class="nav-link nav-contact" href="/contact.html">Get in touch</a>
+        <a class="nav-link nav-portal" href="https://portal.tlt-studios.com/">Client login <span aria-hidden="true">↗</span></a>
+      </nav>
+
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-navigation">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <div class="menu-scrim" id="menu-scrim" aria-hidden="true"></div>
+
+<main id="main" class="payments-page careers-page">
+  <div class="container">
+    <div class="payments-intro">
+      <p class="eyebrow">THE LITTLE THINGS STUDIOS / CAREERS</p>
+      <h1>Join the team.<br /><span>Care about the little things.</span></h1>
+      <p>We're a small web studio in Ashland, Kentucky, building websites for local businesses that care about the details. When there's a spot on the team, it'll be posted here.</p>
+    </div>
+    <div class="payments-grid">
+      <section class="payment-card careers-roles" aria-labelledby="roles-title">
+        <p class="eyebrow">01 / OPEN ROLES</p>
+        <h2 id="roles-title">No openings right now.</h2>
+        <p>There aren't any open roles at the moment. If you'd like to be first to hear when there are, leave your details and Adam will reach out when the studio starts hiring.</p>
+        <!-- Open roles go here. Copy this block for each one and remove the "No openings" heading above:
+        <article class="careers-role"><h3>Role name</h3><p class="careers-role-meta">Part time · Remote or Ashland, KY</p><p>What the role is and who it's for.</p></article>
+        -->
+      </section>
+      <section class="payment-card" aria-labelledby="join-title">
+        <p class="eyebrow">02 / GET ON THE LIST</p>
+        <h2 id="join-title">Tell us about you.</h2>
+        <p>Your details go straight to Adam. Nothing is shared, and there's no need to follow up: he'll reach out when there's a fit.</p>
+        <form id="careers-form" class="payment-fields" action="/api/contact" method="POST">
+          <input class="form-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <input type="hidden" name="project_type" value="Joining the team" />
+          <div class="payment-field"><label for="join-name">Your name</label><input id="join-name" name="name" autocomplete="name" required maxlength="120" /></div>
+          <div class="payment-field"><label for="join-email">Email</label><input id="join-email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com" /></div>
+          <div class="payment-field"><label for="join-phone">Phone <span class="careers-optional">(optional)</span></label><input id="join-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" /></div>
+          <div class="payment-field"><label for="join-role">What would you like to do?</label>
+            <select id="join-role" name="role"><option>Sales (reaching out to local businesses)</option><option>Web design</option><option>Web development</option><option>Writing or photography</option><option>Something else</option></select></div>
+          <div class="payment-field"><label for="join-link">Link to your resume or portfolio <span class="careers-optional">(optional)</span></label><input id="join-link" name="link" type="url" inputmode="url" maxlength="300" placeholder="Google Drive, LinkedIn, or your website" /></div>
+          <div class="payment-field"><label for="join-message">A little about you</label><textarea id="join-message" name="message" rows="5" required minlength="10" maxlength="4000" placeholder="What you've done, what you'd love to do, and when you're free."></textarea></div>
+          <button class="payment-action" type="submit">Send my details ↗</button>
+          <p id="careers-feedback" class="payment-feedback" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </div>
+  </div>
+</main>
+  <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year">2026</span> THE LITTLE THINGS STUDIOS. THE DIFFERENCE IS IN THE DETAILS.</span><nav class="footer-legal" aria-label="Legal information"><a href="/client-portal">Client Portal</a><a href="/privacy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a></nav><a href="/">RETURN HOME ↑</a></div></footer>
+
+<script src="/script.js" defer></script>
+<script src="/careers.js" defer></script>
+<script src="/season.js" defer></script>
+</body>
+</html>

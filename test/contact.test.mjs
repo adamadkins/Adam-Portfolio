@@ -164,3 +164,12 @@ test("project details are validated",async()=>{
   assert.equal((await onRequestPost({request:request({...fields,...update}),env})).status,400,JSON.stringify(update));assert.equal(sent.length,0);
  }
 });
+test("join the team: phone, role, and resume link fold into a job-interest email, with no project receipt",async()=>{
+ const {env,sent,confirmations}=setup();
+ const r=await onRequestPost({request:request({name:"Jamie Cole",email:"jamie@example.com",project_type:"Joining the team",phone:"(606) 555-0123",role:"Web design",link:"https://drive.google.com/x",message:"I design websites and love small businesses."}),env});
+ assert.equal(r.status,200);assert.match((await r.json()).message,/when the studio starts hiring/i);
+ assert.equal(sent[0].subject,"Join the team: Jamie Cole (Web design)");
+ assert.match(sent[0].text,/Resume or portfolio: https:\/\/drive\.google\.com\/x/);assert.match(sent[0].text,/Phone: \(606\) 555-0123/);
+ assert.equal(confirmations.length,0);
+ const bad=setup();assert.equal((await onRequestPost({request:request({name:"J",email:"j@example.com",project_type:"Joining the team",link:"java script:<x>",message:"Hello there friends."}),env:bad.env})).status,400);assert.equal(bad.sent.length,0);
+});
