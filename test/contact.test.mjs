@@ -11,7 +11,7 @@ function setup(options={}) {
  return {env,sent,confirmations,keys};
 }
 function request(data=fields,headers={}) {
- return new Request("https://tlt-studios.com/api/contact",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded","Accept":"application/json","Origin":"https://tlt-studios.com","CF-Connecting-IP":"192.0.2.1",...headers},body:new URLSearchParams(data)});
+ return new Request("https://tlt-studios.com/api/contact",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded","Accept":"application/json","Origin":"https://tlt-studios.com","CF-Connecting-IP":"192.0.2.1",...headers},body:new URLSearchParams({...data,_form_started_at:data._form_started_at ?? String(Date.now()-5000)})});
 }
 test("sends a branded multipart inquiry to the fixed inbox, using safe Reply-To",async()=>{
  const {env,sent}=setup();
@@ -163,6 +163,16 @@ test("project details are validated",async()=>{
   const {env,sent}=setup();
   assert.equal((await onRequestPost({request:request({...fields,...update}),env})).status,400,JSON.stringify(update));assert.equal(sent.length,0);
  }
+});
+test("careers form silently discards submissions that are too fast",async()=>{
+ const {env,sent}=setup();
+ const r=await onRequestPost({request:request({name:"Jamie Cole",email:"jamie@example.com",project_type:"Joining the team",message:"I would like to work with the studio.",_form_started_at:String(Date.now())}),env});
+ assert.equal(r.status,200);assert.equal((await r.json()).accepted,true);assert.equal(sent.length,0);
+});
+test("careers form silently discards obvious adult-content spam",async()=>{
+ const {env,sent}=setup();
+ const r=await onRequestPost({request:request({name:"Jamie Cole",email:"jamie@example.com",project_type:"Joining the team",message:"Peculiar article, exactly what I was looking for. xnxx",_form_started_at:String(Date.now()-5000)}),env});
+ assert.equal(r.status,200);assert.equal((await r.json()).accepted,true);assert.equal(sent.length,0);
 });
 test("join the team: phone, role, and resume link fold into a job-interest email, with no project receipt",async()=>{
  const {env,sent,confirmations}=setup();
