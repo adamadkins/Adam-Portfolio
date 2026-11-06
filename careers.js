@@ -3,6 +3,8 @@
   const form = document.getElementById("careers-form");
   if (!form) return;
   const button = form.querySelector('[type="submit"]'), feedback = document.getElementById("careers-feedback");
+  const startedAt = form.querySelector('[name="_form_started_at"]');
+  if (startedAt) startedAt.value = String(Date.now());
   let sending = false;
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
