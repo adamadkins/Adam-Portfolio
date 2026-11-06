@@ -4,7 +4,7 @@ const ADDRESS = "hello@tlt-studios.com";
 // The inquiry notification comes from its own address, not from hello@ to hello@: mail a mailbox sends to itself through an outside
 // server is easily mistaken for spoofing. Replying goes to the visitor (replyTo).
 const FORM_SENDER = "forms@tlt-studios.com";
-const TYPES = new Set(["New website", "Website Essentials ($750)", "Website + Lifetime Support ($1500)", "Website redesign", "Technical support", "Other inquiry", "Demo website", "Event Page ($150 + $15/mo)", "Event Site ($250 + $20/mo)", "Joining the team"]);
+const TYPES = new Set(["New website", "Website Essentials ($750)", "Portfolio Website ($500)", "Website + Lifetime Support ($1500)", "Website redesign", "Technical support", "Other inquiry", "Demo website", "Event Website ($150 + $15/mo)", "Event Page ($150 + $15/mo)", "Event Site ($250 + $20/mo)", "Joining the team"]);
 const DEMO_SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 // Gmail's iOS dark mode inverts colors but leaves background images alone. Navy panels paint
 // with a gradient so they stay navy, and the Gmail-only (u + .body) blend wrappers flip the
