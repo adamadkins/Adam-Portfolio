@@ -143,7 +143,7 @@ export async function onRequestPost({request, env}) {
         return respond(request, 200, "Thank you for your interest.", true);
       const phone = (data.get("phone")||"").trim(), role = (data.get("role")||"").trim(), link = (data.get("link")||"").trim();
       // Silently discard obvious adult-content link/message spam without notifying the studio.
-      if (/(?:xnxx|xvideos|pornhub|xhamster|redtube|youporn|porn|adult\\s+(?:site|content|video))/i.test(fields.message + " " + link))
+      if (/(?:xnxx|xvideos|pornhub|xhamster|redtube|youporn|porn|adult\s+(?:site|content|video))/i.test(fields.message + " " + link))
         return respond(request, 200, "Thank you for your interest.", true);
       if (phone.length > 40 || !/^[0-9+().\-\s]*$/.test(phone) || role.length > 80 || /[\x00-\x1f<>]/.test(role)
         || link.length > 300 || /[\x00-\x1f<>\s]/.test(link))
