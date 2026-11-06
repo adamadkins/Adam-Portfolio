@@ -2,7 +2,7 @@
   const form = document.querySelector(".contact-form");
   if (!form) return;
   const radios = [...form.querySelectorAll('input[type="radio"][name="plan"]')];
-  const choices = {essential:"Website Essentials ($750)",lifetime:"Website + Lifetime Support ($1500)","event-page":"Event Page ($150 + $15/mo)","event-site":"Event Site ($250 + $20/mo)"};
+  const choices = {essential:"Website Essentials ($750)",portfolio:"Portfolio Website ($500)",lifetime:"Website + Lifetime Support ($1500)","event-website":"Event Website ($150 + $15/mo)"};
   const choice = new URLSearchParams(location.search).get("package");
   if (Object.prototype.hasOwnProperty.call(choices,choice)) radios.forEach(radio => { radio.checked = radio.value === choices[choice]; });
   // Phone fields show (606) 555-0123 as digits are typed; a leading 1 or +1 is dropped.
