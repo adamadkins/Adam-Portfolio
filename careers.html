@@ -76,6 +76,7 @@
         <p>Your details go straight to Adam. Nothing is shared, and there's no need to follow up: he'll reach out when there's a fit.</p>
         <form id="careers-form" class="payment-fields" action="/api/contact" method="POST">
           <input class="form-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <input type="hidden" name="_form_started_at" value="" />
           <input type="hidden" name="project_type" value="Joining the team" />
           <div class="payment-field"><label for="join-name">Your name</label><input id="join-name" name="name" autocomplete="name" required maxlength="120" /></div>
           <div class="payment-field"><label for="join-email">Email</label><input id="join-email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com" /></div>
