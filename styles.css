@@ -1320,6 +1320,10 @@ button:disabled{cursor:not-allowed}
 .price-intro{max-width:640px;margin:0 0 28px;color:#65747f;font-size:17px;line-height:1.7}
 .price-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:stretch}
 .price-grid-three{grid-template-columns:repeat(3,minmax(0,1fr))}
+/* Three packages side by side: the cards share rows, so titles, prices, lists, and buttons line up across them. */
+@supports (grid-template-rows:subgrid){@media(min-width:1051px){.price-grid-three{grid-template-rows:repeat(6,auto);row-gap:0}.price-grid-three .price-card{display:grid;grid-row:span 6;grid-template-rows:subgrid;align-content:start}.price-grid-three .price-button{align-self:end}}}
+.price-grid-three .price-card h3{font-size:clamp(28px,2.5vw,36px)}
+.price-grid-three .price-summary{max-width:none}
 .price-grid-single{grid-template-columns:minmax(0,760px)}
 .price-card{display:flex;flex-direction:column;min-width:0;padding:clamp(28px,3.4vw,44px);border:1px solid #e0e6e9;border-radius:24px;background:#fff}
 .price-card.is-featured{background:#14202e;border-color:#14202e;color:#fff}
@@ -1350,7 +1354,7 @@ button:disabled{cursor:not-allowed}
 .price-fine strong{color:#344450}
 .price-more{margin:22px 0 0;color:#65747f;font-size:14px;line-height:1.8}
 .price-more a{color:#324f63;text-decoration:underline;text-underline-offset:3px;margin-right:8px}
-@media(max-width:1050px){.price-grid-three{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1050px){.price-grid-three{grid-template-columns:repeat(2,minmax(0,1fr))}.price-grid-three .price-card:last-child{grid-column:1/-1}}
 @media(max-width:800px){.price-grid,.price-grid-three{grid-template-columns:1fr}.price-intro{font-size:16px}}
 @media(prefers-reduced-motion:reduce){.price-button,.price-tab{transition:none}.price-button:hover{transform:none}}
 
