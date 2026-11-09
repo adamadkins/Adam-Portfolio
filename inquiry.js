@@ -24,7 +24,12 @@
   const button = form.querySelector('[type="submit"]');
   const feedback = document.getElementById("inquiry-feedback");
   let submitting = false;
+  // How long they've been on the page: the contact form drops anything without it, or sent too fast (spam bots).
+  const opened = Date.now();
+  const elapsed = Object.assign(document.createElement("input"), { type: "hidden", name: "_e", value: "0" });
+  form.append(elapsed);
   form.addEventListener("submit",async event => {
+    elapsed.value = String(Date.now() - opened);
     event.preventDefault();
     if (submitting || !form.reportValidity()) return;
     submitting=true;

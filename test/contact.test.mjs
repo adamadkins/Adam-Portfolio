@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {onRequestPost,inquiryMessage,confirmationMessage} from "../functions/api/contact.js";
-const fields={name:"Adam <test>",email:"adam@example.com",project_type:"New website",message:"Hello, I would like a website."};
+const fields={name:"Adam <test>",email:"adam@example.com",project_type:"New website",message:"Hello, I would like a website.",_e:"9000"};
 function setup(options={}) {
  const sent=[];
  const confirmations=[];
@@ -11,7 +11,7 @@ function setup(options={}) {
  return {env,sent,confirmations,keys};
 }
 function request(data=fields,headers={}) {
- return new Request("https://tlt-studios.com/api/contact",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded","Accept":"application/json","Origin":"https://tlt-studios.com","CF-Connecting-IP":"192.0.2.1",...headers},body:new URLSearchParams({...data,_form_started_at:data._form_started_at ?? String(Date.now()-5000)})});
+ return new Request("https://tlt-studios.com/api/contact",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded","Accept":"application/json","Origin":"https://tlt-studios.com","CF-Connecting-IP":"192.0.2.1",...headers},body:new URLSearchParams({...data,_form_started_at:data._form_started_at ?? String(Date.now()-5000),...("_e" in data ? {} : {_e:"9000"})})});
 }
 test("sends a branded multipart inquiry to the fixed inbox, using safe Reply-To",async()=>{
  const {env,sent}=setup();
@@ -150,7 +150,7 @@ test("demo replies reject bad demo addresses, phone numbers and header injection
 
 test("the conversation's project details are folded into the message",async()=>{
  const {env,sent}=setup();
- const body=new URLSearchParams({name:"Chloe",email:"chloe@example.com",project_type:"Website redesign",message:"",site:"chloe.com",colors:"sage and cream"});
+ const body=new URLSearchParams({_e:"9000",name:"Chloe",email:"chloe@example.com",project_type:"Website redesign",message:"",site:"chloe.com",colors:"sage and cream"});
  for(const value of ["Stripe","Squarespace"])body.append("tools",value);
  body.append("changes","A fresh new look");
  const response=await onRequestPost({request:new Request("https://tlt-studios.com/api/contact",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded","Accept":"application/json","Origin":"https://tlt-studios.com","CF-Connecting-IP":"203.0.113.9"},body}),env});
@@ -166,20 +166,26 @@ test("project details are validated",async()=>{
 });
 test("careers form silently discards submissions that are too fast",async()=>{
  const {env,sent}=setup();
- const r=await onRequestPost({request:request({name:"Jamie Cole",email:"jamie@example.com",project_type:"Joining the team",message:"I would like to work with the studio.",_form_started_at:String(Date.now())}),env});
+ const r=await onRequestPost({request:request({_e:"9000",name:"Jamie Cole",email:"jamie@example.com",project_type:"Joining the team",message:"I would like to work with the studio.",_form_started_at:String(Date.now())}),env});
  assert.equal(r.status,200);assert.equal((await r.json()).accepted,true);assert.equal(sent.length,0);
 });
 test("careers form silently discards obvious adult-content spam",async()=>{
  const {env,sent}=setup();
- const r=await onRequestPost({request:request({name:"Jamie Cole",email:"jamie@example.com",project_type:"Joining the team",message:"Peculiar article, exactly what I was looking for. xnxx",_form_started_at:String(Date.now()-5000)}),env});
+ const r=await onRequestPost({request:request({_e:"9000",name:"Jamie Cole",email:"jamie@example.com",project_type:"Joining the team",message:"Peculiar article, exactly what I was looking for. xnxx",_form_started_at:String(Date.now()-5000)}),env});
  assert.equal(r.status,200);assert.equal((await r.json()).accepted,true);assert.equal(sent.length,0);
 });
 test("join the team: phone, role, and resume link fold into a job-interest email, with no project receipt",async()=>{
  const {env,sent,confirmations}=setup();
- const r=await onRequestPost({request:request({name:"Jamie Cole",email:"jamie@example.com",project_type:"Joining the team",phone:"(606) 555-0123",role:"Web design",link:"https://drive.google.com/x",message:"I design websites and love small businesses."}),env});
+ const r=await onRequestPost({request:request({_e:"9000",name:"Jamie Cole",email:"jamie@example.com",project_type:"Joining the team",phone:"(606) 555-0123",role:"Web design",link:"https://drive.google.com/x",message:"I design websites and love small businesses."}),env});
  assert.equal(r.status,200);assert.match((await r.json()).message,/when the studio starts hiring/i);
  assert.equal(sent[0].subject,"Join the team: Jamie Cole (Web design)");
  assert.match(sent[0].text,/Resume or portfolio: https:\/\/drive\.google\.com\/x/);assert.match(sent[0].text,/Phone: \(606\) 555-0123/);
  assert.equal(confirmations.length,0);
- const bad=setup();assert.equal((await onRequestPost({request:request({name:"J",email:"j@example.com",project_type:"Joining the team",link:"java script:<x>",message:"Hello there friends."}),env:bad.env})).status,400);assert.equal(bad.sent.length,0);
+ const bad=setup();assert.equal((await onRequestPost({request:request({_e:"9000",name:"J",email:"j@example.com",project_type:"Joining the team",link:"java script:<x>",message:"Hello there friends."}),env:bad.env})).status,400);assert.equal(bad.sent.length,0);
+});
+
+test("spam is dropped quietly: no page time, too fast, a link for a name, or spam words",async()=>{
+ const drop=[{...fields,_e:undefined},{...fields,_e:"800"},{...fields,name:"https://live.cableavporn.com",email:"randi@hotmail.com"},{...fields,message:"Best online casino bonus, click here today"},{...fields,site:"live.cableavporn.com"}];
+ for(const d of drop){const clean=d;const {env,sent}=setup();const r=await onRequestPost({request:request(clean),env});assert.equal(r.status,200);assert.equal((await r.json()).accepted,true,"a bot learns nothing");assert.equal(sent.length,0,JSON.stringify(clean).slice(70));}
+ const {env,sent}=setup();await onRequestPost({request:request({...fields,message:"We sell slot machines repair? No, we're a bakery in Ashland and need a site."}),env});assert.equal(sent.length,1,"a real message gets through");
 });

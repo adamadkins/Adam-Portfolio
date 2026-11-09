@@ -6,7 +6,12 @@
   const startedAt = form.querySelector('[name="_form_started_at"]');
   if (startedAt) startedAt.value = String(Date.now());
   let sending = false;
+  // How long they've been on the page: the contact form drops anything without it, or sent too fast (spam bots).
+  const opened = Date.now();
+  const elapsed = Object.assign(document.createElement("input"), { type: "hidden", name: "_e", value: "0" });
+  form.append(elapsed);
   form.addEventListener("submit", async (event) => {
+    elapsed.value = String(Date.now() - opened);
     event.preventDefault();
     if (sending || !form.reportValidity()) return;
     sending = true; button.disabled = true; button.textContent = "Sending…"; feedback.textContent = ""; feedback.classList.remove("is-ok");

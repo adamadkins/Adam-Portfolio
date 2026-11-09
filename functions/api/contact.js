@@ -84,6 +84,21 @@ ${keepLight(`<p style="font-size:10px;letter-spacing:2px;color:#b6c9d7;font-weig
   };
 }
 
+// Words that are spam wherever they appear (even inside a web address, like "cableavporn"), and words that are spam on
+// their own.
+const SPAM_ANYWHERE = /porn|xnxx|xvideos|xhamster|onlyfans|camgirl|sexcam|viagra|cialis|levitra/i;
+const SPAM_WORDS = /\b(sex ?cams?|escorts?|casinos?|betting|slots? online|pharmacy online|crypto ?airdrop|forex signals?)\b/i;
+export function spamReason(data) {
+  const elapsed = Number(data.get("_e"));
+  if (!data.has("_e") || !Number.isFinite(elapsed)) return "no page time";
+  if (elapsed < 3000) return "too fast";
+  const name = String(data.get("name") || "");
+  if (/https?:\/\/|www\.|\.(com|net|org|ru|xyz|info|top|io)\b|@/i.test(name)) return "link for a name";
+  const all = [...data.entries()].filter(([k]) => !k.startsWith("_")).map(([, v]) => String(v)).join(" ");
+  if (SPAM_ANYWHERE.test(all) || SPAM_WORDS.test(all)) return "spam words";
+  return null;
+}
+
 function respond(request, status, message, accepted = false) {
   const headers = {"Cache-Control":"no-store","X-Content-Type-Options":"nosniff"};
   if (status === 429) headers["Retry-After"] = "60";
@@ -119,6 +134,12 @@ export async function onRequestPost({request, env}) {
     raw += decoder.decode();
     const data = new URLSearchParams(raw);
     if (data.get("_honey")) return respond(request,200,"Thank you for your inquiry.",true);
+    // Spam (2026-11-09, Adam was getting one a day): bots post straight to this address without loading the page, so
+    // the page's script adds how long someone spent on it (_e, in milliseconds). Anything without it, sent in under
+    // 3 seconds, with a link for a name, or with adult, gambling, or pill spam words is dropped. It still gets the
+    // usual thank-you, so a bot learns nothing.
+    const spam = spamReason(data);
+    if (spam) { console.log("Contact spam dropped:", spam); return respond(request,200,"Thank you for your inquiry.",true); }
     const fields = Object.fromEntries(["name","email","project_type","message"].map(key=>[key,(data.get(key)||"").trim()]));
     // A reply from a demo's "Let's work together" page: the message is built from
     // its own fields, and the email says which demo it came from.
