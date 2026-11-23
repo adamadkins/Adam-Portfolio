@@ -1707,3 +1707,20 @@ button:disabled{cursor:not-allowed}
 .careers-role h3{font-size:19px;letter-spacing:-.03em;margin:0 0 4px}
 .careers-role-meta{font-size:12px;font-weight:700;color:#8b9ba8;margin:0 0 8px}
 @media(max-width:700px){.careers-page .payment-field select,.careers-page .payment-field textarea{font-size:16px}}
+
+/* On the side / Games: the studio's free daily games (games.tlt-studios.com), between "How I think" and "The next step". */
+.games-section{padding:110px 0}
+.games-layout{display:grid;grid-template-columns:1fr 1.05fr;gap:72px;align-items:center}
+.games-copy h2{font-size:clamp(37px,4.15vw,58px);font-weight:730;line-height:1.1;letter-spacing:-.076em;margin:0}
+.games-copy p:not(.section-kicker){font-size:16px;color:#737e87;line-height:1.8;max-width:440px;margin:26px 0 30px}
+.games-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.games-card{display:flex;align-items:center;gap:18px;padding:16px 20px 16px 16px;border:1px solid #e4e7e9;border-radius:15px;background:#fff;transition:transform .3s var(--ease),box-shadow .3s,border-color .2s}
+.games-card:hover{transform:translateY(-2px);border-color:#d5dbdf;box-shadow:0 14px 30px rgba(26,32,38,.08)}
+.games-card img{flex:none;width:64px;height:64px;border-radius:15px;box-shadow:0 0 0 1px rgba(20,32,46,.08)}
+.games-card-text{display:grid;gap:3px;min-width:0;flex:1}
+.games-card-text strong{font-size:18px;font-weight:720;letter-spacing:-.03em}
+.games-card-text span{font-size:14px;color:#737e87;line-height:1.5}
+.games-card-go{flex:none;color:#8b9ba8;font-weight:700;transition:transform .25s var(--ease)}
+.games-card:hover .games-card-go{transform:translate(3px,-3px)}
+@media(max-width:850px){.games-layout{grid-template-columns:1fr;gap:40px}.games-section{padding:84px 0}}
+@media(max-width:450px){.games-card{gap:14px;padding:14px}.games-card img{width:54px;height:54px;border-radius:13px}.games-copy .button{width:100%;justify-content:space-between}}

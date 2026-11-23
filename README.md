@@ -57,3 +57,12 @@ To add a project:
 3. Run `node scripts/build-work.mjs`, then commit the generated files.
 
 `node --test test/contact.test.mjs test/work.test.mjs` fails if the generated pages are out of date. The first project with `"featured": true` is shown large at the top; the filter chips and the previous / next links appear on their own as projects are added. The header and footer are copied from `about.html` at build time.
+
+## Games
+
+The studio's free daily games live at games.tlt-studios.com (built in the `Client-Portal` repo, `games/`). This site points
+there in two places: the homepage's **On the side / Games** section (`#games`, between "How I think" and "The next step",
+with each game's icon from `images/games/`), and **Games ↗** in the full footer (home, About, Showcase, and the project
+pages, which copy their footer from `about.html` when `node scripts/build-work.mjs` runs). The main menu stays about client
+work. When a game is added, add its card to the section and its icon to `images/games/` (a new file name, since images
+are cached for a week).
