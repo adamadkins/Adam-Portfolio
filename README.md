@@ -61,8 +61,7 @@ To add a project:
 ## Games
 
 The studio's free daily games live at games.tlt-studios.com (built in the `Client-Portal` repo, `games/`). This site points
-there in two places: the homepage's **On the side / Games** section (`#games`, between "How I think" and "The next step",
+there in three places: **Games** in the main menu on every page (after About; it scrolls to the homepage section, `/#games`), the homepage's **On the side / Games** section (`#games`, between "How I think" and "The next step",
 with each game's icon from `images/games/`), and **Games ↗** in the full footer (home, About, Showcase, and the project
-pages, which copy their footer from `about.html` when `node scripts/build-work.mjs` runs). The main menu stays about client
-work. When a game is added, add its card to the section and its icon to `images/games/` (a new file name, since images
+pages, which copy their header and footer from `about.html` when `node scripts/build-work.mjs` runs). When a game is added, add its card to the section and its icon to `images/games/` (a new file name, since images
 are cached for a week).
