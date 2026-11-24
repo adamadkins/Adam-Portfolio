@@ -108,6 +108,21 @@ function respond(request, status, message, accepted = false) {
   return new Response(`<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Project inquiry | The Little Things Studios</title><link rel="stylesheet" href="/styles.css"></head><body><main class="inquiry-receipt"><img src="/apple-touch-icon.png?v=4" alt="The Little Things Studios" width="56" height="56"><p class="eyebrow">THE LITTLE THINGS STUDIOS</p><h1>${accepted ? "A little idea. A great beginning." : "Let’s try that again."}</h1><p>${escape(message)}</p><a class="inline-link" href="/contact.html">Return to the contact form ↗</a></main></body></html>`, {status, headers});
 }
 
+// A notification on the studio's devices: a line in the portal's studio_pings (migration 0071 there), which the portal
+// pushes within a minute. Never in the way: no database, no table yet, or any error, and the form carries on as before.
+export function pingFor(fields, joining, userMessage) {
+  const flat = (text, n) => { const s = String(text || "").replace(/\s+/g, " ").trim(); return s.length > n ? s.slice(0, n - 1).trimEnd() + "…" : s; };
+  if (fields.project_type === "Demo website") return { kind: "demo_reply", title: fields.subject, body: flat(userMessage || fields.message, 200), url: "/#demos-page" };
+  if (joining) return { kind: "joining", title: fields.subject, body: flat(fields.message.split("\n")[0], 200), url: "/" };
+  return { kind: "inquiry", title: "New project inquiry from " + fields.name, body: flat(fields.project_type + ": " + (userMessage || fields.message), 200), url: "/" };
+}
+async function ping(env, note) {
+  if (!env.DB?.prepare) return;
+  try {
+    await env.DB.prepare("INSERT INTO studio_pings(kind, title, body, url) VALUES(?, ?, ?, ?)").bind(note.kind, String(note.title).slice(0, 120), note.body, note.url).run();
+  } catch (error) { console.warn("Studio notification not saved:", error?.message || "unknown"); }
+}
+
 export async function onRequestPost({request, env}) {
   const origin = request.headers.get("Origin");
   if ((origin && origin !== new URL(request.url).origin) || request.headers.get("Sec-Fetch-Site") === "cross-site")
@@ -198,6 +213,7 @@ export async function onRequestPost({request, env}) {
     if (details.length) fields.message = details.join("\n") + (userMessage ? "\n\nIn their words:\n" + userMessage : "");
     const result = await env.CONTACT_EMAIL.send(inquiryMessage(fields));
     if (!result?.messageId) throw Object.assign(new Error("Missing acceptance"),{code:"NO_MESSAGE_ID"});
+    await ping(env, pingFor(fields, joining, userMessage));
     // A receipt is deliberately separate from the required inbox notification.
     // Never tell a visitor to resubmit an already accepted inquiry.
     let confirmationAccepted = false;

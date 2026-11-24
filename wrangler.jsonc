@@ -20,6 +20,15 @@
       "allowed_sender_addresses": ["hello@tlt-studios.com"]
     }
   ],
+  // The portal's database, only so the contact form can leave a line for the portal to push to the studio's devices
+  // (studio_pings, the portal's migration 0071). Shared with portal-tlt-studios and the demos.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "adam-portfolio-db",
+      "database_id": "bfc0b489-cf73-405a-a20d-96a4e610db80"
+    }
+  ],
   "ratelimits": [
     {
       "name": "CONTACT_RATE_LIMIT",

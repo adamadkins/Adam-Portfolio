@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {onRequestPost,inquiryMessage,confirmationMessage} from "../functions/api/contact.js";
+import {onRequestPost,inquiryMessage,confirmationMessage,pingFor} from "../functions/api/contact.js";
 const fields={name:"Adam <test>",email:"adam@example.com",project_type:"New website",message:"Hello, I would like a website.",_e:"9000"};
 function setup(options={}) {
  const sent=[];
@@ -188,4 +188,21 @@ test("spam is dropped quietly: no page time, too fast, a link for a name, or spa
  const drop=[{...fields,_e:undefined},{...fields,_e:"800"},{...fields,name:"https://live.cableavporn.com",email:"randi@hotmail.com"},{...fields,message:"Best online casino bonus, click here today"},{...fields,site:"live.cableavporn.com"}];
  for(const d of drop){const clean=d;const {env,sent}=setup();const r=await onRequestPost({request:request(clean),env});assert.equal(r.status,200);assert.equal((await r.json()).accepted,true,"a bot learns nothing");assert.equal(sent.length,0,JSON.stringify(clean).slice(70));}
  const {env,sent}=setup();await onRequestPost({request:request({...fields,message:"We sell slot machines repair? No, we're a bakery in Ashland and need a site."}),env});assert.equal(sent.length,1,"a real message gets through");
+});
+
+test("an accepted inquiry leaves a notification for the portal to push; no database, or an error, changes nothing", async () => {
+ const lines=[];
+ const DB={prepare:(sql)=>({bind:(...args)=>({run:async()=>{lines.push({sql,args});}})})};
+ const {env,sent}=setup();env.DB=DB;
+ const r=await onRequestPost({request:request(),env});
+ assert.equal(r.status,200);assert.equal(sent.length,1);
+ assert.equal(lines.length,1);
+ assert.match(lines[0].sql,/INSERT INTO studio_pings/);
+ assert.equal(lines[0].args[0],"inquiry");
+ assert.match(lines[0].args[1],/^New project inquiry from /);
+ assert.equal(lines[0].args[3],"/");
+ const broken=setup();broken.env.DB={prepare:()=>{throw Error("no such table: studio_pings");}};
+ assert.equal((await onRequestPost({request:request(),env:broken.env})).status,200,"a database problem never stops the form");
+ assert.deepEqual(pingFor({project_type:"Joining the team",subject:"Join the team: Pat (Design)",message:"Would like to work with the studio: Design.\n\nPhone: 555"},true,"").title,"Join the team: Pat (Design)");
+ assert.equal(pingFor({project_type:"Demo website",subject:"Demo reply: Pour House",message:"x"},false,"Love it!").url,"/#demos-page");
 });

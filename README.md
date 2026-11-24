@@ -29,6 +29,11 @@ Deploy with `npx wrangler@latest deploy` (Wrangler 4.36.0 or newer is required f
 
 The endpoint validates bounded input, escapes HTML, rejects cross-origin browser submissions, traps the existing honeypot, and limits requests to five per minute per connecting IP per Cloudflare location. This is basic abuse mitigation, not a global quota or a CAPTCHA. It never accepts a client-supplied recipient, sender, or subject. Failed submissions preserve the form in JavaScript-enabled browsers; native form submission gets a styled result page.
 
+**Notifications (2026-11-24):** once an inquiry, a demo reply, or a Join the team form is accepted, the form also leaves a
+line in the portal's `studio_pings` table (the `DB` binding, the portal's database `adam-portfolio-db`), and the portal
+pushes it to Adam's devices within a minute ("New project inquiry from …"). It never gets in the way: with no database,
+no table yet, or any error, the form carries on exactly as before. See the portal's `src/pings.js`.
+
 Run `node --test test/contact.test.mjs`. Tests use mocked email/rate-limit bindings and send no real email. After deployment, submit one inquiry from an email address you control and verify both messages: the studio notification arriving in Gmail with the correct Reply-To and the visitor's branded acknowledgment with a visible inline PNG logo. Also verify the mobile form layout and the ability to reply to the acknowledgment. Provider acceptance is not proof of inbox delivery. FormSubmit is no longer used.
 
 ## Seasonal themes
